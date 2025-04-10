@@ -122,7 +122,7 @@ const Header: React.FC<HeaderProps> = ({ authenticated, avatar, name, subline })
                           avatarProps={{ empty: !avatar, src: avatar }}
                           dropdown={
                               <Column padding="2" gap="2" minWidth={8}>
-                                  <Option label="OldProfile" value="profile" />
+                                  <Option label="Profile" value="profile" />
                                   <Option label="Settings" value="settings" />
                                   <Line />
                                   <Option label="Log out" value="logout" />

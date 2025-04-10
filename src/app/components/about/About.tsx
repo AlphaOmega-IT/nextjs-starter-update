@@ -14,7 +14,6 @@ import {
 } from "@/once-ui/components";
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./About.module.scss";
-import {StatsHighlight} from "@/app/components/statshighlight/StatsHighlight";
 
 const techBadges = [
 	{
@@ -54,6 +53,7 @@ const techBadges = [
 	},
 ];
 
+// Enhanced stats with icons and descriptions
 const statsData = [
 	{
 		value: "100%",
@@ -112,69 +112,109 @@ export const About = () => {
 		<Column
 			fillWidth
 			horizontal="center"
-			gap="xs"
+			gap="80"
 			paddingY="xl"
+			className={styles.aboutSection}
 		>
 			<RevealFx
-				translateY="s"
+				translateY="m"
 				delay={0.6}
 				fillWidth
 				horizontal="center"
+				paddingBottom="s"
+				zIndex={1}
 			>
 				<Column
 					fillWidth
 					horizontal="center"
+					className={styles.avatarContainer}
 				>
-					<Column
+					{/* Enhanced Avatar Container with Hover Effect */}
+					<div
 						className={`${styles.avatarExpandContainer} ${isAvatarHovered ? styles.hovered : ''}`}
 						onMouseEnter={() => setIsAvatarHovered(true)}
 						onMouseLeave={() => setIsAvatarHovered(false)}
 					>
+						{/* Left side content that appears on hover */}
+						<div className={styles.avatarSideContent}>
+							<Text variant="body-default-m" className={styles.avatarSideText}>
+								<Icon name="quote" size="m" className={styles.quoteIcon} />
+								Mein Ziel ist es, für Dich digitale Erlebnisse zu schaffen, die nicht nur funktional sind, sondern Dich und Deine Kunden wirklich begeistern.
+								<span className={styles.signature}>- Justin</span>
+							</Text>
+						</div>
+						
+						{/* Avatar with orbit effect */}
 						<Avatar
 							src="/images/avatar/avatar_1.jpg"
 							size="xl"
 							radius="l-4"
 							border="brand-alpha-strong"
+							borderWidth={2}
 							statusIndicator={{ color: "green" }}
+							className={styles.techAvatar}
 						/>
-					</Column>
+					</div>
+					
+					<div className={styles.orbitingIcons}>
+						{['code', 'database', 'mobile', 'game'].map((iconName, i) => (
+							<div
+								key={iconName}
+								className={styles.orbitIcon}
+								style={{
+									animationDelay: `${i * 0.5}s`,
+									transform: `rotate(${i * 90}deg) translateX(80px)`
+								}}
+							>
+								<Icon name={iconName} size="m" onBackground="brand-strong" />
+							</div>
+						))}
+					</div>
 				</Column>
 			</RevealFx>
 			
-			<Column gap="m" fillWidth maxWidth={60}>
-				<RevealFx translateY="m" delay={0.8} fillWidth horizontal="center">
+			<Column gap="l" zIndex={2} fillWidth maxWidth="m"> {/* Reduced width */}
+				<RevealFx translateY="m" delay={0.8} fillWidth horizontal="center" zIndex={2}>
 					<Heading as="h2" variant="display-strong-m" align="center" className={styles.glitchText}>
 						Digitale Lösungen mit Herz
 					</Heading>
 				</RevealFx>
 				
-				<RevealFx translateY="m" delay={1.0} fillWidth horizontal="center">
-					<Text align="center" variant="body-default-l" onBackground="neutral-strong">
-						Hey! Schön, dass Du hier bist.
-						Ich bin Justin, 25, ein leidenschaftlicher Fullstack-Entwickler mit einem Auge fürs Detail.
-						Wenn Du eine maßgeschneiderte Weblösung suchst, die sich von der Masse abhebt,
-						bist Du bei mir genau richtig. Meine Spezialgebiete umfassen Java/Hibernate  für robuste
-						Backend-Systeme sowie moderne Frontend-Frameworks wie Vue.js, React und Angular.
-						Ich liebe es, diese Technologien zu kombinieren, um für Dich einzigartige digitale Erlebnisse zu schaffen.
+				<RevealFx translateY="m" delay={1.0} fillWidth horizontal="center" zIndex={2}>
+					<Text align="center" variant="body-default-l" onBackground="neutral-strong" className={styles.bioText}>
+						<p className={styles.greeting}>Hey! Schön, dass Du hier bist.</p>
 						
-						Was mich von anderen unterscheidet? Ich glaube nicht an Einheitslösungen wie WordPress-Templates.
-						Stattdessen entwickle ich für Dich individuelle Webprojekte, die genau auf Deine Bedürfnisse und Ziele zugeschnitten sind.
+						Ich bin <span className={styles.highlight}>Justin, 25</span>, ein leidenschaftlicher Fullstack-Entwickler mit einem Auge fürs Detail. Wenn Du eine maßgeschneiderte Weblösung suchst, die sich von der Masse abhebt, bist Du bei mir genau richtig.
 						
-						Neben Webentwicklung konzipiere ich auch Lizenzierungssysteme für Software und entwickle
-						Minecraft-Plugins – immer mit dem Fokus auf Qualität, Performance und Benutzerfreundlichkeit.
-						Dein Projekt verdient nichts weniger als Exzellenz.
+						<p className={styles.paragraph}>
+							Meine Spezialgebiete umfassen <span className={styles.keyword}>Java/Hibernate</span> für robuste Backend-Systeme sowie moderne Frontend-Frameworks wie <span className={styles.keyword}>Vue.js</span>, <span className={styles.keyword}>React</span> und <span className={styles.keyword}>Angular</span>. Ich liebe es, diese Technologien zu kombinieren, um für Dich einzigartige digitale Erlebnisse zu schaffen.
+						</p>
 						
-						Lass uns gemeinsam Deine Vision zum Leben erwecken!
+						<div className={styles.emphasisText}>
+							Was mich von anderen unterscheidet? Ich glaube nicht an Einheitslösungen wie WordPress-Templates. Stattdessen entwickle ich für Dich individuelle Webprojekte, die genau auf Deine Bedürfnisse und Ziele zugeschnitten sind.
+						</div>
+						
+						<p className={styles.paragraph}>
+							Neben Webentwicklung konzipiere ich auch <span className={styles.keyword}>Lizenzierungssysteme</span> für Software und entwickle <span className={styles.keyword}>Minecraft-Plugins</span> – immer mit dem Fokus auf Qualität, Performance und Benutzerfreundlichkeit. Dein Projekt verdient nichts weniger als Exzellenz.
+						</p>
+						
+						<p className={styles.closingText}>
+							Lass uns gemeinsam Deine Vision zum Leben erwecken!
+						</p>
 					</Text>
 				</RevealFx>
 				
-				<RevealFx translateY="m" delay={1.2} fillWidth horizontal="center" paddingBottom="xl">
+				{/* Carousel remains unchanged */}
+				<RevealFx translateY="l" delay={1.2} fillWidth horizontal="center" paddingBottom="s" zIndex={2}>
 					<Row gap="m" direction="column" center>
+						<Column className={styles.container}>
 							<Flex
 								ref={scrollContainerRef}
-								gap="s"
-								padding="l"
-								fillWidth
+								gap="m"
+								padding="s"
+								className={`${styles.scrollContainer} ${isPaused ? styles.paused : ''}`}
+								onMouseEnter={() => setIsPaused(true)}
+								onMouseLeave={() => setIsPaused(false)}
 							>
 								{[...techBadges, ...techBadges].map((badge, index) => (
 									<Badge
@@ -182,16 +222,75 @@ export const About = () => {
 										background="accent-alpha-weak"
 										textVariant="body-default-s"
 										icon={badge.icon}
+										color={badge.color}
+										className={styles.badge}
 										effect={true}
-										title={badge.text}
-									/>
+									>
+										{badge.text}
+									</Badge>
 								))}
 							</Flex>
+							
+							<div className={styles.carouselControls}>
+								<button
+									className={styles.carouselControl}
+									onClick={() => {
+										if (scrollContainerRef.current) {
+											scrollContainerRef.current.scrollLeft -= 200;
+										}
+									}}
+									aria-label="Scroll left"
+								>
+									<Icon name="chevron-left" size="s" />
+								</button>
+								<button
+									className={styles.carouselControl}
+									onClick={() => {
+										if (scrollContainerRef.current) {
+											scrollContainerRef.current.scrollLeft += 200;
+										}
+									}}
+									aria-label="Scroll right"
+								>
+									<Icon name="chevron-right" size="s" />
+								</button>
+							</div>
+						</Column>
 					</Row>
 				</RevealFx>
 				
+				{/* Enhanced Stats Section */}
 				<RevealFx translateY="m" delay={1.4} fillWidth zIndex={2}>
-					<StatsHighlight/>
+					<div className={styles.statsGrid}>
+						{statsData.map((stat, index) => (
+							<RevealFx key={`stat-${index}`} delay={1.4 + index * 0.1} translateY="s">
+								<div className={styles.statCard}>
+									<div className={styles.statIconWrapper}>
+										<Icon name={stat.icon} size="m" className={styles.statIcon} />
+									</div>
+									<Text variant="display-strong-m" className={styles.statValue}>
+										{stat.value}
+									</Text>
+									<Text variant="label-default-s" className={styles.statLabel}>
+										{stat.label}
+									</Text>
+									<Text variant="body-default-xs" className={styles.statDescription}>
+										{stat.description}
+									</Text>
+								</div>
+							</RevealFx>
+						))}
+					</div>
+				</RevealFx>
+				
+				<RevealFx translateY="m" delay={1.6} fillWidth horizontal="center" zIndex={2}>
+					<Badge
+						title="Lass uns Dein Projekt starten"
+						icon="rocket"
+						href="/contact"
+						className={styles.ctaBadge}
+						effect={true}
+					/>
 				</RevealFx>
 			</Column>
 		</Column>

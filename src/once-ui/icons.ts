@@ -28,13 +28,7 @@ import {
   HiCheckCircle,
   HiOutlineShieldCheck,
   HiOutlineSparkles,
-  HiOutlineComputerDesktop,
-  HiOutlineCloud,
-  HiOutlineCpuChip,
-  HiOutlineCommandLine,
-  HiOutlineServer,
-  HiStar,
-  HiShieldCheck, HiRocketLaunch, HiBriefcase, HiAcademicCap, HiCodeBracket,
+  HiOutlineComputerDesktop, HiOutlineCloud, HiOutlineCpuChip, HiOutlineCommandLine, HiOutlineServer,
 } from "react-icons/hi2";
 
 import { RiVisaLine } from "react-icons/ri";
@@ -53,7 +47,7 @@ import {
   SiSpring,
   SiTypescript, SiVuedotjs
 } from "react-icons/si";
-import {HiCode, HiOutlineDatabase} from "react-icons/hi";
+import {HiOutlineDatabase} from "react-icons/hi";
 
 export const iconLibrary: Record<string, IconType> = {
   chevronUp: HiChevronUp,
@@ -108,13 +102,7 @@ export const iconLibrary: Record<string, IconType> = {
   redis: SiRedis,
   nginx: SiNginx,
   git: FaGitAlt,
-  rocket: FaRocket,
-  star: HiStar,
-  shieldCheck: HiShieldCheck,
-  rocketLaunch: HiRocketLaunch,
-  briefcase: HiBriefcase,
-  academicCap: HiAcademicCap,
-  codeBracket: HiCodeBracket
+  rocket: FaRocket
 };
 
 export type IconLibrary = typeof iconLibrary;

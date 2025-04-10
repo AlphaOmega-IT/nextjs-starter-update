@@ -29,19 +29,18 @@ const Hero = () => {
 	
 	return (
 		<Flex
-			fill
-			padding="l"
-			margin="l"
+			fillWidth
+			padding="xl"
 			center
 			direction="row"
 			tabletDirection="column"
 			mobileDirection="column"
 			style={{
-				minHeight: '100vh'
+				height: "100vh"
 			}}
 		>
 			<Column
-				fill
+				fillWidth
 				maxWidth={30}
 				horizontal="start"
 				center
@@ -102,16 +101,16 @@ const Hero = () => {
 				</Column>
 			</Column>
 			
-			<Column fill margin="m" padding="xs">
-				<Background fill>
-					<RevealFx delay={0.8} translateY={20} fill>
-						<TiltFx fill>
+			<Column fillWidth>
+				<Background fillWidth>
+					<RevealFx aspectRatio="12 / 8" delay={0.8} translateY={20} fillWidth>
+						<TiltFx fillWidth>
 							<SmartImage
 								zIndex={1}
 								src="/images/lmbeauty/desktop_lmbeauty.svg"
 								fill
-								objectFit="contain"
 								priority
+								sizes="(max-width: 1024px) 80vw, 960px"
 								radius="l"
 							/>
 						</TiltFx>

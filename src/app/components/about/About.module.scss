@@ -1,0 +1,226 @@
+// Enhanced Carousel Styles
+.container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  border-radius: var(--radius-l);
+  background: linear-gradient(
+                  to right,
+                  rgba(var(--brand-alpha-weak-rgb), 0.05),
+                  rgba(var(--accent-alpha-weak-rgb), 0.1),
+                  rgba(var(--brand-alpha-weak-rgb), 0.05)
+  );
+  padding: 1rem 0;
+
+  // 3D perspective for depth
+  perspective: 1000px;
+  transform-style: preserve-3d;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    width: 80px;
+    height: 100%;
+    top: 0;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(
+                    to right,
+                    rgba(var(--page-background-rgb), 1),
+                    rgba(var(--page-background-rgb), 0)
+    );
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(
+                    to left,
+                    rgba(var(--page-background-rgb), 1),
+                    rgba(var(--page-background-rgb), 0)
+    );
+  }
+}
+
+.scrollContainer {
+  display: flex;
+  gap: 16px;
+  animation: scroll 60s linear infinite;
+  width: max-content;
+  padding: 1rem 2rem;
+
+  // Smooth transition for pause effect
+  &.paused {
+    animation-play-state: paused;
+    // Removed the transform that was applying to all badges
+  }
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    height: 6px;
+    background: rgba(var(--neutral-alpha-weak-rgb), 0.1);
+    border-radius: var(--radius-full);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(var(--brand-alpha-medium-rgb), 0.3);
+    border-radius: var(--radius-full);
+
+    &:hover {
+      background: rgba(var(--brand-alpha-strong-rgb), 0.5);
+    }
+  }
+}
+
+.badge {
+  flex: 0 0 auto;
+  transition: all 0.4s var(--ease-out-back);
+  position: relative;
+  border-radius: var(--radius-m);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(var(--accent-alpha-weak-rgb), 0.2);
+  overflow: hidden;
+
+  // Subtle glow effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+                    to right,
+                    transparent,
+                    rgba(255, 255, 255, 0.1),
+                    transparent
+    );
+    transform: skewX(-25deg);
+    transition: all 0.7s ease;
+  }
+
+  // Individual hover effect - works in both paused and animated states
+  &:hover {
+    transform: translateY(-8px) scale(1.08);
+    z-index: 5;
+    box-shadow:
+            0 15px 30px -10px rgba(var(--brand-solid-medium-rgb), 0.3),
+            0 0 15px rgba(var(--accent-solid-weak-rgb), 0.2);
+
+    &::before {
+      animation: shine 1.5s ease-in-out;
+    }
+  }
+
+  // Staggered hover effect for neighboring badges
+  &:hover + .badge {
+    transform: translateY(-4px) scale(1.03);
+  }
+
+  &:hover + .badge + .badge {
+    transform: translateY(-2px) scale(1.01);
+  }
+}
+
+// Shine animation
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+// Scroll animation
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 8px)); }
+}
+
+// Interactive controls
+.carouselControls {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  .container:hover & {
+    opacity: 1;
+  }
+}
+
+.carouselControl {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: rgba(var(--brand-alpha-medium-rgb), 0.1);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(var(--brand-alpha-weak-rgb), 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out);
+
+  &:hover {
+    background: rgba(var(--brand-alpha-strong-rgb), 0.2);
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Fix for glitch text
+.glitchText {
+  position: relative;
+  display: inline-block;
+
+  &::before, &::after {
+    content: 'Digitale Lösungen mit Herz';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+
+  &::before {
+    left: 2px;
+    text-shadow: -1px 0 var(--brand-solid-medium);
+    clip-path: inset(0 0 0 0);
+    animation: glitch-anim-1 5s infinite linear alternate-reverse;
+  }
+
+  &::after {
+    left: -2px;
+    text-shadow: 1px 0 var(--accent-solid-medium);
+    clip-path: inset(0 0 0 0);
+    animation: glitch-anim-2 5s infinite linear alternate-reverse;
+  }
+}
+
+@keyframes glitch-anim-1 {
+  0%, 5%, 10%, 15%, 20%, 25%, 100% { clip-path: inset(0 0 0 0); }
+  7% { clip-path: inset(13% 0 39% 0); }
+  12% { clip-path: inset(25% 0 61% 0); }
+  17% { clip-path: inset(47% 0 38% 0); }
+  22% { clip-path: inset(64% 0 14% 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0%, 5%, 10%, 15%, 20%, 25%, 100% { clip-path: inset(0 0 0 0); }
+  7% { clip-path: inset(42% 0 28% 0); }
+  12% { clip-path: inset(18% 0 51% 0); }
+  17% { clip-path: inset(54% 0 9% 0); }
+  22% { clip-path: inset(35% 0 68% 0); }
+}
+

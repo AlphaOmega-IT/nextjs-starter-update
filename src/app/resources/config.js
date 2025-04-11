@@ -1,4 +1,4 @@
-const baseURL = "demo.once-ui.com";
+const baseURL = "jexcellence.de";
 
 // default customization applied to the HTML in the main layout.tsx
 const style = {
@@ -14,77 +14,35 @@ const style = {
   scaling: "100", // 90 | 95 | 100 | 105 | 110
 };
 
-const effects = {
-  mask: {
-    cursor: false,
-    x: 50,
-    y: 0,
-    radius: 100,
-  },
-  gradient: {
-    display: false,
-    x: 50,
-    y: 0,
-    width: 100,
-    height: 100,
-    tilt: 0,
-    colorStart: "brand-background-strong",
-    colorEnd: "static-transparent",
-    opacity: 50,
-  },
-  dots: {
-    display: true,
-    size: 2,
-    color: "brand-on-background-weak",
-    opacity: 20,
-  },
-  lines: {
-    display: false,
-    color: "neutral-alpha-weak",
-    opacity: 100,
-  },
-  grid: {
-    display: false,
-    color: "neutral-alpha-weak",
-    width: "24",
-    height: "24",
-    opacity: 100,
-  },
-};
-
 // default metadata
 const meta = {
-  title: "Once UI for Next.js",
-  description:
-  "An open-source design system and component library for Next.js that emphasizes easy styling and accessibility in UI development.",
-  canonical: "https://once-ui.com",
-  robots: "index,follow",
-  alternates: [
-    { href: "https://once-ui.com", hrefLang: "en" },
-  ],
+  icons: {
+    icon: '/favicon.ico',
+  },
+  title: "LMBeauty | Professionelle Wimpern in Oldenburg",
+  description: "Hi, ich bin Lisa – deine Make-up & Wimpernexpertin in Oldenburg. Mit Leidenschaft und Präzision hebe ich deine einzigartige Schönheit hervor. Ob natürlicher Alltagslook oder glamouröser Abendstil: Gemeinsam kreieren wir, was zu dir passt. Vertraue auf 𝗟𝗠 𝗕𝗲𝗮𝘂𝘁𝘆 – wo Professionalität und Herzblut dein Strahlen unterstreichen. 💫 Jetzt Termin sichern und dich verwandeln lassen!",
 };
 
-// default open graph data
 const og = {
-  title: meta.title,
-  description: meta.description,
-  image: "/images/cover.jpg",
+  icons: {
+    icon: '/favicon.ico',
+  },
+  title: "LMBeauty | Professionelle Wimpern in Oldenburg",
+  description: "Hi, ich bin Lisa – deine Make-up & Wimpernexpertin in Oldenburg. Mit Leidenschaft und Präzision hebe ich deine einzigartige Schönheit hervor. Ob natürlicher Alltagslook oder glamouröser Abendstil: Gemeinsam kreieren wir, was zu dir passt. Vertraue auf 𝗟𝗠 𝗕𝗲𝗮𝘂𝘁𝘆 – wo Professionalität und Herzblut dein Strahlen unterstreichen. 💫 Jetzt Termin sichern und dich verwandeln lassen!.",
+  type: "website",
+  image: "https://jexcellence.de/images/avatar_1.png",
 };
 
-// default schema data
 const schema = {
-  logo: "",
-  type: "Organization",
-  name: "Once UI",
-  description: meta.description,
-  email: "lorant@once-ui.com",
+  logo: "https://jexcellence.de/images/avatar_1.png",
+  type: "LocalBusiness",
+  name: "LM Beauty",
+  description: "Hi, ich bin Lisa – deine Make-up & Wimpernexpertin in Oldenburg. Mit Leidenschaft und Präzision hebe ich deine einzigartige Schönheit hervor. Ob natürlicher Alltagslook oder glamouröser Abendstil: Gemeinsam kreieren wir, was zu dir passt. Vertraue auf 𝗟𝗠 𝗕𝗲𝗮𝘂𝘁𝘆 – wo Professionalität und Herzblut dein Strahlen unterstreichen. 💫 Jetzt Termin sichern und dich verwandeln lassen!",
+  email: "justin.eiletz@jexcellence.de",
 };
 
-// social links
 const social = {
-  twitter: "https://www.twitter.com/_onceui",
-  linkedin: "https://www.linkedin.com/company/once-ui/",
-  discord: "https://discord.com/invite/5EyAQ4eNdS",
+  instagram: "https://www.instagram.com/jexcellence_/",
 };
 
-export { baseURL, style, meta, og, schema, social, effects };
+export { baseURL, style, meta, og, schema, social };

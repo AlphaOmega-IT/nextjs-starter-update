@@ -1,0 +1,43 @@
+.milestoneCard {
+  &:hover {
+    .yearBadge {
+      transform: rotate(8deg) scale(1.05);
+    }
+  }
+}
+
+.yearBadge {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s var(--ease-out-back);
+  flex-shrink: 1;
+
+  @media (max-width: 768px) {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.leadText {
+  font-size: 2.1rem;
+  line-height: 1.2;
+  max-width: 40ch;
+  margin: 0 auto 1rem;
+  text-wrap: balance;
+
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+  }
+}
+
+// Interactive Elements
+.milestoneIcon {
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: rotate(10deg) scale(1.1);
+  }
+}

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Button } from "@/once-ui/components";
@@ -17,7 +18,7 @@ const ScrollDown = ({
 	                    className = "absolute bottom-8",
 	                    icon = "chevronDown",
 	                    animateOffset = 20,
-	                    duration = 2,
+	                    duration = 1200,
 	                    ariaLabel = "Scroll down",
 	                    variant = "secondary",
                     }: ScrollDownProps) => {
@@ -31,10 +32,29 @@ const ScrollDown = ({
 	});
 	
 	const handleClick = () => {
-		window.scrollTo({
-			top: window.innerHeight,
-			behavior: "smooth"
-		});
+		const startY = window.scrollY;
+		const nextSection = Math.ceil((startY + 1) / window.innerHeight) * window.innerHeight;
+		const distance = nextSection - startY;
+		const startTime = performance.now();
+		
+		function animateScroll(currentTime: number) {
+			const elapsed = currentTime - startTime;
+			const progress = Math.min(elapsed / (duration ?? 1200), 1);
+			const ease = progress < 0.5
+				? 2 * progress * progress
+				: -1 + (4 - 2 * progress) * progress;
+			
+			window.scrollTo({
+				top: startY + distance * ease,
+				behavior: "auto",
+			});
+			
+			if (progress < 1) {
+				requestAnimationFrame(animateScroll);
+			}
+		}
+		
+		requestAnimationFrame(animateScroll);
 	};
 	
 	return (
@@ -49,7 +69,7 @@ const ScrollDown = ({
 			}}
 			transition={{
 				y: {
-					duration: duration,
+					duration: 2,
 					repeat: Infinity,
 					ease: "easeInOut"
 				},

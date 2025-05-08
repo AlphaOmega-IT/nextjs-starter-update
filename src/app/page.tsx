@@ -5,10 +5,11 @@ import {Hero} from "@/app/components/hero/Hero";
 import {Background, Column} from "@/once-ui/components";
 import {About} from "@/app/components/about/About";
 import React from "react";
+import {Profile} from "@/app/components/profile/Profile";
 
 export default function Home() {
     return (
-        <Column fillWidth>
+        <Column fillWidth center>
           <Background
             position="absolute"
             mask={{
@@ -38,7 +39,10 @@ export default function Home() {
           />
           <Header/>
           <Hero/>
-          <About />
+            <Column maxWidth={90}>
+                <Profile/>
+            </Column>
+          {/*<About />*/}
         </Column>
     )
 }

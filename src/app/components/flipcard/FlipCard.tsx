@@ -134,7 +134,7 @@ export const FlipCard = forwardRef<HTMLDivElement, FlipCardProps>(
 		) => (
 			<Flex
 				center
-				align="center"
+				fill
 				position="absolute"
 				zIndex={isBack ? 1 : 2}
 				ref={refObj}
@@ -164,6 +164,7 @@ export const FlipCard = forwardRef<HTMLDivElement, FlipCardProps>(
 				}}
 				position="relative"
 				center
+				fill
 				align="center"
 				cursor="pointer"
 				style={{

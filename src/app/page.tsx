@@ -3,7 +3,6 @@
 import {Header} from "@/app/components/header/Header";
 import {Hero} from "@/app/components/hero/Hero";
 import {Background, Column} from "@/once-ui/components";
-import {About} from "@/app/components/about/About";
 import React from "react";
 import {Profile} from "@/app/components/profile/Profile";
 
@@ -38,8 +37,10 @@ export default function Home() {
             }}
           />
           <Header/>
-          <Hero/>
-            <Column maxWidth={90}>
+            <Column fill maxWidth={100}>
+                <Hero/>
+            </Column>
+            <Column fitHeight maxWidth={80}>
                 <Profile/>
             </Column>
           {/*<About />*/}

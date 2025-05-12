@@ -1,26 +1,27 @@
 "use client";
 
 import styles from "./ProgressRing.module.scss";
-import {Column, Text} from "@/once-ui/components";
+import { Column, Text } from "@/once-ui/components";
+import { SVG } from "@/app/components/svg/SVG";
 
 interface ProgressRingProps {
     value: number;
-    size?: "xs" | "s" | "m";
+    size?: "s" | "m" | "l";
     tone?: "primary" | "warning" | "success";
     label?: string;
 }
 
 export const ProgressRing = ({
                                  value,
-                                 size = "xs",
+                                 size = "s",
                                  tone = "primary",
                                  label
                              }: ProgressRingProps) => {
     const strokeWidth = 4;
     const radius = {
-        xs: 30,
-        s: 45,
-        m: 60
+        s: 30,
+        m: 45,
+        l: 60
     }[size];
 
     const normalizedRadius = radius - strokeWidth;
@@ -28,8 +29,14 @@ export const ProgressRing = ({
     const strokeDashoffset = circumference - (value / 100) * circumference;
 
     return (
-        <Column className={styles.container}>
-            <svg
+        <Column
+            className={`
+        ${styles.container}
+        ${styles[`size-${size}`]}
+        ${styles[`tone-${tone}`]}
+      `}
+        >
+            <SVG
                 className={styles.svg}
                 viewBox={`0 0 ${radius * 2} ${radius * 2}`}
             >
@@ -49,7 +56,7 @@ export const ProgressRing = ({
                     strokeDasharray={`${circumference} ${circumference}`}
                     style={{ strokeDashoffset }}
                 />
-            </svg>
+            </SVG>
 
             {label && (
                 <Text

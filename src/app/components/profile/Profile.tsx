@@ -157,192 +157,175 @@ export const Profile = () => {
     }, [activeView]);
 
     return (
-        <Flex
-            fillWidth
-            fitHeight
-            height={50}
-            margin="s"
-            padding="xs"
-            direction="row"
-            mobileDirection="column"
-            center
-            gap="m"
-        >
-            <Column
-                fill
-                flex={0}
+        <Column fill center>
+            <Flex
+                fillWidth
+                fitHeight
+                height={50}
+                margin="s"
+                padding="xs"
+                direction="row"
+                mobileDirection="column"
+                center
+                gap="m"
             >
-                    <FlipCard
-                        autoFlipInterval={5}
-                    >
-                        <SmartImage
-                            width={isMobile ? 10 : 20}
-                            src="/images/avatar/avatar_1.jpg"
-                            radius="l-4"
-                            aspectRatio="1 / 1"
-                        />
-                        <SmartImage
-                            width={isMobile ? 10 : 20}
-                            src="/images/brand/icon.svg"
-                            radius="l-4"
-                            objectFit="contain"
-                            aspectRatio="1 / 1"
-                        />
-                    </FlipCard>
-            </Column>
-            <Column padding="s" margin="s" center>
-                <SegmentedControl
-                    paddingX="s"
-                    margin="xs"
-                    center
-                    buttons={[
-                        {
-                            value: "überblick",
-                            label: "Profildetails",
-                            variant: "outline",
-                            prefixIcon: "HiUser"
-                        },
-                        {
-                            value: "projekte",
-                            label: "Leuchtturmprojekte",
-                            variant: "outline",
-                            prefixIcon: "HiBriefcase"
-                        },
-                        {
-                            value: "skills",
-                            label: "Tech-Stack",
-                            variant: "outline",
-                            prefixIcon: "HiChip"
-                        }
-                    ]}
-                    onToggle={(value) => setActiveView(value as typeof activeView)}
-                />
-
-                {
-                    activeView === "überblick" &&
-                    (
-                        <Column fill padding="xs" margin="xs">
-                            <Column fitWidth margin="m" padding="xs" center maxWidth={100}>
-                                <Flex
-                                    direction="column"
-                                    gap="s"
+                <Column
+                    fill
+                    maxWidth={25}
+                    flex={0}
+                >
+                        <FlipCard
+                            autoFlipInterval={5}
+                        >
+                            <SmartImage
+                                width={isMobile ? 10 : 20}
+                                src="/images/avatar/avatar_1.jpg"
+                                radius="l-4"
+                                aspectRatio="1 / 1"
+                            />
+                            <SmartImage
+                                width={isMobile ? 10 : 20}
+                                src="/images/brand/icon.svg"
+                                radius="l-4"
+                                objectFit="contain"
+                                aspectRatio="1 / 1"
+                            />
+                        </FlipCard>
+                </Column>
+                <Column padding="s" margin="s" center fill>
+                    <Column fill padding="xs" margin="xs">
+                        <Column fitWidth margin="m" padding="xs" center>
+                            <Flex
+                                direction="column"
+                                gap="s"
+                            >
+                                <Text
+                                    variant="body-default-m"
+                                    className={`${styles.textEntrance} ${styles.delayed}`}
+                                    onBackground="neutral-medium"
                                 >
-                                    <Text
-                                        variant="body-default-m"
-                                        className={`${styles.textEntrance} ${styles.delayed}`}
-                                        onBackground="neutral-medium"
-                                    >
-                                        {INTRO_TEXT}
-                                    </Text>
+                                    {INTRO_TEXT}
+                                </Text>
 
-                                    {!isExpanded && (
+                                {!isExpanded && (
+                                    <Flex
+                                        center
+                                        gap="s"
+                                        className={styles.bounceAnimation}
+                                        onClick={() => setIsExpanded(true)}
+                                    >
+                                        <Icon
+                                            name="chevronDown"
+                                            size="s"
+                                        />
+                                        <Text variant="body-default-s">
+                                            Klicken, um mehr zu erfahren
+                                        </Text>
+                                    </Flex>
+                                )}
+
+                                {isExpanded && (
+                                    <Flex
+                                        direction="column"
+                                        gap="s"
+                                        marginTop="s"
+                                        className={styles.textEntrance}
+                                    >
+                                        <Column className={styles.detailedText}>
+                                            <Text>Mein Weg begann in NRW, führte mich nach Oldenburg, und umfasst:</Text>
+                                            <ul>
+                                                <li>🎓 Zwei staatliche IT-Abschlüsse</li>
+                                                <li>🚀 Gründung der AlphaOmega-IT GbR</li>
+                                                <li>🔍 Spezialisierung auf Testautomatisierung</li>
+                                                <li>📜 ISTQB-Zertifizierung</li>
+                                            </ul>
+                                            <Text>Tech-Stack: Java | React | Spring | Docker | uvm.</Text>
+                                        </Column>
+
                                         <Flex center marginTop="s">
                                             <Icon
-                                                name="chevronDown"
+                                                name={isExpanded ? "chevronUp" : "chevronDown"}
                                                 size="xl"
-                                                onClick={() => setIsExpanded(true)}
-                                                className={styles.bounceAnimation}
+                                                onClick={() => setIsExpanded(! isExpanded)}
+                                                className={styles.clickableIcon}
                                             />
                                         </Flex>
-                                    )}
-
-                                    {isExpanded && (
+                                    </Flex>
+                                )}
+                            </Flex>
+                        </Column>
+                        <Column fill>
+                            <Flex
+                                fillWidth
+                                ref={timelineRef}
+                                className={styles.timelineContainer}
+                                align="left"
+                                gap="m"
+                                direction="column"
+                                style={{
+                                    cursor: 'default'
+                                }}
+                                onWheel={(e) => e.preventDefault()}
+                                onTouchMove={(e) => e.preventDefault()}
+                            >
+                                {TIMELINE_ITEMS.map((item, index) => (
+                                    <Column
+                                        key={index}
+                                        className={`${styles.timelineItem} ${!autoScrollEnabled.current ? styles.paused : ''}`}
+                                    >
                                         <Flex
-                                            direction="column"
-                                            gap="s"
-                                            marginTop="s"
-                                            className={styles.textEntrance}
+                                            direction="row"
+                                            radius="xl"
+                                            background="surface"
+                                            className={styles.milestoneCard}
+                                            padding="xs"
+                                            vertical="center"
                                         >
-                                            <Column className={styles.detailedText}>
-                                                <Text>Mein Weg begann in NRW, führte mich nach Oldenburg, und umfasst:</Text>
-                                                <ul>
-                                                    <li>🎓 Zwei staatliche IT-Abschlüsse</li>
-                                                    <li>🚀 Gründung der AlphaOmega-IT GbR</li>
-                                                    <li>🔍 Spezialisierung auf Testautomatisierung</li>
-                                                    <li>📜 ISTQB-Zertifizierung</li>
-                                                </ul>
-                                                <Text>Tech-Stack: Java | React | Spring | Docker | uvm.</Text>
-                                            </Column>
-
-                                            <Flex center marginTop="s">
-                                                <Icon
-                                                    name={isExpanded ? "chevronUp" : "chevronDown"}
-                                                    size="xl"
-                                                    onClick={() => setIsExpanded(! isExpanded)}
-                                                    className={styles.clickableIcon}
-                                                />
-                                            </Flex>
-                                        </Flex>
-                                    )}
-                                </Flex>
-                            </Column>
-                            <Column fill>
-                                <Flex
-                                    fillWidth
-                                    ref={timelineRef}
-                                    className={styles.timelineContainer}
-                                    align="left"
-                                    gap="m"
-                                    direction="column"
-                                    style={{
-                                        cursor: 'default'
-                                    }}
-                                    onWheel={(e) => e.preventDefault()}
-                                    onTouchMove={(e) => e.preventDefault()}
-                                >
-                                    {TIMELINE_ITEMS.map((item, index) => (
-                                        <Column
-                                            key={index}
-                                            className={`${styles.timelineItem} ${!autoScrollEnabled.current ? styles.paused : ''}`}
-                                        >
-                                            <Flex
-                                                direction="row"
-                                                radius="xl"
-                                                background="surface"
-                                                className={styles.milestoneCard}
-                                                padding="xs"
-                                                vertical="center"
-                                            >
-                                                <Row width={5} flex={0}>
-                                                    <Text className={styles.milestoneYear}>
-                                                        {item.year}
+                                            <Row width={5} flex={0}>
+                                                <Text className={styles.milestoneYear}>
+                                                    {item.year}
+                                                </Text>
+                                            </Row>
+                                            <Column align="left" fitWidth flex={1}>
+                                                <Row paddingY="xs" horizontal="start" vertical="center" gap="s">
+                                                    <Icon
+                                                        name={item.icon}
+                                                        size="s"
+                                                    />
+                                                    <Text
+                                                        variant="body-strong-m"
+                                                    >
+                                                        {item.title}
                                                     </Text>
                                                 </Row>
-                                                <Column align="left" fitWidth flex={1}>
-                                                    <Row paddingY="xs" horizontal="start" vertical="center" gap="s">
-                                                        <Icon
-                                                            name={item.icon}
-                                                            size="s"
-                                                        />
-                                                        <Text
-                                                            variant="body-strong-m"
-                                                        >
-                                                            {item.title}
-                                                        </Text>
-                                                    </Row>
-                                                    <Column fitWidth>
-                                                        <Text
-                                                            variant="body-default-m"
-                                                            onBackground="neutral-medium"
-                                                        >
-                                                            {item.description}
-                                                        </Text>
-                                                    </Column>
+                                                <Column fitWidth>
+                                                    <Text
+                                                        variant="body-default-m"
+                                                        onBackground="neutral-medium"
+                                                    >
+                                                        {item.description}
+                                                    </Text>
                                                 </Column>
-                                            </Flex>
-                                        </Column>
-                                    ))}
-                                </Flex>
-                            </Column>
+                                            </Column>
+                                        </Flex>
+                                    </Column>
+                                ))}
+                            </Flex>
                         </Column>
-                    )
-                }
-                {
-                    activeView === "skills" && (
-                        <TechStack/>
-                    )
-                }
+                    </Column>
+                </Column>
+            </Flex>
+            <Column center fill>
+                <Flex gap="xs" className={styles.scrollHint}>
+                    <Icon name="chevronDown" size="s" />
+                    <Text variant="body-default-s">
+                        Scrollen, um mehr zu entdecken
+                    </Text>
+                </Flex>
             </Column>
-        </Flex>
+            <Column>
+                <TechStack/>
+            </Column>
+        </Column>
     );
 }

@@ -15,6 +15,7 @@
     "class-variance-authority": "^0.7.1",
     "classnames": "^2.5.1",
     "compressorjs": "^1.2.1",
+    "critters": "^0.0.23",
     "framer-motion": "^12.6.3",
     "mdx": "^0.3.1",
     "next": "15.2.3",

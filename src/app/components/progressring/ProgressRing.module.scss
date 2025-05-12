@@ -1,19 +1,20 @@
 .container {
-  --progress-color: var(--success-alpha-strong);
+  --progress-color: var(--accent-alpha-strong);
+
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
   &.size {
-    &-xs{ width: 4rem; height: 4rem; }
     &-s { width: 6rem; height: 6rem; }
     &-m { width: 8rem; height: 8rem; }
+    &-l { width: 10rem; height: 10rem; }
   }
 
   &.tone {
-    &-warning { --progress-color: var(--danger-alpha-medium); }
-    &-success { --progress-color: var(--accent-alpha-strong); }
+    &-warning { --progress-color: var(--warning-alpha-strong); }
+    &-success { --progress-color: var(--success-alpha-strong); }
   }
 }
 
@@ -25,15 +26,15 @@
 
 .background {
   fill: none;
-  stroke: var(--accent-alpha-strong);
-  opacity: 0.2;
+  stroke: var(--progress-color);
+  opacity: 0.4;
 }
 
 .progress {
-  fill: none;
+  fill: var(--surface-background);
   stroke: var(--progress-color);
   stroke-linecap: round;
-  transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: stroke-dashoffset 1.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .label {
@@ -41,5 +42,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--accent-alpha-strong);
+  color: var(--foreground-strong);
+  font-weight: 600;
 }

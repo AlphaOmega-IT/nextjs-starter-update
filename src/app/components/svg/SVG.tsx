@@ -18,7 +18,7 @@ type SVGProps<T extends ElementType> =
     size?: "x" | "s" | "m" | "l" | "xl";
 };
 
-const SVG = <T extends ElementType = "svg">({
+export const SVG = <T extends ElementType = "svg">({
                                                 as,
                                                 colorScheme = "neutral",
                                                 colorWeight = "weak",
@@ -75,7 +75,3 @@ const SVG = <T extends ElementType = "svg">({
         </Component>
     );
 };
-
-SVG.displayName = "SVG";
-
-export { SVG };

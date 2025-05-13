@@ -57,9 +57,9 @@ const TECH_STACK = [
 ];
 
 export const TechStack = () => {
-    const [selectedTech, setSelectedTech] = useState("");
     const techStackRef = useRef<HTMLDivElement>(null);
     const autoScrollEnabled = useRef(true);
+    const isHovered = useRef(false);
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -75,7 +75,7 @@ export const TechStack = () => {
 
         let animationFrame: number;
         const startTime = Date.now();
-        const duration = 30000; // 30 second scroll duration
+        const baseDuration = 45000; // 45 seconds for full scroll
 
         const animateScroll = () => {
             if (!autoScrollEnabled.current) {
@@ -84,7 +84,10 @@ export const TechStack = () => {
             }
 
             const elapsed = Date.now() - startTime;
-            const progress = (elapsed % duration) / duration;
+            const speedFactor = isHovered.current ? 0.6 : 1; // 40% slower on hover
+            const adjustedElapsed = elapsed * speedFactor;
+
+            const progress = (adjustedElapsed % baseDuration) / baseDuration;
             const easeProgress = 0.5 * (1 - Math.cos(2 * Math.PI * progress));
 
             const maxScroll = container.scrollHeight - container.clientHeight;
@@ -127,6 +130,8 @@ export const TechStack = () => {
                 ref={techStackRef}
                 className={styles.techStackContainer}
                 style={{ height: isMobile ? '70vh' : '60vh' }}
+                onMouseEnter={() => isHovered.current = true}
+                onMouseLeave={() => isHovered.current = false}
             >
                 <Grid columns={2} tabletColumns={1} gap="m" fill>
                     {TECH_STACK.map((tech, index) => (

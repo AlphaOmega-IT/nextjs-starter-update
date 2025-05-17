@@ -81,7 +81,7 @@ const PricingSection = () => {
             id: 1,
             category: "webdesign",
             title: "Starter-Paket",
-            price: "300,00 €",
+            price: "300,00 €*",
             description: "Der perfekte Einstieg in die digitale Welt",
             features: [
                 { title: "Professionelle One-Page", desc: "Responsive Design für alle Geräte" },
@@ -94,7 +94,7 @@ const PricingSection = () => {
             id: 2,
             category: "webdesign",
             title: "Business-Paket",
-            price: "800,00 €",
+            price: "800,00 €*",
             description: "Professionelle Unternehmenspräsenz",
             features: [
                 { title: "Bis zu 5 Seiten", desc: "Umfassende Inhaltsdarstellung" },
@@ -108,7 +108,7 @@ const PricingSection = () => {
             id: 3,
             category: "webdesign",
             title: "Enterprise-Paket",
-            price: "1.500,00 €",
+            price: "1.500,00 €*",
             description: "Komplettlösung für komplexe Anforderungen",
             features: [
                 { title: "Unbegrenzte Seiten", desc: "Mit dynamischem Content" },
@@ -130,14 +130,14 @@ const PricingSection = () => {
                 { title: "CI/CD Pipeline", desc: "Automatisierte Deploymentprozesse" },
                 { title: "24/7 Support", desc: "Priorisierter technischer Support" },
             ],
-            note: "Individuelles Angebot nach Anforderung"
+            note: "Gespräch anfordern"
         },
 
         {
             id: 5,
             category: "wartung",
             title: "Basis-Wartung",
-            price: "49,00 € / Monat",
+            price: "49,00 €* / Monat",
             description: "Grundlegende Website-Pflege",
             features: [
                 { title: "Sicherheitsupdates", desc: "Monatliche Systemaktualisierungen" },
@@ -149,7 +149,7 @@ const PricingSection = () => {
             id: 6,
             category: "wartung",
             title: "Premium-Wartung",
-            price: "99,00 € / Monat",
+            price: "99,00 €* / Monat",
             description: "Umfassende Betreuung",
             features: [
                 { title: "Performance-Optimierung", desc: "Ladezeitenanalyse & Verbesserung" },
@@ -163,7 +163,7 @@ const PricingSection = () => {
             id: 7,
             category: "wartung",
             title: "Komplett-Refresh",
-            price: "Individuelles Angebot nach Anforderung",
+            price: "Gespräch anfordern",
             description: "Technologie-Migration",
             features: [
                 { title: "Technologie-Update", desc: "z.B. HTML zu React Migration" },
@@ -177,7 +177,7 @@ const PricingSection = () => {
             id: 8,
             category: "extras",
             title: "Multilingualer Support",
-            price: "120,00 € / Sprache",
+            price: "120,00 €* / Sprache",
             description: "Mehrsprachige Website-Einrichtung",
             features: [
                 { title: "Sprachdateien", desc: "Übersetzungsvorbereitung" },
@@ -189,7 +189,7 @@ const PricingSection = () => {
             id: 9,
             category: "extras",
             title: "Shopify/WordPress Setup",
-            price: "400,00 €",
+            price: "400,00 €*",
             description: "Komplettinstallation & Konfiguration",
             features: [
                 { title: "Theme-Anpassung", desc: "Individuelles Design" },
@@ -201,7 +201,7 @@ const PricingSection = () => {
             id: 10,
             category: "extras",
             title: "Linux Hosting Setup",
-            price: "150,00 €",
+            price: "150,00 €*",
             description: "Professionelle Serverkonfiguration",
             features: [
                 { title: "LAMP/LEMP Stack", desc: "Optimierte Serverumgebung" },
@@ -214,7 +214,7 @@ const PricingSection = () => {
             id: 11,
             category: "minecraft",
             title: "Basic Plugin",
-            price: "80,00 €",
+            price: "80,00 €*",
             description: "Einfache Servererweiterung",
             features: [
                 { title: "Custom Commands", desc: "Grundlegende Befehlsimplementierung" },
@@ -226,7 +226,7 @@ const PricingSection = () => {
             id: 12,
             category: "minecraft",
             title: "Advanced Plugin",
-            price: "200,00 €",
+            price: "200,00 €*",
             description: "Komplexe Serverintegration",
             features: [
                 { title: "Datenbankanbindung", desc: "MySQL/MongoDB Integration" },
@@ -240,7 +240,7 @@ const PricingSection = () => {
             id: 13,
             category: "minecraft",
             title: "Enterprise Solution",
-            price: "auf Anfrage",
+            price: "Gespräch anfordern",
             description: "Komplettpaket für Netzwerke",
             features: [
                 { title: "Custom API", desc: "REST-Schnittstelle für Webintegration" },
@@ -277,9 +277,14 @@ const PricingSection = () => {
                 />
             </Column>
 
-            <Flex fitHeight fillWidth center gap="m" margin="l" padding="l" >
-                <Scroller direction="row" center paddingX="xl">
-                    <Flex gap="l" direction="row" fill minWidth={25} maxWidth={25} minHeight={35} maxHeight={40}>
+            <Flex fitHeight fillWidth center direction="column" gap="xs">
+                <Column padding="m" center>
+                    <Text variant="body-default-xs" onBackground="info-weak" align="center">
+                        * Es handelt sich bei den Preisen um Richtwerte, die Preise orientieren sich an Arbeitsstunden, Aufwand etc.
+                    </Text>
+                </Column>
+                <Scroller direction="row" center paddingX="xl" borderRight="transparent">
+                    <Flex gap="m" direction="row" fill minWidth={25} maxWidth={25} minHeight={35} maxHeight={40}>
                         {products
                             .filter(product => activeFilter === "all" || product.category === activeFilter)
                             .map(product => (
@@ -463,6 +468,9 @@ const PricingSection = () => {
                     </Column>
 
                     <Column gap="xs" paddingTop="s">
+                        <Text variant="body-default-xs" onBackground="info-weak" align="center">
+                            *Es handelt sich bei den Preisen um Richtwerte, die Preise orientieren sich an Arbeitsstunden, Aufwand etc.
+                        </Text>
                         <Text variant="body-default-xs" onBackground="info-weak" align="center">
                             Deine Daten werden nur zur Bearbeitung deiner Anfrage verwendet. Keine Weitergabe an Dritte.
                         </Text>

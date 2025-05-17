@@ -1,10 +1,7 @@
 .techStackContainer {
-  overflow-y: auto;
-  width: 100%;
-  scroll-behavior: smooth;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  perspective: 1000px;
+  overflow-y: hidden;
+  pointer-events: auto;
+  touch-action: none;
 
   &::-webkit-scrollbar {
     display: none;

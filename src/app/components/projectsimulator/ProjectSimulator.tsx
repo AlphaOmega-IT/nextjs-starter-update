@@ -1,5 +1,5 @@
 "use client";
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {
     Background,
     Badge,
@@ -10,8 +10,8 @@ import {
     Heading,
     Icon, Input, Line,
     Row, Scroller,
-    SegmentedControl,
-    Text, Textarea,
+    SegmentedControl, Table,
+    Text, Textarea, useToast,
 } from "@/once-ui/components";
 import styles from "./ProjectSimulator.module.scss"
 
@@ -20,6 +20,16 @@ const PricingSection = () => {
     const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
     const [showDialog, setShowDialog] = useState(false);
     const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+    const [isMobile, setIsMobile] = useState(false);
+    const [formErrors, setFormErrors] = useState<{ [K in keyof typeof form]?: string }>({});
+    const { addToast } = useToast();
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 1000);
+        handleResize(); // initialize
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const toggleProduct = (id: number) => {
         setSelectedProducts(prev =>
@@ -27,8 +37,35 @@ const PricingSection = () => {
         );
     };
 
+    const validateField = (field: keyof typeof form, value: string) => {
+        switch (field) {
+            case "name":
+                return value.trim() ? "" : "Name darf nicht leer sein.";
+            case "email":
+                return /\S+@\S+\.\S+/.test(value) ? "" : "Gültige E-Mail-Adresse erforderlich.";
+            case "phone":
+                return /^\+?[0-9\s\-]{7,}$/.test(value) ? "" : "Gültige Telefonnummer erforderlich.";
+            case "message":
+                return value.trim() ? "" : "Bitte gib eine Nachricht ein.";
+            default:
+                return "";
+        }
+    };
+
     const handleInputChange = (field: keyof typeof form) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setForm({ ...form, [field]: e.target.value });
+        const value = e.target.value;
+        setForm(prev => ({ ...prev, [field]: value }));
+        setFormErrors(prev => ({ ...prev, [field]: validateField(field, value) }));
+    };
+
+    const validateForm = () => {
+        const newErrors: typeof formErrors = {};
+        (Object.keys(form) as (keyof typeof form)[]).forEach((field) => {
+            const error = validateField(field, form[field]);
+            if (error) newErrors[field] = error;
+        });
+        setFormErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
 
     const filters = [
@@ -36,7 +73,7 @@ const PricingSection = () => {
         { id: "webdesign", label: "Webdesign" },
         { id: "wartung", label: "Wartung" },
         { id: "extras", label: "Extras" },
-        { id: "minecraft", label: "Minecraft Plugins" },
+        { id: "minecraft", label: "Minecraft" },
     ];
 
     const products = [
@@ -126,7 +163,7 @@ const PricingSection = () => {
             id: 7,
             category: "wartung",
             title: "Komplett-Refresh",
-            price: "auf Anfrage",
+            price: "Individuelles Angebot nach Anforderung",
             description: "Technologie-Migration",
             features: [
                 { title: "Technologie-Update", desc: "z.B. HTML zu React Migration" },
@@ -218,7 +255,7 @@ const PricingSection = () => {
 
     return (
         <Flex fill direction="column" center paddingTop="xl" marginTop="xl" transition="macro-long">
-            <Column center fill>
+            <Column center fill gap="s">
                 <Flex horizontal="center" vertical="center">
                     <Heading variant="display-strong-xs">Entdecke unsere Angebote</Heading>
                 </Flex>
@@ -227,8 +264,10 @@ const PricingSection = () => {
                 </Text>
             </Column>
 
-            <Column fill center padding="m">
+            <Column fill center>
                 <SegmentedControl
+                    fitWidth
+                    padding="16"
                     selected={activeFilter}
                     buttons={filters.map(filter => ({
                         value: filter.id,
@@ -238,17 +277,17 @@ const PricingSection = () => {
                 />
             </Column>
 
-            <Flex fitHeight fillWidth center gap="m" margin="m" padding="m">
-                <Scroller direction="row" center>
-                    <Flex fill gap="xl" minHeight={40} maxHeight={40} direction="row">
+            <Flex fitHeight fillWidth center gap="m" margin="l" padding="l" >
+                <Scroller direction="row" center paddingX="xl">
+                    <Flex gap="l" direction="row" fill minWidth={25} maxWidth={25} minHeight={35} maxHeight={40}>
                         {products
                             .filter(product => activeFilter === "all" || product.category === activeFilter)
                             .map(product => (
                                 <Card
                                     key={product.id}
-                                    height={40}
-                                    width={25}
-                                    padding="48"
+                                    width={isMobile ? 22 : 25}
+                                    height={isMobile ? 27 : 30}
+                                    padding="40"
                                     radius="xl"
                                     direction="column"
                                     shadow="s"
@@ -279,7 +318,7 @@ const PricingSection = () => {
                                     />
                                     )}
                                     <Flex
-                                        fill
+                                        fillHeight
                                         center
                                         direction="column"
                                         vertical="start"
@@ -292,7 +331,7 @@ const PricingSection = () => {
                                             </Text>
                                         </Column>
 
-                                        <Flex fill vertical="start" horizontal="start" direction="column" gap="l">
+                                        <Flex fill vertical="start" horizontal="start" direction="column" gap="s">
                                             <Column minHeight={4} gap="xs">
                                                 <Heading as="h3">{product.title}</Heading>
                                                 <Text variant="body-default-s">{product.description}</Text>
@@ -308,9 +347,9 @@ const PricingSection = () => {
                                             </Column>
                                             <Line />
 
-                                            <Column fill gap="m" vertical="start" horizontal="start">
+                                            <Column fillHeight gap="s" vertical="start" horizontal="start">
                                                 {product.features.map((feature, idx) => (
-                                                    <Row key={idx} gap="xs" center>
+                                                    <Row key={idx} gap="xs" center fitHeight>
                                                         <Icon name="checkCircle" size="s" />
                                                         <Column>
                                                             <Text variant="body-default-s">{feature.title}</Text>
@@ -338,45 +377,37 @@ const PricingSection = () => {
                 isOpen={showDialog}
                 onClose={() => setShowDialog(false)}
                 transition="macro-medium"
+                zIndex={10}
             >
-                <Column padding="xl" gap="xl">
-                    <Column gap="xs">
-                        <Heading as="h3" variant="heading-strong-l">📝 Zusammenfassung deiner Auswahl</Heading>
-                        <Text variant="body-default-s" onBackground="info-weak">
+                <Column padding="xl" gap="s" horizontal="space-between" vertical="center">
+                    <Column marginBottom="l">
+                        <Heading variant="heading-strong-m">Zusammenfassung deiner Auswahl</Heading>
+                        <Text variant="body-default-m" onBackground="info-weak">
                             Du hast <strong>{selectedDetails.length}</strong> Paket{selectedDetails.length > 1 ? "e" : ""} ausgewählt.
                         </Text>
+
+                        <Table
+                            data={{
+                                headers: [
+                                    { content: "Paket", key: "title", sortable: true },
+                                    { content: "Preis", key: "price" },
+                                ],
+                                rows: selectedDetails.map((product) => [
+                                    product.title,
+                                    product.price || product.note,
+                                ]),
+                            }}
+                        />
                     </Column>
 
-                    <Card padding="m" radius="l" shadow="s" background="surface" border="accent-alpha-medium">
-                        <Column gap="m">
-                            {selectedDetails.map(product => (
-                                <Row key={product.id} gap="s" align="center">
-                                    <Icon name="dot" size="s" />
-                                    <Text variant="body-default-m">
-                                        {product.title} – {product.price || product.note}
-                                    </Text>
-                                </Row>
-                            ))}
-                            <Line />
-                            <Text variant="body-default-s" onBackground="info-weak">
-                                Gesamtpreis:{" "}
-                                <strong>
-                                    {selectedDetails
-                                        .map(p => p.price)
-                                        .filter(Boolean)
-                                        .join(", ") || "auf Anfrage"}
-                                </strong>
-                            </Text>
-                        </Column>
-                    </Card>
-
-                    <Column gap="m">
+                    <Column gap="m" padding="s" margin="m">
                         <Input
                             id="name"
                             label="👤 Dein Name"
                             value={form.name}
                             onChange={handleInputChange("name")}
-                            placeholder="Max Mustermann"
+                            placeholder="Justin Eiletz"
+                            errorMessage={formErrors.name}
                         />
                         <Input
                             id="email"
@@ -384,6 +415,8 @@ const PricingSection = () => {
                             value={form.email}
                             onChange={handleInputChange("email")}
                             type="email"
+                            placeholder="justin.eiletz@jexcellence.de"
+                            errorMessage={formErrors.email}
                         />
                         <Input
                             id="phone"
@@ -391,25 +424,45 @@ const PricingSection = () => {
                             value={form.phone}
                             onChange={handleInputChange("phone")}
                             type="tel"
+                            placeholder="+49 157 70433689"
+                            errorMessage={formErrors.phone}
                         />
                         <Textarea
                             id="information"
                             label="💬 Sonstige Informationen"
                             value={form.message}
                             onChange={handleInputChange("message")}
+                            errorMessage={formErrors.message}
+                        />
+                        <Button
+                            fillWidth
+                            label="Anfrage jetzt absenden"
+                            variant="primary"
+                            size="l"
+                            onClick={() => {
+                                const isValid = validateForm();
+                                if (isValid) {
+                                    console.log({ selectedProducts: selectedDetails, ...form });
+                                    setShowDialog(false);
+                                    setFormErrors({});
+                                    setForm({
+                                        name: '',
+                                        phone: '',
+                                        message: '',
+                                        email: ''
+                                    });
+                                    setSelectedProducts([])
+
+                                    addToast({
+                                        variant: "success",
+                                        message: "Danke! Ich melde mich in Kürze bei dir."
+                                    })
+                                }
+                            }}
                         />
                     </Column>
 
                     <Column gap="xs" paddingTop="s">
-                        <Button
-                            label="Anfrage jetzt absenden"
-                            size="l"
-                            suffixIcon="sparkle"
-                            onClick={() => {
-                                console.log({ selectedProducts: selectedDetails, ...form });
-                                setShowDialog(false);
-                            }}
-                        />
                         <Text variant="body-default-xs" onBackground="info-weak" align="center">
                             Deine Daten werden nur zur Bearbeitung deiner Anfrage verwendet. Keine Weitergabe an Dritte.
                         </Text>
@@ -425,15 +478,18 @@ const PricingSection = () => {
                     right="16"
                     padding="m"
                     margin="m"
-                    zIndex={10}
+                    zIndex={5}
                 >
                     <Button
+                        fillWidth
+                        variant="primary"
                         size="l"
                         suffixIcon="messageCircle"
                         label={`Jetzt anfragen (${selectedProducts.length} ${selectedProducts.length === 1 ? 'Paket' : 'Pakete'})`}
                         onClick={() => setShowDialog(true)}
                         className={styles.requestButton}
                     />
+
                 </Column>
             )}
         </Flex>

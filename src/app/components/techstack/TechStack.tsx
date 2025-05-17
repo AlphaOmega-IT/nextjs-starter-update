@@ -59,7 +59,7 @@ export const TechStack = () => {
         phase: number;
     }>({
         rafId: null,
-        speed: 1.2,
+        speed: 0.5,
         phase: 0
     });
 
@@ -74,30 +74,31 @@ export const TechStack = () => {
         const container = techStackRef.current;
         if (!container) return;
 
-        const animate = (timestamp: number) => {
+        const animate = () => {
             const maxScroll = container.scrollHeight - container.clientHeight;
             animationRef.current.phase += 0.002 * animationRef.current.speed;
-
             container.scrollTop = Math.abs(Math.sin(animationRef.current.phase)) * maxScroll;
 
             animationRef.current.rafId = requestAnimationFrame(animate);
         };
 
         const handleHoverStart = () => {
-            animationRef.current.speed = 0.4;
+            animationRef.current.speed = 0.2;
         };
 
         const handleHoverEnd = () => {
-            animationRef.current.speed = 1.2;
+            animationRef.current.speed = 0.5;
         };
 
-        const handleWheel = (e: WheelEvent) => e.preventDefault();
-        const handleTouch = (e: TouchEvent) => e.preventDefault();
+        const stopUserScroll = (e: WheelEvent) => {
+            if (container) {
+                container.scrollTop += 0;
+            }
+        };
 
-        container.addEventListener('wheel', handleWheel);
-        container.addEventListener('touchmove', handleTouch);
-        container.addEventListener('mouseenter', handleHoverStart);
-        container.addEventListener('mouseleave', handleHoverEnd);
+        container.addEventListener("mouseenter", handleHoverStart);
+        container.addEventListener("mouseleave", handleHoverEnd);
+        container.addEventListener("wheel", stopUserScroll, { passive: true });
 
         animationRef.current.rafId = requestAnimationFrame(animate);
 
@@ -105,10 +106,10 @@ export const TechStack = () => {
             if (animationRef.current.rafId) {
                 cancelAnimationFrame(animationRef.current.rafId);
             }
-            container.removeEventListener('wheel', handleWheel);
-            container.removeEventListener('touchmove', handleTouch);
-            container.removeEventListener('mouseenter', handleHoverStart);
-            container.removeEventListener('mouseleave', handleHoverEnd);
+
+            container.removeEventListener("mouseenter", handleHoverStart);
+            container.removeEventListener("mouseleave", handleHoverEnd);
+            container.removeEventListener("wheel", stopUserScroll);
         };
     }, []);
 
@@ -130,7 +131,7 @@ export const TechStack = () => {
             <Column
                 ref={techStackRef}
                 className={styles.techStackContainer}
-                style={{ height: isMobile ? '70vh' : '60vh' }}
+                style={{ height: isMobile ? '40vh' : '60vh' }}
             >
                 <Grid columns={2} tabletColumns={1} gap="m" fill>
                     {TECH_STACK.map((tech, index) => (

@@ -43,8 +43,6 @@ const schema = {
 
 const social = {
   instagram: "https://www.instagram.com/jexcellence_/",
-  github: "https://github.com/justineiletz",
-  // Add other relevant social profiles if needed
 };
 
 export { baseURL, style, meta, og, schema, social };

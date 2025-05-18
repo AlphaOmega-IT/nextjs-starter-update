@@ -1,11 +1,10 @@
 import mdx from "@next/mdx";
 
-const withMDX = mdx({
-  extension: /\.mdx?$/,
-  options: {}
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/
 });
 
-const nextConfig = {
+const nextConfig = withMDX({
   eslint: {
     dirs: [],
   },
@@ -14,10 +13,12 @@ const nextConfig = {
     return [
       {
         source: '/:path*',
-        has: [{
-          type: 'host',
-          value: 'www.jexcellence.de'
-        }],
+        has: [
+          {
+            type: 'host',
+            value: 'www.jexcellence.de',
+          },
+        ],
         destination: 'https://jexcellence.de/:path*',
         permanent: true,
       },
@@ -26,18 +27,18 @@ const nextConfig = {
         has: [
           {
             type: 'host',
-            value: 'jexcellence.de'
+            value: 'jexcellence.de',
           },
           {
             type: 'header',
             key: 'x-forwarded-proto',
-            value: 'http'
-          }
+            value: 'http',
+          },
         ],
         destination: 'https://jexcellence.de/:path*',
         permanent: true,
-      }
-    ]
+      },
+    ];
   },
   headers: () => [
     {
@@ -48,33 +49,19 @@ const nextConfig = {
         { key: 'X-XSS-Protection', value: '1; mode=block' },
         {
           key: 'Strict-Transport-Security',
-          value: 'max-age=63072000; includeSubDomains; preload'
+          value: 'max-age=63072000; preload'
         },
         {
           key: 'Cache-Control',
-          value: 'public, s-maxage=3600, stale-while-revalidate=86400'
+          value: 'public, s-maxage=300, stale-while-revalidate=86400'
         }
       ],
     },
   ],
   pageExtensions: ["ts", "tsx", "md", "mdx"],
-  experimental: {
-    optimizeCss: true,
-    optimizeServerReact: true,
-  },
   webpack(config) {
-    config.optimization.splitChunks = {
-      cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.(css|scss)$/,
-          chunks: 'all',
-          enforce: true,
-        },
-      },
-    }
-    return config
-  }
-};
+    return config;
+  },
+});
 
-export default withMDX(nextConfig);
+module.exports = nextConfig;

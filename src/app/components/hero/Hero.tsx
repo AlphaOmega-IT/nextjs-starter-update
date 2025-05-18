@@ -7,7 +7,7 @@ import {
 	Heading,
 	RevealFx,
 	Row,
-	SmartImage,
+	Media,
 	TiltFx,
 	Text, Flex,
 } from "@/once-ui/components";
@@ -34,7 +34,6 @@ const Hero = () => {
 			center
 			direction="row"
 			tabletDirection="column"
-			mobileDirection="column"
 			style={{
 				height: "100vh"
 			}}
@@ -42,7 +41,6 @@ const Hero = () => {
 			<Column
 				fillWidth
 				maxWidth={30}
-				horizontal="start"
 				center
 				padding="s"
 			>
@@ -106,7 +104,7 @@ const Hero = () => {
 				<Background fillWidth>
 					<RevealFx aspectRatio="12 / 8" delay={0.8} translateY={20} fillWidth>
 						<TiltFx fillWidth>
-							<SmartImage
+							<Media
 								zIndex={1}
 								src="/images/lmbeauty/desktop_lmbeauty.svg"
 								fill

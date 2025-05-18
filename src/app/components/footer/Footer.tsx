@@ -1,3 +1,5 @@
+"use client";
+
 import {
     Background,
     Button,
@@ -10,41 +12,22 @@ import {
     Text,
 } from "@/once-ui/components";
 import { useState } from "react";
+import {Line} from "recharts";
 
 export const Footer = () => {
     const [currentYear] = useState(new Date().getFullYear());
 
     return (
         <>
-            <Background
-                position="absolute"
-                radius="xl"
-                mask={{
-                    x: 50,
-                    y: 150,
-                    radius: 50,
-                }}
-                gradient={{
-                    display: true,
-                    x: 0,
-                    y: 0,
-                    width: 0,
-                    height: 0,
-                    tilt: 0,
-                    opacity: 80,
-                    colorStart: "page-background",
-                    colorEnd: "accent-alpha-strong"
-                }}
-            />
             <Column
                 gap="l"
                 fillWidth
-                padding="xl"
-                margin="xl"
+                padding="m"
+                marginY="xs"
             >
                 <Row
+                    margin="m"
                     fillWidth
-                    maxWidth="xl"
                     horizontal="space-between"
                     wrap
                 >
@@ -111,27 +94,31 @@ export const Footer = () => {
                 <Flex
                     fillWidth
                     maxWidth="l"
-                    horizontal="space-between"
+                    horizontal="center"
                     vertical="end"
                     wrap
+                    direction="column"
                 >
-                    <Row gap="s" vertical="end">
-                        <Logo href="/" wordmark={true} size="xl" />
-                        <Text variant="body-default-s" onBackground="accent-weak">
-                            © 2023-{currentYear} JExcellence. Alle Rechte vorbehalten.
-                        </Text>
+                    <Row gap="s" vertical="end" paddingBottom="m">
+                        <SmartLink href="/impressum">
+                            Impressum
+                        </SmartLink>
+                        <SmartLink href="/nutzungsbedingungen">
+                            Nutzungsbedingungen
+                        </SmartLink>
+                        <SmartLink href="/datenschutz">
+                            Datenschutz
+                        </SmartLink>
+                        <SmartLink href="https://once-ui.com" suffixIcon="sparkle">
+                            Once UI
+                        </SmartLink>
                     </Row>
 
                     <Row gap="s" vertical="end">
-                        <SmartLink href="#">
-                            Impressum
-                        </SmartLink>
-                        <SmartLink href="#">
-                            Nutzungsbedingungen
-                        </SmartLink>
-                        <SmartLink href="#">
-                            Datenschutz
-                        </SmartLink>
+                        <Logo href="/" wordmark={true} size="xs" />
+                        <Text variant="body-default-s" onBackground="accent-weak">
+                            © 2023-{currentYear} JExcellence. Alle Rechte vorbehalten.
+                        </Text>
                     </Row>
                 </Flex>
             </Column>

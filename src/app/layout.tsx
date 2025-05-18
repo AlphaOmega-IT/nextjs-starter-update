@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { headers } from "next/headers";
 import { Metadata } from "next";
 
-import { baseURL, style, meta, og, schema, social } from "@/app/resources/config";
+import { baseURL, style, meta, og, schema, social } from "./resources/once-ui.config";
 import { Background, Column, Flex, ToastProvider, ThemeProvider } from "@/once-ui/components";
 
 import {Geist, Inter, Playfair_Display, Roboto, Roboto_Slab, Space_Grotesk} from "next/font/google";

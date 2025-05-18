@@ -1,10 +1,9 @@
 "use client";
 
-import {Column, Flex, Icon, Row, SegmentedControl, SmartImage, Text} from "@/once-ui/components";
+import {Column, Flex, Icon, Row, Media, Text} from "@/once-ui/components";
 import {FlipCard} from "@/app/components/flipcard/FlipCard";
 import {useEffect, useRef, useState} from "react";
 import styles from "./Profile.module.scss";
-import {TechStack} from "@/app/components/techstack/TechStack";
 
 const ABT_ME_TEXT = `
 Hallo, ich bin Justin Eiletz, 25 Jahre alt und ursprünglich aus Nordrhein-Westfalen – seit einiger Zeit nun in Oldenburg zu Hause. Mit fast einem Jahrzehnt Erfahrung im Softwarebereich blicke ich auf eine spannende Reise zurück, die mit Leidenschaft für Code, Innovation und Qualität gepflastert ist.
@@ -71,8 +70,15 @@ export const Profile = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const timelineRef = useRef<HTMLDivElement>(null);
     const [isMobile, setIsMobile] = useState(false);
-    const autoScrollEnabled = useRef(true);
-    const animationFrameRef = useRef<number>(0);
+    const animationRef = useRef<{
+        rafId: number | null;
+        speed: number;
+        phase: number;
+    }>({
+        rafId: null,
+        speed: 0.5,
+        phase: 0
+    });
 
     const INTRO_TEXT = (
         <>
@@ -91,94 +97,98 @@ export const Profile = () => {
 
     useEffect(() => {
         const container = timelineRef.current;
-        if (!container || activeView !== "überblick") return;
-
-        let startTime = Date.now();
-        const duration = 30000;
-
-        const animateScroll = () => {
-            if (!autoScrollEnabled.current) return;
-
-            const elapsed = Date.now() - startTime;
-            const progress = (elapsed % duration) / duration;
-            const eased = 0.5 * (1 - Math.cos(2 * Math.PI * progress));
-            const maxScroll = container.scrollHeight - container.clientHeight;
-
-            container.scrollTop = eased * maxScroll;
-            animationFrameRef.current = requestAnimationFrame(animateScroll);
-        };
-
-        animationFrameRef.current = requestAnimationFrame(animateScroll);
-
-        return () => {
-            if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
-        };
-    }, [activeView]);
-
-    useEffect(() => {
-        const container = timelineRef.current;
         if (!container) return;
 
-        const stopAutoScroll = () => autoScrollEnabled.current = false;
-        const resumeAutoScroll = () => {
-            autoScrollEnabled.current = true;
-            animationFrameRef.current = requestAnimationFrame(() => {
-                const event = new Event("restartScroll");
-                window.dispatchEvent(event);
-            });
+        const animate = () => {
+            const maxScroll = container.scrollHeight - container.clientHeight;
+            animationRef.current.phase += 0.002 * animationRef.current.speed;
+            container.scrollTop = Math.abs(Math.sin(animationRef.current.phase)) * maxScroll;
+
+            animationRef.current.rafId = requestAnimationFrame(animate);
         };
 
-        container.addEventListener("wheel", stopAutoScroll);
-        container.addEventListener("touchmove", stopAutoScroll);
-        container.addEventListener("mouseenter", stopAutoScroll);
-        container.addEventListener("mouseleave", resumeAutoScroll);
+        const handleHoverStart = () => {
+            animationRef.current.speed = 0.2;
+        };
+
+        const handleHoverEnd = () => {
+            animationRef.current.speed = 0.5;
+        };
+
+        const stopUserScroll = (e: WheelEvent) => {
+            if (container) {
+                container.scrollTop += 0;
+            }
+        };
+
+        container.addEventListener("mouseenter", handleHoverStart);
+        container.addEventListener("mouseleave", handleHoverEnd);
+        container.addEventListener("wheel", stopUserScroll, { passive: true });
+
+        animationRef.current.rafId = requestAnimationFrame(animate);
 
         return () => {
-            container.removeEventListener("wheel", stopAutoScroll);
-            container.removeEventListener("touchmove", stopAutoScroll);
-            container.removeEventListener("mouseenter", stopAutoScroll);
-            container.removeEventListener("mouseleave", resumeAutoScroll);
+            if (animationRef.current.rafId) {
+                cancelAnimationFrame(animationRef.current.rafId);
+            }
+
+            container.removeEventListener("mouseenter", handleHoverStart);
+            container.removeEventListener("mouseleave", handleHoverEnd);
+            container.removeEventListener("wheel", stopUserScroll);
         };
     }, []);
 
     return (
         <Column fill center>
             <Flex fillWidth fitHeight margin="s" padding="xs" direction="row" mobileDirection="column" center gap="m">
-                <Column fill maxWidth={25} flex={0}>
-                    <FlipCard autoFlipInterval={5}>
-                        <SmartImage
+                <Column fill maxWidth={isMobile ? 100 : 25} flex={isMobile ? 1 : 0} center>
+                    {!isMobile ? (
+                        <FlipCard autoFlipInterval={5}>
+                            <Media
+                                width={isMobile ? 10 : 20}
+                                src="/images/avatar/avatar_1.png"
+                                radius="l-4"
+                                aspectRatio="1 / 1"
+                            />
+                            <Media
+                                width={isMobile ? 10 : 20}
+                                src="/images/brand/icon.svg"
+                                radius="l-4"
+                                objectFit="contain"
+                                aspectRatio="1 / 1"
+                            />
+                        </FlipCard>
+                    ) : (
+                        <Media
                             width={isMobile ? 10 : 20}
                             src="/images/avatar/avatar_1.png"
                             radius="l-4"
                             aspectRatio="1 / 1"
                         />
-                        <SmartImage
-                            width={isMobile ? 10 : 20}
-                            src="/images/brand/icon.svg"
-                            radius="l-4"
-                            objectFit="contain"
-                            aspectRatio="1 / 1"
-                        />
-                    </FlipCard>
+                    )}
                 </Column>
 
                 <Column padding="s" margin="s" center fill>
                     <Column fill padding="xs" margin="xs">
                         <Column fitWidth margin="m" padding="xs" center>
-                            <Flex direction="column" gap="s">
-                                <Text variant="body-default-m" className={`${styles.textEntrance} ${styles.delayed}`} onBackground="neutral-medium">
+                            <Flex direction="column" gap="s" fill>
+                                <Text variant="body-default-m" className={styles.textEntrance} onBackground="neutral-medium">
                                     {INTRO_TEXT}
                                 </Text>
 
                                 {!isExpanded && (
-                                    <Flex center gap="s" className={styles.bounceAnimation} onClick={() => setIsExpanded(true)}>
+                                    <Flex center gap="s" fill className={styles.bounceAnimation} onClick={() => setIsExpanded(true)}>
                                         <Icon name="chevronDown" size="s" />
                                         <Text variant="body-default-s">Klicken, um mehr zu erfahren</Text>
                                     </Flex>
                                 )}
 
                                 {isExpanded && (
-                                    <Flex direction="column" gap="s" marginTop="s" className={styles.textEntrance}>
+                                    <Flex
+                                        direction="column"
+                                        gap="s"
+                                        fill
+                                    >
                                         <Column className={styles.detailedText}>
                                             <Text>Mein Weg begann in NRW, führte mich nach Oldenburg, und umfasst:</Text>
                                             <ul>
@@ -203,7 +213,7 @@ export const Profile = () => {
                             </Flex>
                         </Column>
 
-                        <Column fill>
+                        <Column fill center>
                             <Flex
                                 fillWidth
                                 ref={timelineRef}
@@ -211,10 +221,10 @@ export const Profile = () => {
                                 align="left"
                                 gap="m"
                                 direction="column"
-                                style={{ cursor: 'default', overflowY: 'auto' }}
+                                style={{ height: '35vh' }}
                             >
                                 {TIMELINE_ITEMS.map((item, index) => (
-                                    <Column key={index} className={`${styles.timelineItem}`}>
+                                    <Column key={index} className={styles.timelineItem}>
                                         <Flex
                                             direction="row"
                                             radius="xl"

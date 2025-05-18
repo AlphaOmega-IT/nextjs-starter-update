@@ -2,7 +2,7 @@
 
 import {Header} from "@/app/components/header/Header";
 import {Hero} from "@/app/components/hero/Hero";
-import {Background, Column, ToastProvider} from "@/once-ui/components";
+import {Background, Banner, Column, ToastProvider} from "@/once-ui/components";
 import React from "react";
 import {Profile} from "@/app/components/profile/Profile";
 import PricingSection from "@/app/components/projectsimulator/ProjectSimulator";
@@ -40,8 +40,11 @@ export default function Home() {
                   opacity: 100,
                 }}
               />
+
+                <Banner position="fixed" top="56" left="0" zIndex={3}>
+                    Die Webseite befindet sich noch im Aufbau, dies könnte noch einige Zeit in Anspruch nehmen.
+                </Banner>
                 <Header/>
-                <Banner/>
                 <Column fill maxWidth={100}>
                     <Hero/>
                 </Column>

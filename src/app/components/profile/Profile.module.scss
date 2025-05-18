@@ -21,8 +21,9 @@
 }
 
 .timelineContainer {
-  height: 360px;
-  overflow-y: auto;
+  overflow-y: hidden;
+  pointer-events: auto;
+  touch-action: none;
   scroll-behavior: smooth;
 
   &::-webkit-scrollbar {
@@ -54,14 +55,6 @@
   }
 }
 
-.textEntrance {
-  animation: enterAnimation 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-
-  &--delayed {
-    animation-delay: 0.3s;
-  }
-}
-
 .detailedText {
   line-height: 1.6;
 
@@ -90,7 +83,8 @@
 
 @media (max-width: 768px) {
   .timelineContainer {
-    max-height: 260px;
+    max-height: 200px !important;
+    padding: 10px !Important;
   }
 
   .milestoneCard {

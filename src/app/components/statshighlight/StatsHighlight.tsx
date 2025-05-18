@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Column, Heading, Icon, Row, Text, SmartImage } from "@/once-ui/components";
+import { Column, Heading, Icon, Row, Text, Media } from "@/once-ui/components";
 
 const features = [
 	{
@@ -72,7 +72,7 @@ export const StatsHighlight = () => {
 								{feature.description}
 							</Text>
 						</Column>
-						<SmartImage
+						<Media
 							src={feature.image}
 							alt={"Image for " + feature.title}
 							sizes={"(max-width: 1024px) 90vw, 640px"}

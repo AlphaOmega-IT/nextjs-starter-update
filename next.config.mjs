@@ -1,8 +1,11 @@
-const withMDX = (await import('@next/mdx'))({
-  extension: /\.mdx?$/
+import mdx from "@next/mdx";
+
+const withMDX = mdx({
+  extension: /\.mdx?$/,
+  options: {}
 });
 
-const nextConfig = withMDX({
+const nextConfig = {
   eslint: {
     dirs: [],
   },
@@ -11,12 +14,10 @@ const nextConfig = withMDX({
     return [
       {
         source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'www.jexcellence.de',
-          },
-        ],
+        has: [{
+          type: 'host',
+          value: 'www.jexcellence.de'
+        }],
         destination: 'https://jexcellence.de/:path*',
         permanent: true,
       },
@@ -25,18 +26,18 @@ const nextConfig = withMDX({
         has: [
           {
             type: 'host',
-            value: 'jexcellence.de',
+            value: 'jexcellence.de'
           },
           {
             type: 'header',
             key: 'x-forwarded-proto',
-            value: 'http',
-          },
+            value: 'http'
+          }
         ],
         destination: 'https://jexcellence.de/:path*',
         permanent: true,
-      },
-    ];
+      }
+    ]
   },
   headers: () => [
     {
@@ -57,9 +58,23 @@ const nextConfig = withMDX({
     },
   ],
   pageExtensions: ["ts", "tsx", "md", "mdx"],
-  webpack(config) {
-    return config;
+  experimental: {
+    optimizeCss: true,
+    optimizeServerReact: true,
   },
-});
+  webpack(config) {
+    config.optimization.splitChunks = {
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.(css|scss)$/,
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    }
+    return config
+  }
+};
 
-module.exports = nextConfig;
+export default withMDX(nextConfig);

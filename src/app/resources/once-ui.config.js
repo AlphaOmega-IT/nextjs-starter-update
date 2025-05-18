@@ -3,32 +3,32 @@ const baseURL = "jexcellence.de";
 // default customization applied to the HTML in the main layout.tsx
 const style = {
   theme: "dark", // dark | light - not needed when using ThemeProvider
-  neutral: "gray", // sand | gray | slate
-  brand: "blue", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
-  accent: "cyan", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
-  solid: "inverse", // color | contrast | inverse
-  solidStyle: "plastic", // flat | plastic
-  border: "playful", // rounded | playful | conservative
-  surface: "translucent", // filled | translucent
-  transition: "all", // all | micro | macro
-  scaling: "100", // 90 | 95 | 100 | 105 | 110
+  neutral: "custom",
+  brand: "custom", // Position Jexcellence as innovative/modern
+  accent: "custom",
+  solid: "inverse",
+  solidStyle: "plastic",
+  border: "playful",
+  surface: "translucent",
+  transition: "all",
+  scaling: "100",
 };
 
-// default metadata
+// Jexcellence - metadata
 const meta = {
   icons: {
     icon: '/favicon.ico',
   },
-  title: "LMBeauty | Professionelle Wimpern in Oldenburg",
-  description: "Hi, ich bin Lisa – deine Make-up & Wimpernexpertin in Oldenburg. Mit Leidenschaft und Präzision hebe ich deine einzigartige Schönheit hervor. Ob natürlicher Alltagslook oder glamouröser Abendstil: Gemeinsam kreieren wir, was zu dir passt. Vertraue auf 𝗟𝗠 𝗕𝗲𝗮𝘂𝘁𝘆 – wo Professionalität und Herzblut dein Strahlen unterstreichen. 💫 Jetzt Termin sichern und dich verwandeln lassen!",
+  title: "Jexcellence | Innovative Web & Softwarelösungen",
+  description: "Jexcellence ist Ihre Fullstack-Agentur für Webdesign, Softwareentwicklung & Smart Digital Solutions. Von der individuellen Website über E-Commerce bis zu kreativen Business-Automationen – wir bringen Ihre digitale Vision exzellent erlebbar ins Web. Starten Sie Ihr Projekt mit technischer Exzellenz und persönlicher Beratung.",
 };
 
 const og = {
   icons: {
     icon: '/favicon.ico',
   },
-  title: "LMBeauty | Professionelle Wimpern in Oldenburg",
-  description: "Hi, ich bin Lisa – deine Make-up & Wimpernexpertin in Oldenburg. Mit Leidenschaft und Präzision hebe ich deine einzigartige Schönheit hervor. Ob natürlicher Alltagslook oder glamouröser Abendstil: Gemeinsam kreieren wir, was zu dir passt. Vertraue auf 𝗟𝗠 𝗕𝗲𝗮𝘂𝘁𝘆 – wo Professionalität und Herzblut dein Strahlen unterstreichen. 💫 Jetzt Termin sichern und dich verwandeln lassen!.",
+  title: "Jexcellence | Innovative Web & Softwarelösungen",
+  description: "Jexcellence – Fullstack-Webentwicklung, klasse Design, individuelle Lösungen und echte Exzellenz für Ihr digitales Projekt. Gemeinsam digital erfolgreich werden.",
   type: "website",
   image: "https://jexcellence.de/images/avatar_1.png",
 };
@@ -36,13 +36,15 @@ const og = {
 const schema = {
   logo: "https://jexcellence.de/images/avatar_1.png",
   type: "LocalBusiness",
-  name: "LM Beauty",
-  description: "Hi, ich bin Lisa – deine Make-up & Wimpernexpertin in Oldenburg. Mit Leidenschaft und Präzision hebe ich deine einzigartige Schönheit hervor. Ob natürlicher Alltagslook oder glamouröser Abendstil: Gemeinsam kreieren wir, was zu dir passt. Vertraue auf 𝗟𝗠 𝗕𝗲𝗮𝘂𝘁𝘆 – wo Professionalität und Herzblut dein Strahlen unterstreichen. 💫 Jetzt Termin sichern und dich verwandeln lassen!",
+  name: "Jexcellence",
+  description: "Jexcellence bietet smarte, maßgeschneiderte Web-, Software- und E-Commerce-Lösungen für Unternehmen, Startups & Persönlichkeiten. Modern, zuverlässig und immer mit Leidenschaft für Innovation.",
   email: "justin.eiletz@jexcellence.de",
 };
 
 const social = {
   instagram: "https://www.instagram.com/jexcellence_/",
+  github: "https://github.com/justineiletz",
+  // Add other relevant social profiles if needed
 };
 
 export { baseURL, style, meta, og, schema, social };

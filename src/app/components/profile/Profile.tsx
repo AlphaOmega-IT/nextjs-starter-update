@@ -1,9 +1,10 @@
 "use client";
 
-import {Column, Flex, Icon, Row, Media, Text} from "@/once-ui/components";
+import {Column, Flex, Icon, Row, Media, Text, Button} from "@/once-ui/components";
 import {FlipCard} from "@/app/components/flipcard/FlipCard";
 import {useEffect, useRef, useState} from "react";
 import styles from "./Profile.module.scss";
+import {SocialBar} from "@/app/components/socialbar/SocialBar";
 
 const ABT_ME_TEXT = `
 Hallo, ich bin Justin Eiletz, 25 Jahre alt und ursprünglich aus Nordrhein-Westfalen – seit einiger Zeit nun in Oldenburg zu Hause. Mit fast einem Jahrzehnt Erfahrung im Softwarebereich blicke ich auf eine spannende Reise zurück, die mit Leidenschaft für Code, Innovation und Qualität gepflastert ist.
@@ -141,33 +142,37 @@ export const Profile = () => {
     return (
         <Column fill center>
             <Flex fillWidth fitHeight margin="s" padding="xs" direction="row" mobileDirection="column" center gap="m">
-                <Column fill maxWidth={isMobile ? 100 : 25} flex={isMobile ? 1 : 0} center>
-                    {!isMobile ? (
-                        <FlipCard autoFlipInterval={5}>
+                <Column fillWidth flex={isMobile ? 1 : 0}>
+                    <Column center>
+                        {!isMobile ? (
+                            <FlipCard autoFlipInterval={5}>
+                                <Media
+                                    width={isMobile ? 10 : 20}
+                                    src="/images/avatar/avatar_1.png"
+                                    radius="l-4"
+                                    aspectRatio="1 / 1"
+                                />
+                                <Media
+                                    width={isMobile ? 10 : 20}
+                                    src="/images/brand/icon.svg"
+                                    radius="l-4"
+                                    objectFit="contain"
+                                    aspectRatio="1 / 1"
+                                />
+                            </FlipCard>
+                        ) : (
                             <Media
                                 width={isMobile ? 10 : 20}
                                 src="/images/avatar/avatar_1.png"
                                 radius="l-4"
                                 aspectRatio="1 / 1"
                             />
-                            <Media
-                                width={isMobile ? 10 : 20}
-                                src="/images/brand/icon.svg"
-                                radius="l-4"
-                                objectFit="contain"
-                                aspectRatio="1 / 1"
-                            />
-                        </FlipCard>
-                    ) : (
-                        <Media
-                            width={isMobile ? 10 : 20}
-                            src="/images/avatar/avatar_1.png"
-                            radius="l-4"
-                            aspectRatio="1 / 1"
-                        />
-                    )}
+                        )}
+                    </Column>
+                    <Column style={{ marginTop: ! isMobile ? "12.5rem" : "2.5rem" }}>
+                        <SocialBar />
+                    </Column>
                 </Column>
-
                 <Column padding="s" margin="s" center fill>
                     <Column fill padding="xs" margin="xs">
                         <Column fitWidth margin="m" padding="xs" center>

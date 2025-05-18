@@ -75,6 +75,7 @@ const PricingSection = () => {
     ];
 
     const products = [
+        // Free consultation (first, always free)
         {
             id: 101,
             category: "webdesign",
@@ -89,24 +90,41 @@ const PricingSection = () => {
             popular: true,
             note: "Ist in jedem Paket enthalten"
         },
+        // Monthly has its own "tier", doesn't need sorting, but keeps place just after free
         {
-            id: 102,
+            id: 108,
             category: "webdesign",
-            title: "Landingpage Express",
-            price: "ab 379,00 €*",
-            description: "Deine neue Landingpage in 48h zum Festpreis.",
+            title: "Domain & Hosting Paket",
+            price: "16,99 € / Monat", // Raised monthly price a bit
+            description: "Sicheres Webhosting inkl. .de-Domain, E-Mail-Adresse & SSL-Zertifikat, DSGVO-konform gehostet in Deutschland.",
             features: [
-                { title: "Schnelle Umsetzung", desc: "Fertig in 48 Stunden (nach Briefing)" },
-                { title: "Responsive", desc: "Für alle Geräte optimiert" },
-                { title: "1 Revision inklusive", desc: "Korrekturschleife kostenlos" },
-                { title: "DSGVO-Check", desc: "Rechtliche Pflichtangaben enthalten" }
-            ]
+                { title: "Dauerhaft schnell", desc: "SSD-Speicher, regelmäßige Backups" },
+                { title: "1 .de-Domain", desc: "inkl. Domainverwaltung" },
+                { title: "E-Mail Adresse inklusive", desc: "1x Adresse mit Weiterleitung" },
+                { title: "SSL inklusive", desc: "Sichere Verbindung (HTTPS)" }
+            ],
+            note: "Pauschalpreis – monatlich kündbar"
         },
+        // Text/Bild update: stays as one of the cheapest single services
+        {
+            id: 107,
+            category: "webdesign",
+            title: "Text/Bild-Update auf Webseite",
+            price: "ab 29,00 €*", // small price raise
+            description: "Schnelle Aktualisierung von Texten oder Bildern auf deiner Website – ideal für News, Aktionen, kleine Änderungen.",
+            features: [
+                { title: "Kurze Bearbeitung", desc: "Updates meist innerhalb von 24-48h" },
+                { title: "Bis zu 2 Textabschnitte ODER 5 Bilder", desc: "pro Auftrag – fair & kalkulierbar" },
+                { title: "Beratung inklusive", desc: "Was ist rechtlich/technisch sinnvoll?" }
+            ],
+            note: "Für größere/r Komplexere Anpassungen individuelles Angebot"
+        },
+        // Sorted ascending by new price, incremented a bit for each next tier
         {
             id: 103,
             category: "webdesign",
             title: "Starter-Website",
-            price: "ab 249,00 €*",
+            price: "ab 299,00 €*", // raised from 249
             description: "Der günstige Einstieg – ideal für Einzelunternehmer und Vereine.",
             features: [
                 { title: "OnePage-Design", desc: "Moderne, scrolldynamische Startseite" },
@@ -116,24 +134,24 @@ const PricingSection = () => {
             note: ""
         },
         {
-            id: 104,
+            id: 102,
             category: "webdesign",
-            title: "Business-Website",
-            price: "ab 799,00 €*",
-            description: "Ideal für kleine & mittlere Unternehmen.",
+            title: "Landingpage Express",
+            price: "ab 579,00 €*", // raised from 529
+            description: "Deine neue Landingpage in 48h zum Festpreis.",
             features: [
-                { title: "Bis zu 5 Seiten", desc: "Vielfältige Präsentationsmöglichkeiten" },
-                { title: "Kontaktformular", desc: "Inkl. DSGVO-konformem Spam-Schutz" },
-                { title: "OnPage SEO", desc: "Grundoptimierung für Google & Co." },
-                { title: "Wunschdesign", desc: "Individuelle Abstimmung von Farben, Schrift & Layout" }
-            ],
-            note: ""
+                { title: "Schnelle Umsetzung", desc: "Fertig in 48-72 Stunden (nach Briefing)" },
+                { title: "Responsive", desc: "Für alle Geräte optimiert" },
+                { title: "3 Revisionen inklusive", desc: "Korrekturschleife kostenlos" },
+                { title: "DSGVO-Check", desc: "Rechtliche Pflichtangaben enthalten" },
+                { title: "3 Monate Support", desc: "Es werden 3 Monate Updates geliefert auf" }
+            ]
         },
         {
             id: 105,
             category: "webdesign",
             title: "Webshop Mini",
-            price: "ab 379,00 €*",
+            price: "ab 419,00 €*", // raised from 379
             description: "Einfacher Start in den Onlinehandel.",
             features: [
                 { title: "Shop-System", desc: "Shopify, WooCommerce oder nach Wahl" },
@@ -144,10 +162,24 @@ const PricingSection = () => {
             note: ""
         },
         {
+            id: 104,
+            category: "webdesign",
+            title: "Business-Website",
+            price: "ab 899,00 €*", // raised from 799
+            description: "Ideal für kleine & mittlere Unternehmen.",
+            features: [
+                { title: "Bis zu 5 Seiten", desc: "Vielfältige Präsentationsmöglichkeiten" },
+                { title: "Kontaktformular", desc: "Inkl. DSGVO-konformem Spam-Schutz" },
+                { title: "OnPage SEO", desc: "Grundoptimierung für Google & Co." },
+                { title: "Wunschdesign", desc: "Individuelle Abstimmung von Farben, Schrift & Layout" }
+            ],
+            note: ""
+        },
+        {
             id: 106,
             category: "webdesign",
             title: "Premium-Website",
-            price: "ab 1249,00 €*",
+            price: "ab 1399,00 €*", // raised from 1249
             description: "Multilinguale, funktionsreiche Website für Unternehmen mit Ansprüchen.",
             features: [
                 { title: "Bis zu 12 Seiten", desc: "Flexible Inhaltsabstimmung" },
@@ -158,7 +190,6 @@ const PricingSection = () => {
             ],
             note: ""
         },
-
         {
             id: 201,
             category: "wartung",
@@ -408,6 +439,18 @@ const PricingSection = () => {
             </Column>
 
             <Flex fitHeight fillWidth center direction="column" gap="xs">
+                {activeFilter === "webdesign" && (
+                    <Badge
+                        textVariant="body-default-xs"
+                        fitWidth
+                        align="center"
+                        background="success-strong"
+                        center
+                        wrap
+                    >
+                        Bei jeder Website-Erstellung sind die ersten 3 Monate Support, Text-/Bildänderungen und Korrekturen inklusive!
+                    </Badge>
+                )}
                 <Column padding="m" center>
                     <Text variant="body-default-xs" onBackground="info-weak" align="center">
                         * Es handelt sich bei den Preisen um Richtwerte, die Preise orientieren sich an Arbeitsstunden, Aufwand etc.
@@ -427,7 +470,6 @@ const PricingSection = () => {
                                     direction="column"
                                     shadow="s"
                                     onBackground="brand-strong"
-                                    background="info-medium"
                                     border={product.popular ? "accent-alpha-medium" : "surface"}
                                 >
                                     {selectedProducts.includes(product.id) && (
@@ -437,19 +479,20 @@ const PricingSection = () => {
                                         mask={{
                                             x: 50,
                                             y: 100,
-                                            radius: 40,
+                                            radius: 80,
                                         }}
                                         gradient={{
                                             display: true,
-                                            x: 0,
-                                            y: 0,
-                                            width: 0,
-                                            height: 0,
-                                            tilt: 0,
-                                            opacity: 60,
-                                            colorStart: "page-background",
-                                            colorEnd: "accent-alpha-strong"
+                                            x: 50,
+                                            y: 100,
+                                            width: 100,
+                                            height: 100,
+                                            tilt: Math.random() * 200 - 100,
+                                            opacity: 80,
+                                            colorStart: "neutral-alpha-strong",
+                                            colorEnd: "page-background",
                                         }}
+                                        zIndex={0}
                                     />
                                     )}
                                     <Flex
@@ -466,13 +509,13 @@ const PricingSection = () => {
                                             </Text>
                                         </Column>
 
-                                        <Flex fill vertical="start" horizontal="start" direction="column" gap="s">
-                                            <Column minHeight={4} gap="xs">
-                                                <Heading as="h3">{product.title}</Heading>
+                                        <Flex fill vertical="start" horizontal="start" direction="column">
+                                            <Column minHeight={4} gap="xs" margin="l">
+                                                <Heading as="h4">{product.title}</Heading>
                                                 <Text variant="body-default-s">{product.description}</Text>
                                             </Column>
                                             <Line />
-                                            <Column fillWidth center>
+                                            <Column fillWidth center marginTop="xs" marginBottom="xs">
                                                 {product.price && (
                                                     <Text variant="body-default-l">{product.price}</Text>
                                                 )}
@@ -482,7 +525,7 @@ const PricingSection = () => {
                                             </Column>
                                             <Line />
 
-                                            <Column fillHeight gap="s" vertical="start" horizontal="start">
+                                            <Column fillHeight gap="s" vertical="start" horizontal="start" padding="xs">
                                                 {product.features.map((feature, idx) => (
                                                     <Row key={idx} gap="xs" center fitHeight>
                                                         <Icon name="checkCircle" size="s" />

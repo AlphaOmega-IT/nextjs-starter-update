@@ -65,6 +65,7 @@ import {
   SiTypescript, SiVuedotjs
 } from "react-icons/si";
 import {HiCode, HiOutlineDatabase} from "react-icons/hi";
+import {FiMail} from "react-icons/fi";
 
 export const iconLibrary: Record<string, IconType> = {
   chevronUp: HiChevronUp,
@@ -128,7 +129,8 @@ export const iconLibrary: Record<string, IconType> = {
   academicCap: HiAcademicCap,
   codeBracket: HiCodeBracket,
   instagram: FaInstagram,
-  whatsapp: FaWhatsapp
+  whatsapp: FaWhatsapp,
+  mail: FiMail
 };
 
 export type IconLibrary = typeof iconLibrary;

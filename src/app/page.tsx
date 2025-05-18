@@ -48,13 +48,13 @@ export default function Home() {
                 <Column fill maxWidth={100}>
                     <Hero/>
                 </Column>
-                <Column fitHeight maxWidth={80}>
+                <Column fitHeight maxWidth={80} id="contact">
                     <Profile/>
                 </Column>
                 <Column fitHeight maxWidth={80}>
                     <TechStack />
                 </Column>
-                <Column fitHeight maxWidth={70}>
+                <Column fitHeight maxWidth={70} id="services">
                     <PricingSection/>
                 </Column>
                 <Column fitHeight maxWidth={70}>

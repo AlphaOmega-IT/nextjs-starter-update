@@ -1,6 +1,4 @@
-import mdx from "@next/mdx";
-
-const withMDX = require('@next/mdx')({
+const withMDX = (await import('@next/mdx'))({
   extension: /\.mdx?$/
 });
 

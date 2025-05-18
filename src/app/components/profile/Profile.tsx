@@ -148,7 +148,7 @@ export const Profile = () => {
                     <FlipCard autoFlipInterval={5}>
                         <SmartImage
                             width={isMobile ? 10 : 20}
-                            src="/images/avatar/avatar_1.jpg"
+                            src="/images/avatar/avatar_1.png"
                             radius="l-4"
                             aspectRatio="1 / 1"
                         />
@@ -251,10 +251,6 @@ export const Profile = () => {
                     <Icon name="chevronDown" size="s" />
                     <Text variant="body-default-s">Scrollen, um mehr zu entdecken</Text>
                 </Flex>
-            </Column>
-
-            <Column>
-                <TechStack />
             </Column>
         </Column>
     );

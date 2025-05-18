@@ -6,11 +6,13 @@ import {Background, Column, ToastProvider} from "@/once-ui/components";
 import React from "react";
 import {Profile} from "@/app/components/profile/Profile";
 import PricingSection from "@/app/components/projectsimulator/ProjectSimulator";
+import {Footer} from "@/app/components/footer/Footer";
+import {TechStack} from "@/app/components/techstack/TechStack";
 
 export default function Home() {
     return (
         <ToastProvider>
-            <Column fillWidth center>
+            <Column fillWidth center gap="xl">
               <Background
                 position="absolute"
                 mask={{
@@ -38,15 +40,22 @@ export default function Home() {
                   opacity: 100,
                 }}
               />
-              <Header/>
+                <Header/>
+                <Banner/>
                 <Column fill maxWidth={100}>
                     <Hero/>
                 </Column>
-                <Column fitHeight maxWidth={70}>
+                <Column fitHeight maxWidth={80}>
                     <Profile/>
+                </Column>
+                <Column fitHeight maxWidth={80}>
+                    <TechStack />
                 </Column>
                 <Column fitHeight maxWidth={70}>
                     <PricingSection/>
+                </Column>
+                <Column fitHeight maxWidth={70}>
+                    <Footer/>
                 </Column>
             </Column>
         </ToastProvider>

@@ -131,7 +131,7 @@ export const About = () => {
 						onMouseLeave={() => setIsAvatarHovered(false)}
 					>
 						<Avatar
-							src="/images/avatar/avatar_1.jpg"
+							src="/images/avatar/avatar_1.png"
 							size="xl"
 							radius="l-4"
 							border="brand-alpha-strong"

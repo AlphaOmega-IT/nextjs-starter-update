@@ -39,7 +39,18 @@ import {
 
 import { RiVisaLine } from "react-icons/ri";
 
-import {FaAmazon, FaAngular, FaDiscord, FaGitAlt, FaGithub, FaGoogle, FaJava, FaReact, FaRocket} from "react-icons/fa6";
+import {
+  FaAmazon,
+  FaAngular,
+  FaDiscord,
+  FaGitAlt,
+  FaGithub,
+  FaGoogle,
+  FaInstagram,
+  FaJava,
+  FaReact,
+  FaRocket, FaWhatsapp
+} from "react-icons/fa6";
 
 import { LuChevronsLeftRight } from "react-icons/lu";
 import {
@@ -116,6 +127,8 @@ export const iconLibrary: Record<string, IconType> = {
   briefcase: HiBriefcase,
   academicCap: HiAcademicCap,
   codeBracket: HiCodeBracket,
+  instagram: FaInstagram,
+  whatsapp: FaWhatsapp
 };
 
 export type IconLibrary = typeof iconLibrary;

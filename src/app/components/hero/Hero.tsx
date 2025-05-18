@@ -54,7 +54,6 @@ const Hero = () => {
 					<Heading
 						as="h1"
 						variant="display-default-l"
-						size="xl"
 					>
 						JExcellence
 					</Heading>

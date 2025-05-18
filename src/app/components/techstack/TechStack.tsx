@@ -117,7 +117,6 @@ export const TechStack = () => {
         <Column center fill padding="xs" gap="xl" marginBottom="xl">
             <Column center gap="s">
                 <Flex gap="s" horizontal="center" vertical="center">
-                    <Icon name="toolbox" size="xl" />
                     <Heading as="h1">
                         Meine Technologie-Expertise
                     </Heading>

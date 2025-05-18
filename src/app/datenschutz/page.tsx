@@ -19,7 +19,7 @@ export default function DatenschutzPage() {
             <Text as="p" variant="body-default-s">
                 Verantwortlich im Sinne der DSGVO:<br />
                 JExcellence - Justin Eiletz<br />
-                Wechloyer Tor 5, 26219 Oldenburg, info@jexcellence.de
+                Wechloyer Tor 5, 26219 Oldenburg, justin.eiletz@jexcellence.de
             </Text>
             <Heading as="h2" variant="heading-strong-l" marginTop="l">2. Datenverarbeitung auf der Website</Heading>
             <Text as="p" variant="body-default-s">

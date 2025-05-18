@@ -202,7 +202,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                 variant="label-default-m"
                 htmlFor={id}
                 className={classNames(styles.label, styles.textareaLabel, {
-                  [styles.floating]: isFocused || isFilled,
+                  [styles.floating]: isFocused || isFilled || placeholder,
                 })}
               >
                 {label}

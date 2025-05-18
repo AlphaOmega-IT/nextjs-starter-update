@@ -28,7 +28,7 @@ export default function ImpressumPage() {
             <Text as="p" variant="body-default-s" marginTop="s">
                 Kontakt:<br />
                 Telefon: +49 157 70433689<br />
-                E-Mail: info@jexcellence.de
+                E-Mail: justin.eiletz@jexcellence.de
             </Text>
             <Text as="p" variant="body-default-s" marginTop="s">
                 Umsatzsteuer-ID: Beantragung läuft aktuell noch...

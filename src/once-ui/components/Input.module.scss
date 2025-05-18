@@ -88,11 +88,11 @@
     outline: none;
 
     &.placeholder {
-        padding-top: 0;
+        padding-top: var(--static-space-16);
     }
 
     &.textarea.placeholder {
-        padding-top: var(--static-space-12);
+        padding-top: var(--static-space-16);
     }
 
     &:not(.placeholder) {

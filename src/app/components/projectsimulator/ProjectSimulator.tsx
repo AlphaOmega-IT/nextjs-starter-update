@@ -26,7 +26,7 @@ const PricingSection = () => {
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 1000);
-        handleResize(); // initialize
+        handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
@@ -45,8 +45,6 @@ const PricingSection = () => {
                 return /\S+@\S+\.\S+/.test(value) ? "" : "Gültige E-Mail-Adresse erforderlich.";
             case "phone":
                 return /^\+?[0-9\s\-]{7,}$/.test(value) ? "" : "Gültige Telefonnummer erforderlich.";
-            case "message":
-                return value.trim() ? "" : "Bitte gib eine Nachricht ein.";
             default:
                 return "";
         }
@@ -78,177 +76,309 @@ const PricingSection = () => {
 
     const products = [
         {
-            id: 1,
+            id: 101,
             category: "webdesign",
-            title: "Starter-Paket",
-            price: "300,00 €*",
-            description: "Der perfekte Einstieg in die digitale Welt",
+            title: "Erstgespräch (Webdesign)",
+            price: "Kostenlos",
+            description: "Kostenloses 30-Minuten Erstgespräch für dein Webdesign-Projekt.",
             features: [
-                { title: "Professionelle One-Page", desc: "Responsive Design für alle Geräte" },
-                { title: "Modernes Basisdesign", desc: "Ansprechendes Layout & Branding" },
-                { title: "Rechtssicherheit", desc: "DSGVO-konforme Texte inklusive" },
-            ],
-            popular: false,
-        },
-        {
-            id: 2,
-            category: "webdesign",
-            title: "Business-Paket",
-            price: "800,00 €*",
-            description: "Professionelle Unternehmenspräsenz",
-            features: [
-                { title: "Bis zu 5 Seiten", desc: "Umfassende Inhaltsdarstellung" },
-                { title: "Premium-Design", desc: "Individuelle Branding-Anpassungen" },
-                { title: "SEO-Optimierung", desc: "Suchmaschinenoptimierte Struktur" },
-                { title: "Kontaktformular", desc: "Mit Spam-Schutz" },
+                { title: "Kein Risiko", desc: "Unverbindlich & kostenlos" },
+                { title: "Individuelle Planung", desc: "Für dein Projekt" },
+                { title: "Beratung durch Fullstack-Entwickler", desc: "Technische und gestalterische Kompetenz" }
             ],
             popular: true,
+            note: "Ist in jedem Paket enthalten"
         },
         {
-            id: 3,
+            id: 102,
             category: "webdesign",
-            title: "Enterprise-Paket",
-            price: "1.500,00 €*",
-            description: "Komplettlösung für komplexe Anforderungen",
+            title: "Landingpage Express",
+            price: "ab 379,00 €*",
+            description: "Deine neue Landingpage in 48h zum Festpreis.",
             features: [
-                { title: "Unbegrenzte Seiten", desc: "Mit dynamischem Content" },
-                { title: "Custom CMS", desc: "Individuelle Verwaltungsoberfläche" },
-                { title: "Mehrsprachigkeit", desc: "Automatisierte Sprachumschaltung" },
-                { title: "API-Integration", desc: "Anbindung externer Dienste" },
+                { title: "Schnelle Umsetzung", desc: "Fertig in 48 Stunden (nach Briefing)" },
+                { title: "Responsive", desc: "Für alle Geräte optimiert" },
+                { title: "1 Revision inklusive", desc: "Korrekturschleife kostenlos" },
+                { title: "DSGVO-Check", desc: "Rechtliche Pflichtangaben enthalten" }
             ]
         },
         {
-            id: 4,
+            id: 103,
             category: "webdesign",
-            title: "Fullstack Application",
-            price: null,
-            description: "Komplette Webanwendung mit Backend",
+            title: "Starter-Website",
+            price: "ab 249,00 €*",
+            description: "Der günstige Einstieg – ideal für Einzelunternehmer und Vereine.",
             features: [
-                { title: "Java Spring Backend", desc: "REST API mit Spring Boot" },
-                { title: "Datenbankintegration", desc: "MySQL/PostgreSQL mit ORM" },
-                { title: "OAuth2 Security", desc: "Sicheres Login-System" },
-                { title: "CI/CD Pipeline", desc: "Automatisierte Deploymentprozesse" },
-                { title: "24/7 Support", desc: "Priorisierter technischer Support" },
+                { title: "OnePage-Design", desc: "Moderne, scrolldynamische Startseite" },
+                { title: "Mobile-optimiert", desc: "Optimale Darstellung auf jedem Gerät" },
+                { title: "Domain & E-Mail", desc: "1 Jahr inkl. .de-Domain & E-Mail" }
             ],
-            note: "Gespräch anfordern"
+            note: ""
+        },
+        {
+            id: 104,
+            category: "webdesign",
+            title: "Business-Website",
+            price: "ab 799,00 €*",
+            description: "Ideal für kleine & mittlere Unternehmen.",
+            features: [
+                { title: "Bis zu 5 Seiten", desc: "Vielfältige Präsentationsmöglichkeiten" },
+                { title: "Kontaktformular", desc: "Inkl. DSGVO-konformem Spam-Schutz" },
+                { title: "OnPage SEO", desc: "Grundoptimierung für Google & Co." },
+                { title: "Wunschdesign", desc: "Individuelle Abstimmung von Farben, Schrift & Layout" }
+            ],
+            note: ""
+        },
+        {
+            id: 105,
+            category: "webdesign",
+            title: "Webshop Mini",
+            price: "ab 379,00 €*",
+            description: "Einfacher Start in den Onlinehandel.",
+            features: [
+                { title: "Shop-System", desc: "Shopify, WooCommerce oder nach Wahl" },
+                { title: "Bis zu 10 Produkte", desc: "Einfache Lager- und Bestellverwaltung" },
+                { title: "Zahlungsintegration", desc: "PayPal, Überweisung, Stripe" },
+                { title: "Sichere Verbindung", desc: "SSL-Zertifikat inklusive" }
+            ],
+            note: ""
+        },
+        {
+            id: 106,
+            category: "webdesign",
+            title: "Premium-Website",
+            price: "ab 1249,00 €*",
+            description: "Multilinguale, funktionsreiche Website für Unternehmen mit Ansprüchen.",
+            features: [
+                { title: "Bis zu 12 Seiten", desc: "Flexible Inhaltsabstimmung" },
+                { title: "Mehrsprachigkeit", desc: "Automatische Umschaltung & Übersetzung" },
+                { title: "Fortgeschrittene SEO", desc: "Ranking-Boost durch SEO-Maßnahmen" },
+                { title: "Drittanbieterintegration", desc: "z.B. Buchung, Kalender, Social Media" },
+                { title: "2 Monate Wartung gratis", desc: "Keine Extrakosten zum Start" }
+            ],
+            note: ""
         },
 
         {
-            id: 5,
+            id: 201,
             category: "wartung",
-            title: "Basis-Wartung",
-            price: "49,00 €* / Monat",
-            description: "Grundlegende Website-Pflege",
+            title: "Erstgespräch (Wartung)",
+            price: "Kostenlos",
+            description: "Kostenloses 30-Minuten Erstgespräch für Wartung & Support.",
             features: [
-                { title: "Sicherheitsupdates", desc: "Monatliche Systemaktualisierungen" },
-                { title: "Backup-Service", desc: "Tägliche Sicherungen" },
-                { title: "Content-Updates", desc: "Bis zu 2 Textänderungen/Monat" },
-            ]
-        },
-        {
-            id: 6,
-            category: "wartung",
-            title: "Premium-Wartung",
-            price: "99,00 €* / Monat",
-            description: "Umfassende Betreuung",
-            features: [
-                { title: "Performance-Optimierung", desc: "Ladezeitenanalyse & Verbesserung" },
-                { title: "SEO-Anpassungen", desc: "Monatliche Keyword-Optimierung" },
-                { title: "Responsive Anpassungen", desc: "Gerätespezifische Optimierungen" },
-                { title: "Notfall-Support", desc: "24h Reaktionszeit" },
+                { title: "Analyse", desc: "Wir schauen uns deine Anforderungen an." },
+                { title: "Planung", desc: "Passendes Supportpaket auswählen" },
+                { title: "Sicherheitsberatung", desc: "Empfehlungen für besseren Schutz" }
             ],
             popular: true,
+            note: "Ist in jedem Paket enthalten"
         },
         {
-            id: 7,
+            id: 202,
             category: "wartung",
-            title: "Komplett-Refresh",
-            price: "Gespräch anfordern",
-            description: "Technologie-Migration",
+            title: "Wartung Basis",
+            price: "ab 49,00 €* / Monat",
+            description: "Die sorgenfreie Grundpflege – für Sicherheit & Updates.",
             features: [
-                { title: "Technologie-Update", desc: "z.B. HTML zu React Migration" },
-                { title: "Redesign", desc: "Modernes UI/UX Konzept" },
-                { title: "Datenmigration", desc: "Überführung bestehender Inhalte" },
-                { title: "Schulung", desc: "Einweisung in neues System" },
-            ]
+                { title: "Monatliche Updates", desc: "CMS & Plugins" },
+                { title: "Backup-Service", desc: "Wöchentliche Datensicherungen" },
+                { title: "Reaktionszeit: 48h", desc: "Hilfestellung bei Problemen" }
+            ],
+            note: ""
+        },
+        {
+            id: 203,
+            category: "wartung",
+            title: "Wartung Plus",
+            price: "ab 89,00 €* / Monat",
+            description: "Mehr Schutz und Performance für deine Website.",
+            features: [
+                { title: "Wöchentliche Updates", desc: "Regelmäßige Wartung" },
+                { title: "Performance-Check", desc: "Pagespeed und Optimierungen" },
+                { title: "SEO Reports", desc: "Monatliche Auswertung" },
+                { title: "24h Support", desc: "Ticket-System & WhatsApp" }
+            ],
+            note: ""
+        },
+        {
+            id: 204,
+            category: "wartung",
+            title: "Security & Uptime Check",
+            price: "ab 69,00 €*",
+            description: "Einmalige Analyse inkl. Handlungsempfehlungen.",
+            features: [
+                { title: "Sicherheitscheck", desc: "CMS, Theme & Plugins" },
+                { title: "Uptime-Überwachung", desc: "3 Monate aktiv" },
+                { title: "Bericht & Beratung", desc: "Nach der Analyse" }
+            ],
+            note: ""
+        },
+        {
+            id: 205,
+            category: "wartung",
+            title: "Wartung Premium",
+            price: "ab 159,00 €* / Monat",
+            description: "Rundum-sorglos-Schutz für anspruchsvolle Websites.",
+            features: [
+                { title: "Tägliche Backups", desc: "Automatische Sicherungen" },
+                { title: "Notfall-Support", desc: "Reaktionszeit unter 4h" },
+                { title: "Update-Tests", desc: "Jedes Update wird getestet" },
+                { title: "Priorität bei Anfragen", desc: "Premium-Ticket-System" }
+            ],
+            note: ""
         },
 
         {
-            id: 8,
+            id: 301,
             category: "extras",
-            title: "Multilingualer Support",
-            price: "120,00 €* / Sprache",
-            description: "Mehrsprachige Website-Einrichtung",
+            title: "Erstgespräch (Allgemein)",
+            price: "Kostenlos",
+            description: "Kostenloses 30-Minuten Erstgespräch zu allen Themen rund ums Web.",
             features: [
-                { title: "Sprachdateien", desc: "Übersetzungsvorbereitung" },
-                { title: "Automatisierte Umschaltung", desc: "Browser-Spracherkennung" },
-                { title: "SEO pro Sprache", desc: "Landesspezifische Optimierung" },
-            ]
+                { title: "Jede Projektidee", desc: "IT, Web, Beratung, uvm." },
+                { title: "Keine Verpflichtung", desc: "Fragen stellen & Klarheit gewinnen" },
+                { title: "Fachliche Erstberatung", desc: "Empfehlungen vom Experten" }
+            ],
+            popular: true,
+            note: "Ist in jedem Paket enthalten"
         },
         {
-            id: 9,
+            id: 302,
             category: "extras",
-            title: "Shopify/WordPress Setup",
-            price: "400,00 €*",
-            description: "Komplettinstallation & Konfiguration",
+            title: "SEO Audit",
+            price: "ab 89,00 €*",
+            description: "Suchmaschinen Quick-Check mit Handlungstipps.",
             features: [
-                { title: "Theme-Anpassung", desc: "Individuelles Design" },
-                { title: "Payment-Integration", desc: "PayPal, Kreditkarten etc." },
-                { title: "Produktmigration", desc: "Bestehende Datenübernahme" },
-            ]
+                { title: "OnPage Analyse", desc: "Ranking-Potenziale aufdecken" },
+                { title: "Report als PDF", desc: "Tipps zur sofortigen Umsetzung" },
+                { title: "Keyword-Recherche", desc: "Erste Empfehlungen für dich" }
+            ],
+            note: ""
         },
         {
-            id: 10,
+            id: 303,
             category: "extras",
-            title: "Linux Hosting Setup",
-            price: "150,00 €*",
-            description: "Professionelle Serverkonfiguration",
+            title: "Content Einpflege",
+            price: "ab 39,00 €* / Seite",
+            description: "Wir übernehmen das Einpflegen deines Text- und Bild­materials.",
             features: [
-                { title: "LAMP/LEMP Stack", desc: "Optimierte Serverumgebung" },
-                { title: "SSL-Zertifikat", desc: "Let's Encrypt Integration" },
-                { title: "Monitoring", desc: "24/7 Serverüberwachung" },
-            ]
+                { title: "Text & Bilder", desc: "Perfekt platziert und optimiert" },
+                { title: "Korrektur pro Seite", desc: "Eine Änderung inklusive" },
+                { title: "Bilderoptimierung", desc: "Komprimierung für schnelleres Laden" }
+            ],
+            note: ""
+        },
+        {
+            id: 304,
+            category: "extras",
+            title: "WordPress Security Check",
+            price: "ab 89,00 €*",
+            description: "Sicherheitsprüfung und Empfehlungen für WordPress-Seiten.",
+            features: [
+                { title: "Update-Beratung", desc: "Welche Plugins sind kritisch?" },
+                { title: "Absicherung", desc: "Check der Nutzerkonten und Passwörter" },
+                { title: "Plugin-Report", desc: "Sicherheitskritische Plugins" }
+            ],
+            note: ""
+        },
+        {
+            id: 305,
+            category: "extras",
+            title: "Technische Generaldurchsicht",
+            price: "ab 129,00 €*",
+            description: "Komplette technische Durchsicht der bestehenden Website.",
+            features: [
+                { title: "Performance-Messung", desc: "Ladezeiten mit Empfehlungen" },
+                { title: "Strukturprüfung", desc: "Logik, Sicherheit & Zukunftsfähigkeit" },
+                { title: "Detailierter Bericht", desc: "Als PDF & mündlich erklärt" },
+                { title: "Kurze Nachberatung", desc: "Bis zu 15 Minuten kostenlos" }
+            ],
+            note: ""
         },
 
         {
-            id: 11,
+            id: 401,
             category: "minecraft",
-            title: "Basic Plugin",
-            price: "80,00 €*",
-            description: "Einfache Servererweiterung",
+            title: "Erstgespräch (Minecraft)",
+            price: "Kostenlos",
+            description: "Kostenloses Kennenlernen für individuelle Minecraft-Projekte.",
             features: [
-                { title: "Custom Commands", desc: "Grundlegende Befehlsimplementierung" },
-                { title: "Config-Dateien", desc: "Einstellungsmöglichkeiten" },
-                { title: "Multi-Language Support", desc: "Einfache Sprachumschaltung" },
-            ]
-        },
-        {
-            id: 12,
-            category: "minecraft",
-            title: "Advanced Plugin",
-            price: "200,00 €*",
-            description: "Komplexe Serverintegration",
-            features: [
-                { title: "Datenbankanbindung", desc: "MySQL/MongoDB Integration" },
-                { title: "Discord-Bot", desc: "Live-Serverstatistiken" },
-                { title: "Webinterface", desc: "Administrationsoberfläche" },
-                { title: "Auto-Updater", desc: "Automatische Plugin-Aktualisierungen" },
+                { title: "Projektbesprechung", desc: "Finde deine Plugin-Lösung schnell" },
+                { title: "100% kostenlos", desc: "Vor Entwicklung & Angebot" },
+                { title: "Ideenbewertung", desc: "Machbarkeitscheck in Echtzeit" }
             ],
             popular: true,
+            note: "Ist in jedem Paket enthalten"
         },
         {
-            id: 13,
+            id: 402,
             category: "minecraft",
-            title: "Enterprise Solution",
-            price: "Gespräch anfordern",
-            description: "Komplettpaket für Netzwerke",
+            title: "Minecraft: Basis-Plugin",
+            price: "ab 89,00 €*",
+            description: "Individuelles Server-Feature, schnell & günstig.",
             features: [
-                { title: "Custom API", desc: "REST-Schnittstelle für Webintegration" },
-                { title: "Cluster-Support", desc: "Multi-Server Implementierung" },
-                { title: "Anti-Cheat System", desc: "Custom Protection Mechanisms" },
-                { title: "Priority Support", desc: "24/7 Notfallservice" },
-            ]
-        }
+                { title: "Custom Commands", desc: "Maßgeschneiderte Funktionen" },
+                { title: "1 Version Support", desc: "1 Minecraft-Version garantiert" },
+                { title: "Kleine Configs", desc: "Einfache Einstellungsmöglichkeiten" }
+            ],
+            note: ""
+        },
+        {
+            id: 403,
+            category: "minecraft",
+            title: "Minecraft: Projekt-Plugin",
+            price: "ab 219,00 €*",
+            description: "Größeres Server-Plugin nach Wunsch.",
+            features: [
+                { title: "Komplexe Logik", desc: "Wirtschaft, Mobs, usw." },
+                { title: "Schnittstellen", desc: "Datenbank, Discord, Web" },
+                { title: "Support", desc: "2 Versionen inklusive" },
+                { title: "Konfigurierbare Permissions", desc: "Für verschiedene Spielmodi" }
+            ],
+            note: ""
+        },
+        {
+            id: 404,
+            category: "minecraft",
+            title: "Minecraft: Netzwerk-Komplett",
+            price: "ab 329,00 €*",
+            description: "Großes Plugin oder mehrere Komponenten (Enterprise).",
+            features: [
+                { title: "Alles aus einer Hand", desc: "Von Planung bis Betrieb" },
+                { title: "Performance-Checks", desc: "Auch für große Server" },
+                { title: "Individuelle Beratung", desc: "Ab Kickoff-Gespräch inklusive" },
+                { title: "Cluster-Support", desc: "Mehrere Server, ein System" }
+            ],
+            note: ""
+        },
+        {
+            id: 405,
+            category: "minecraft",
+            title: "Mod-Integration & Speziallösungen",
+            price: "ab 499,00 €*",
+            description: "Individuelle Mod-Kompatibilität & exklusive Funktionen.",
+            features: [
+                { title: "Mod-Kompatibilität", desc: "Forge, Fabric, Bukkit etc." },
+                { title: "Custom GUIs", desc: "Eigene Menüs für deinen Server" },
+                { title: "Langzeit-Support", desc: "Updates & Anpassungen nach Bedarf" },
+                { title: "Optional: Web-Anbindung", desc: "Statistiken, Admin-Panel online" }
+            ],
+            note: ""
+        },
+        {
+            id: 501,
+            category: "extras",
+            title: "Erstgespräch (Sonstiges)",
+            price: "Kostenlos",
+            description: "Kostenloses Kennenlernen für individuelle Projekte.",
+            features: [
+                { title: "Projektbesprechung", desc: "Finde deine Lösung schnell" },
+                { title: "100% kostenlos", desc: "Keine versteckten Kosten" },
+                { title: "Ideenbewertung", desc: "Machbarkeitscheck in Echtzeit" }
+            ],
+            popular: true,
+            note: "Für jegliche Projekte, die nicht in den anderen Kategorien fallen."
+        },
     ];
 
     const selectedDetails = products.filter(p => selectedProducts.includes(p.id));
@@ -346,8 +476,8 @@ const PricingSection = () => {
                                                 {product.price && (
                                                     <Text variant="body-default-l">{product.price}</Text>
                                                 )}
-                                                {!product.price && product.note && (
-                                                    <Text variant="body-default-s">{product.note}</Text>
+                                                {!product.price && product.title && (
+                                                    <Text variant="body-default-s">{product.title}</Text>
                                                 )}
                                             </Column>
                                             <Line />
@@ -362,6 +492,14 @@ const PricingSection = () => {
                                                         </Column>
                                                     </Row>
                                                 ))}
+                                            </Column>
+
+                                            <Column fillWidth>
+                                                {product.note && (
+                                                    <Text variant="body-default-s" style={{ marginTop: 4 }}>
+                                                        {product.note}
+                                                    </Text>
+                                                )}
                                             </Column>
                                         </Flex>
                                     </Flex>
@@ -384,8 +522,8 @@ const PricingSection = () => {
                 transition="macro-medium"
                 zIndex={10}
             >
-                <Column padding="xl" gap="s" horizontal="space-between" vertical="center">
-                    <Column marginBottom="l">
+                <Column padding="m" gap="s" horizontal="space-between" vertical="center">
+                    <Column fill>
                         <Heading variant="heading-strong-m">Zusammenfassung deiner Auswahl</Heading>
                         <Text variant="body-default-m" onBackground="info-weak">
                             Du hast <strong>{selectedDetails.length}</strong> Paket{selectedDetails.length > 1 ? "e" : ""} ausgewählt.
@@ -399,13 +537,13 @@ const PricingSection = () => {
                                 ],
                                 rows: selectedDetails.map((product) => [
                                     product.title,
-                                    product.price || product.note,
+                                    product.price || product.title,
                                 ]),
                             }}
                         />
                     </Column>
 
-                    <Column gap="m" padding="s" margin="m">
+                    <Column gap="s" padding="s">
                         <Input
                             id="name"
                             label="👤 Dein Name"
@@ -439,15 +577,22 @@ const PricingSection = () => {
                             onChange={handleInputChange("message")}
                             errorMessage={formErrors.message}
                         />
+                    </Column>
+
+                    <Flex gap="m" direction="row" center>
                         <Button
-                            fillWidth
-                            label="Anfrage jetzt absenden"
-                            variant="primary"
-                            size="l"
+                            label="Per Email senden"
+                            variant="secondary"
                             onClick={() => {
                                 const isValid = validateForm();
                                 if (isValid) {
-                                    console.log({ selectedProducts: selectedDetails, ...form });
+                                    const productList = selectedDetails.map(p => `- ${p.title} (${p.price})`).join('%0A');
+                                    const subject = encodeURIComponent(`Anfrage von ${form.name || 'Kunde'} via Jexcellence Website`);
+                                    const body = encodeURIComponent(
+                                        `Name: ${form.name}\nE-Mail: ${form.email}\nTelefon: ${form.phone}\n\nAusgewählte Pakete:\n${productList}\n\nNachricht:\n${form.message}`
+                                    );
+                                    window.open(`mailto:justin.eiletz@jexcellence.de?subject=${subject}&body=${body}`);
+
                                     setShowDialog(false);
                                     setFormErrors({});
                                     setForm({
@@ -465,7 +610,36 @@ const PricingSection = () => {
                                 }
                             }}
                         />
-                    </Column>
+                        <Button
+                            label="Per WhatsApp senden"
+                            variant="secondary"
+                            onClick={() => {
+                                const isValid = validateForm();
+                                if (isValid) {
+                                    const productList = selectedDetails.map(p => `- ${p.title} (${p.price})`).join('%0A');
+                                    const text = encodeURIComponent(
+                                        `Anfrage von ${form.name}\n📧 ${form.email}\n📞 ${form.phone}\n\nPakete:\n${productList}\n\n${form.message}`
+                                    );
+                                    window.open(`https://wa.me/+4915770433689?text=${text}`);
+
+                                    setShowDialog(false);
+                                    setFormErrors({});
+                                    setForm({
+                                        name: '',
+                                        phone: '',
+                                        message: '',
+                                        email: ''
+                                    });
+                                    setSelectedProducts([])
+
+                                    addToast({
+                                        variant: "success",
+                                        message: "Danke! Ich melde mich in Kürze bei dir."
+                                    })
+                                }
+                            }}
+                        />
+                    </Flex>
 
                     <Column gap="xs" paddingTop="s">
                         <Text variant="body-default-xs" onBackground="info-weak" align="center">

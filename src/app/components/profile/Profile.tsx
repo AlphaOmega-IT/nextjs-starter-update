@@ -169,7 +169,7 @@ export const Profile = () => {
                             />
                         )}
                     </Column>
-                    <Column style={{ marginTop: ! isMobile ? "12.5rem" : "2.5rem" }}>
+                    <Column style={{ marginTop: ! isMobile ? "2.5rem" : "2.5rem" }}>
                         <SocialBar />
                     </Column>
                 </Column>

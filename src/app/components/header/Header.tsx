@@ -4,7 +4,7 @@ import {
     Logo,
     Row,
     UserMenu,
-    Fade, IconButton, Button, useToast,
+    Fade, IconButton, Button, useToast, NavIcon,
 } from "@/once-ui/components";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
@@ -22,6 +22,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ authenticated, avatar, name, subline }) => {
     const pathname = usePathname() ?? "";
     const [scrolled, setScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { scrollY } = useScroll();
 
     useMotionValueEvent(scrollY, "change", (latest) => setScrolled(latest > 50));
@@ -101,7 +102,17 @@ const Header: React.FC<HeaderProps> = ({ authenticated, avatar, name, subline })
         <Row zIndex={3} fillWidth position="sticky" top="0">
             <Fade fillWidth position="absolute" top="0" height={6} pattern={{ display: true, size: "1" }} />
 
-            <Row as="header" fillWidth paddingY="xs" paddingX="m" position="relative" gap="m" vertical="space-between" horizontal="space-between">
+            <Row show="s" gap="4" fillWidth vertical="center" horizontal="space-between">
+                <Logo href="/" className={styles.logo} />
+                <NavIcon
+                    isActive={isMobileMenuOpen}
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    aria-label="Mobile Menu"
+                    className={styles.menuToggle}
+                />
+            </Row>
+
+            <Row as="header" fillWidth paddingY="xs" paddingX="m" position="relative" gap="m" vertical="space-between" horizontal="space-between" hide="s">
                 <Row
                     gap="m"
                 >

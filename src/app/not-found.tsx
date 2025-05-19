@@ -1,67 +1,42 @@
-import {
-    Button,
-    Column,
-    Heading,
-    Text,
-    Icon,
-    SmartLink,
-    Fade, Badge
-} from "@/once-ui/components";
+"use client";
 
-import styles from "./not-found.module.scss"
+import {
+    Column,
+    Text,
+    Heading,
+    SmartLink,
+    Banner,
+} from "@/once-ui/components";
 import React from "react";
+import {Footer} from "@/app/components/footer/Footer";
+import {Header} from "@/app/components/header/Header";
 
 export default function NotFound() {
     return (
-        <Column fillWidth>
-            <Column gap="xl" vertical="center" horizontal="center" center fillWidth>
-                <Text
-                    variant="display-strong-xl"
-                    align="center"
-                >
+        <Column>
+            <Banner position="fixed" top="56" left="0" zIndex={3}>
+                Die Webseite befindet sich noch im Aufbau, dies könnte noch einige Zeit in Anspruch nehmen.
+            </Banner>
+            <Header/>
+            <Column fill gap="m" center minHeight={30} marginTop="xl">
+                <Heading variant="display-default-l">
                     404
+                </Heading>
+                <Heading variant="display-default-l">
+                    Seite nicht gefunden
+                </Heading>
+                <Text variant="body-default-s">
+                    Die Seite, die Sie gerade betrachten, existiert nicht.
                 </Text>
-
-                <Icon
-                    name="sparkle"
-                    size="xl"
-                    className={styles.floatIcon}
-                />
-
-                <Column gap="m" horizontal={"center"} vertical={"center"}>
-                    <Heading as="h1" variant="display-strong-m">
-                        Hoppla! Wir haben uns verlaufen
-                    </Heading>
-
-                    <Text variant="body-default-m" color="neutral-medium">
-                        Die gesuchte Seite konnte nicht gefunden werden.
-                        Vielleicht hast du dich vertippt oder die Seite existiert nicht mehr.
-                    </Text>
-                </Column>
-
-                <Column gap="s" horizontal="center">
-                    <Badge
-                        background="neutral-weak"
-                        border="surface"
-                        href="/"
-                        textVariant="label-default-l"
-                    >
-                        Startseite
-                    </Badge>
-                    <SmartLink
-                        href="/#contact"
-                        color="neutral-medium"
-                    >
-                        Oder kontaktieren Sie uns
-                    </SmartLink>
-                </Column>
-
-                <Fade
-                    pattern={{ size: "1", display: true }}
-                    horizontal="end"
-                    height={120}
-                    opacity={40}
-                />
+                <Text variant="body-default-s">
+                        Vielleicht haben Sie die URL falsch eingegeben oder die Seite wurde gelöscht.
+                </Text>
+                <SmartLink href="/">
+                    Zurück
+                </SmartLink>
+            </Column>
+            <Column>
+                <Footer/>
             </Column>
         </Column>
     );

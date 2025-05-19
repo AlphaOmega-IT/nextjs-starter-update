@@ -78,7 +78,7 @@ export const Profile = () => {
     }, []);
 
     return (
-        <Column fill center className="profile__container">
+        <Column fill center>
             <Flex fillWidth fitHeight margin="s" padding="xs" direction="row" mobileDirection="column" center gap="m">
                 <Column fillWidth flex={isMobile ? 1 : 0}>
                     <Column center>

@@ -1,70 +1,53 @@
+
 "use client";
-import React, {ChangeEvent, useEffect, useState} from "react";
+
+import React, { ChangeEvent, useEffect, useState } from "react";
+import classNames from "classnames";
 import {
     Background,
     Badge,
     Button,
     Card,
-    Column, Dialog,
+    Column,
+    Dialog,
     Flex,
     Heading,
-    Icon, Input, Line,
-    Row, Scroller,
-    SegmentedControl, Table,
-    Text, Textarea, useToast,
+    Icon,
+    Input,
+    Line,
+    Row,
+    Scroller,
+    SegmentedControl,
+    Table,
+    Text,
+    Textarea,
+    useToast,
 } from "@/once-ui/components";
-import styles from "./ProjectSimulator.module.scss"
+import styles from "./PricingSection.module.scss";
+
+const filters = [
+    { id: "all", label: "Alle Pakete" },
+    { id: "webdesign", label: "Webdesign" },
+    { id: "wartung", label: "Wartung" },
+    { id: "extras", label: "Extras" },
+    { id: "minecraft", label: "Minecraft" },
+];
 
 const PricingSection = () => {
-    const [activeFilter, setActiveFilter] = useState("webdesign");
-    const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
-    const [showDialog, setShowDialog] = useState(false);
+    const [filter, setFilter] = useState("webdesign");
+    const [selected, setSelected] = useState<number[]>([]);
+    const [open, setOpen] = useState(false);
     const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
-    const [isMobile, setIsMobile] = useState(false);
     const [formErrors, setFormErrors] = useState<{ [K in keyof typeof form]?: string }>({});
+    const [mobile, setMobile] = useState(false);
     const { addToast } = useToast();
 
     useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth < 1000);
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
+        const onResize = () => setMobile(window.innerWidth < 1000);
+        onResize();
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
     }, []);
-
-    const toggleProduct = (id: number) => {
-        setSelectedProducts(prev =>
-            prev.includes(id) ? prev.filter(pid => pid !== id) : [...prev, id]
-        );
-    };
-
-    const validateField = (field: keyof typeof form, value: string) => {
-        switch (field) {
-            case "name":
-                return value.trim() ? "" : "Name darf nicht leer sein.";
-            case "email":
-                return /\S+@\S+\.\S+/.test(value) ? "" : "Gültige E-Mail-Adresse erforderlich.";
-            case "phone":
-                return /^\+?[0-9\s\-]{7,}$/.test(value) ? "" : "Gültige Telefonnummer erforderlich.";
-            default:
-                return "";
-        }
-    };
-
-    const handleInputChange = (field: keyof typeof form) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const value = e.target.value;
-        setForm(prev => ({ ...prev, [field]: value }));
-        setFormErrors(prev => ({ ...prev, [field]: validateField(field, value) }));
-    };
-
-    const validateForm = () => {
-        const newErrors: typeof formErrors = {};
-        (Object.keys(form) as (keyof typeof form)[]).forEach((field) => {
-            const error = validateField(field, form[field]);
-            if (error) newErrors[field] = error;
-        });
-        setFormErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
 
     const filters = [
         { id: "all", label: "Alle Pakete" },
@@ -412,7 +395,34 @@ const PricingSection = () => {
         },
     ];
 
-    const selectedDetails = products.filter(p => selectedProducts.includes(p.id));
+    const onSelect = (id: number) => {
+        setSelected(curr => curr.includes(id) ? curr.filter(v => v !== id) : [...curr, id]);
+    };
+
+    const validate = (field: keyof typeof form, value: string) => {
+        if (field === "name") return value.trim() ? "" : "Name darf nicht leer sein.";
+        if (field === "email") return /\S+@\S+\.\S+/.test(value) ? "" : "Gültige E-Mail-Adresse erforderlich.";
+        if (field === "phone") return /^\+?[0-9\s\-]{7,}$/.test(value) ? "" : "Gültige Telefonnummer erforderlich.";
+        return "";
+    };
+
+    const onInput = (field: keyof typeof form) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const value = e.target.value;
+        setForm(f => ({ ...f, [field]: value }));
+        setFormErrors(err => ({ ...err, [field]: validate(field, value) }));
+    };
+
+    const checkForm = () => {
+        const next: typeof formErrors = {};
+        (Object.keys(form) as (keyof typeof form)[]).forEach(f => {
+            const err = validate(f, form[f]);
+            if (err) next[f] = err;
+        });
+        setFormErrors(next);
+        return Object.keys(next).length === 0;
+    };
+
+    const selectedDetails = products.filter(x => selected.includes(x.id));
 
     return (
         <Flex fill direction="column" center paddingTop="xl" marginTop="xl" transition="macro-long">
@@ -420,33 +430,25 @@ const PricingSection = () => {
                 <Flex horizontal="center" vertical="center">
                     <Heading variant="display-strong-xs">Entdecke unsere Angebote</Heading>
                 </Flex>
-                <Text variant="body-strong-m">
-                    Wähle das passende Paket für deine Anforderungen
-                </Text>
+                <Text variant="body-strong-m">Wähle das passende Paket für deine Anforderungen</Text>
             </Column>
-
             <Column fill center>
                 <SegmentedControl
                     fitWidth
                     padding="16"
-                    selected={activeFilter}
-                    buttons={filters.map(filter => ({
-                        value: filter.id,
-                        children: filter.label,
-                    }))}
-                    onToggle={(filter) => setActiveFilter(filter)}
+                    selected={filter}
+                    buttons={filters.map(f => ({ value: f.id, children: f.label }))}
+                    onToggle={setFilter}
                 />
             </Column>
-
             <Flex fitHeight fillWidth center direction="column" gap="xs">
-                {activeFilter === "webdesign" && (
+                {filter === "webdesign" && (
                     <Badge
                         textVariant="body-default-xs"
-                        fitWidth
+                        maxWidth={30}
                         align="center"
-                        background="success-strong"
+                        background="accent-weak"
                         center
-                        wrap
                     >
                         Bei jeder Website-Erstellung sind die ersten 3 Monate Support, Text-/Bildänderungen und Korrekturen inklusive!
                     </Badge>
@@ -459,12 +461,12 @@ const PricingSection = () => {
                 <Scroller direction="row" center paddingX="xl" borderRight="transparent">
                     <Flex gap="m" direction="row" fill minWidth={25} maxWidth={25} minHeight={35} maxHeight={40}>
                         {products
-                            .filter(product => activeFilter === "all" || product.category === activeFilter)
+                            .filter(x => filter === "all" || x.category === filter)
                             .map(product => (
                                 <Card
                                     key={product.id}
-                                    width={isMobile ? 22 : 25}
-                                    height={isMobile ? 27 : 30}
+                                    width={mobile ? 22 : 25}
+                                    height={mobile ? 27 : 30}
                                     padding="40"
                                     radius="xl"
                                     direction="column"
@@ -472,28 +474,28 @@ const PricingSection = () => {
                                     onBackground="brand-strong"
                                     border={product.popular ? "accent-alpha-medium" : "surface"}
                                 >
-                                    {selectedProducts.includes(product.id) && (
-                                    <Background
-                                        position="absolute"
-                                        radius="xl"
-                                        mask={{
-                                            x: 50,
-                                            y: 100,
-                                            radius: 80,
-                                        }}
-                                        gradient={{
-                                            display: true,
-                                            x: 50,
-                                            y: 100,
-                                            width: 100,
-                                            height: 100,
-                                            tilt: Math.random() * 200 - 100,
-                                            opacity: 80,
-                                            colorStart: "neutral-alpha-strong",
-                                            colorEnd: "page-background",
-                                        }}
-                                        zIndex={0}
-                                    />
+                                    {selected.includes(product.id) && (
+                                        <Background
+                                            position="absolute"
+                                            radius="xl"
+                                            mask={{
+                                                x: 50,
+                                                y: 100,
+                                                radius: 80,
+                                            }}
+                                            gradient={{
+                                                display: true,
+                                                x: 50,
+                                                y: 100,
+                                                width: 100,
+                                                height: 100,
+                                                tilt: Math.random() * 200 - 100,
+                                                opacity: 80,
+                                                colorStart: "neutral-alpha-strong",
+                                                colorEnd: "page-background",
+                                            }}
+                                            zIndex={0}
+                                        />
                                     )}
                                     <Flex
                                         fillHeight
@@ -501,14 +503,13 @@ const PricingSection = () => {
                                         direction="column"
                                         vertical="start"
                                         horizontal="start"
-                                        onClick={() => toggleProduct(product.id)}
+                                        onClick={() => onSelect(product.id)}
                                     >
                                         <Column fill horizontal="end" position="absolute" bottom="0" right="0">
                                             <Text onBackground="info-weak">
                                                 {filters.find(f => f.id === product.category)?.label || product.category}
                                             </Text>
                                         </Column>
-
                                         <Flex fill vertical="start" horizontal="start" direction="column">
                                             <Column minHeight={4} gap="xs" margin="l">
                                                 <Heading as="h4">{product.title}</Heading>
@@ -524,7 +525,6 @@ const PricingSection = () => {
                                                 )}
                                             </Column>
                                             <Line />
-
                                             <Column fillHeight gap="s" vertical="start" horizontal="start" padding="xs">
                                                 {product.features.map((feature, idx) => (
                                                     <Row key={idx} gap="xs" center fitHeight>
@@ -536,7 +536,6 @@ const PricingSection = () => {
                                                     </Row>
                                                 ))}
                                             </Column>
-
                                             <Column fillWidth>
                                                 {product.note && (
                                                     <Text variant="body-default-s" style={{ marginTop: 4 }}>
@@ -548,7 +547,7 @@ const PricingSection = () => {
                                     </Flex>
                                     <Column horizontal="end" fillWidth position="absolute" top="16" right="16">
                                         <Icon
-                                            name = {selectedProducts.includes(product.id) ? "minus" : "plus"}
+                                            name={selected.includes(product.id) ? "minus" : "plus"}
                                             transition="macro-medium"
                                         />
                                     </Column>
@@ -557,11 +556,10 @@ const PricingSection = () => {
                     </Flex>
                 </Scroller>
             </Flex>
-
             <Dialog
                 title="Produktanfrage"
-                isOpen={showDialog}
-                onClose={() => setShowDialog(false)}
+                isOpen={open}
+                onClose={() => setOpen(false)}
                 transition="macro-medium"
                 zIndex={10}
             >
@@ -571,27 +569,22 @@ const PricingSection = () => {
                         <Text variant="body-default-m" onBackground="info-weak">
                             Du hast <strong>{selectedDetails.length}</strong> Paket{selectedDetails.length > 1 ? "e" : ""} ausgewählt.
                         </Text>
-
                         <Table
                             data={{
                                 headers: [
                                     { content: "Paket", key: "title", sortable: true },
                                     { content: "Preis", key: "price" },
                                 ],
-                                rows: selectedDetails.map((product) => [
-                                    product.title,
-                                    product.price || product.title,
-                                ]),
+                                rows: selectedDetails.map((p) => [p.title, p.price || p.title]),
                             }}
                         />
                     </Column>
-
                     <Column gap="s" padding="s">
                         <Input
                             id="name"
                             label="👤 Dein Name"
                             value={form.name}
-                            onChange={handleInputChange("name")}
+                            onChange={onInput("name")}
                             placeholder="Justin Eiletz"
                             errorMessage={formErrors.name}
                         />
@@ -599,7 +592,7 @@ const PricingSection = () => {
                             id="email"
                             label="📧 E-Mail-Adresse"
                             value={form.email}
-                            onChange={handleInputChange("email")}
+                            onChange={onInput("email")}
                             type="email"
                             placeholder="justin.eiletz@jexcellence.de"
                             errorMessage={formErrors.email}
@@ -608,7 +601,7 @@ const PricingSection = () => {
                             id="phone"
                             label="📞 Telefonnummer"
                             value={form.phone}
-                            onChange={handleInputChange("phone")}
+                            onChange={onInput("phone")}
                             type="tel"
                             placeholder="+49 157 70433689"
                             errorMessage={formErrors.phone}
@@ -617,39 +610,30 @@ const PricingSection = () => {
                             id="information"
                             label="💬 Sonstige Informationen"
                             value={form.message}
-                            onChange={handleInputChange("message")}
+                            onChange={onInput("message")}
                             errorMessage={formErrors.message}
                         />
                     </Column>
-
                     <Flex gap="m" direction="row" center>
                         <Button
                             label="Per Email senden"
                             variant="secondary"
                             onClick={() => {
-                                const isValid = validateForm();
-                                if (isValid) {
+                                if (checkForm()) {
                                     const productList = selectedDetails.map(p => `- ${p.title} (${p.price})`).join('%0A');
                                     const subject = encodeURIComponent(`Anfrage von ${form.name || 'Kunde'} via Jexcellence Website`);
                                     const body = encodeURIComponent(
                                         `Name: ${form.name}\nE-Mail: ${form.email}\nTelefon: ${form.phone}\n\nAusgewählte Pakete:\n${productList}\n\nNachricht:\n${form.message}`
                                     );
                                     window.open(`mailto:justin.eiletz@jexcellence.de?subject=${subject}&body=${body}`);
-
-                                    setShowDialog(false);
+                                    setOpen(false);
                                     setFormErrors({});
-                                    setForm({
-                                        name: '',
-                                        phone: '',
-                                        message: '',
-                                        email: ''
-                                    });
-                                    setSelectedProducts([])
-
+                                    setForm({ name: '', phone: '', message: '', email: '' });
+                                    setSelected([]);
                                     addToast({
                                         variant: "success",
                                         message: "Danke! Ich melde mich in Kürze bei dir."
-                                    })
+                                    });
                                 }
                             }}
                         />
@@ -657,33 +641,24 @@ const PricingSection = () => {
                             label="Per WhatsApp senden"
                             variant="secondary"
                             onClick={() => {
-                                const isValid = validateForm();
-                                if (isValid) {
+                                if (checkForm()) {
                                     const productList = selectedDetails.map(p => `- ${p.title} (${p.price})`).join('%0A');
                                     const text = encodeURIComponent(
                                         `Anfrage von ${form.name}\n📧 ${form.email}\n📞 ${form.phone}\n\nPakete:\n${productList}\n\n${form.message}`
                                     );
                                     window.open(`https://wa.me/+4915770433689?text=${text}`);
-
-                                    setShowDialog(false);
+                                    setOpen(false);
                                     setFormErrors({});
-                                    setForm({
-                                        name: '',
-                                        phone: '',
-                                        message: '',
-                                        email: ''
-                                    });
-                                    setSelectedProducts([])
-
+                                    setForm({ name: '', phone: '', message: '', email: '' });
+                                    setSelected([]);
                                     addToast({
                                         variant: "success",
                                         message: "Danke! Ich melde mich in Kürze bei dir."
-                                    })
+                                    });
                                 }
                             }}
                         />
                     </Flex>
-
                     <Column gap="xs" paddingTop="s">
                         <Text variant="body-default-xs" onBackground="info-weak" align="center">
                             *Es handelt sich bei den Preisen um Richtwerte, die Preise orientieren sich an Arbeitsstunden, Aufwand etc.
@@ -694,9 +669,7 @@ const PricingSection = () => {
                     </Column>
                 </Column>
             </Dialog>
-
-
-            {selectedProducts.length > 0 && (
+            {selected.length > 0 && (
                 <Column
                     position="fixed"
                     bottom="0"
@@ -710,15 +683,16 @@ const PricingSection = () => {
                         variant="primary"
                         size="l"
                         suffixIcon="messageCircle"
-                        label={`Jetzt anfragen (${selectedProducts.length} ${selectedProducts.length === 1 ? 'Paket' : 'Pakete'})`}
-                        onClick={() => setShowDialog(true)}
+                        label={`Jetzt anfragen (${selected.length} ${selected.length === 1 ? "Paket" : "Pakete"})`}
+                        onClick={() => setOpen(true)}
                         className={styles.requestButton}
                     />
-
                 </Column>
             )}
         </Flex>
     );
 };
 
-export default PricingSection;
+PricingSection.displayName = "PricingSection";
+
+export { PricingSection };

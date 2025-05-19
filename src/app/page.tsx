@@ -5,9 +5,9 @@ import {Hero} from "@/app/components/hero/Hero";
 import {Background, Banner, Column, ToastProvider} from "@/once-ui/components";
 import React from "react";
 import {Profile} from "@/app/components/profile/Profile";
-import PricingSection from "@/app/components/projectsimulator/ProjectSimulator";
 import {Footer} from "@/app/components/footer/Footer";
 import {TechStack} from "@/app/components/techstack/TechStack";
+import {PricingSection} from "@/app/components/pricingsection/PricingSection";
 
 export default function Home() {
     return (

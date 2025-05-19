@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {Column} from "@/once-ui/components";
 
 const ViewPortLock = ({ children }: { children: React.ReactNode }) => {
@@ -26,5 +26,7 @@ const ViewPortLock = ({ children }: { children: React.ReactNode }) => {
         </Column>
     );
 };
+
+ViewPortLock.displayName = 'ViewPortLock';
 
 export { ViewPortLock }

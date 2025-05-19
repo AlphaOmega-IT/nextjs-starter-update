@@ -47,7 +47,7 @@ import {
   FaGithub,
   FaGoogle,
   FaInstagram,
-  FaJava,
+  FaJava, FaLinkedin,
   FaReact,
   FaRocket, FaWhatsapp
 } from "react-icons/fa6";
@@ -130,7 +130,8 @@ export const iconLibrary: Record<string, IconType> = {
   codeBracket: HiCodeBracket,
   instagram: FaInstagram,
   whatsapp: FaWhatsapp,
-  mail: FiMail
+  mail: FiMail,
+  linkedIn: FaLinkedin,
 };
 
 export type IconLibrary = typeof iconLibrary;

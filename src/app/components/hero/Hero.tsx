@@ -1,37 +1,136 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import {
-	Background,
 	Button,
 	Column,
 	Heading,
-	RevealFx,
-	Row,
-	Media,
 	TiltFx,
-	Text, Flex,
+	Flex,
+	OgCard,
+	RevealFx,
+	Badge,
+	Text,
 } from "@/once-ui/components";
 import { TechCarousel } from "@/app/components/techcarousel/TechCarousel";
 import ScrollDown from "@/app/components/scrolldown/ScrollDown";
 
+/**
+ * Custom hook to detect if device is mobile based on viewport width.
+ */
+function useIsMobile(breakpoint = 768): boolean {
+	const [isMobile, setIsMobile] = useState<boolean>(
+		typeof window !== "undefined" ? window.innerWidth <= breakpoint : false
+	);
+
+	useEffect(() => {
+		const onResize = () => setIsMobile(window.innerWidth <= breakpoint);
+		window.addEventListener("resize", onResize);
+		return () => window.removeEventListener("resize", onResize);
+	}, [breakpoint]);
+
+	return isMobile;
+}
+
 const Hero = () => {
-	const techStack= ["Java", "React", "Java", "Spring", "Hibernate", "Vue", "MySQL", "Docker", "Git", "Angular", "Javascript"]
-	
-	const content = {
-		subtitle: "Ihre Vision, Unser Code.",
-		experience: "7+ Jahre IT-Expertise",
-		description: "Professionelle Softwareentwicklung und moderne Webösungen. Wir verwandeln komplexe Anforderungen in nahtlose digitale Erlebnisse.",
-		buttons: {
-			primary: "Projekt starten",
-			secondary: "Referenzen ansehen"
-		}
-	};
-	
+	const techStack = [
+		{ name: "Java", icon: "java" },
+		{ name: "Spring Boot", icon: "spring" },
+		{ name: "Hibernate", icon: "hibernate" },
+		{ name: "React", icon: "react" },
+		{ name: "Angular", icon: "angular" },
+		{ name: "Vue", icon: "vue" },
+		{ name: "Node.js", icon: "node" },
+		{ name: "PostgreSQL", icon: "postgres" },
+		{ name: "MySQL", icon: "mysql" },
+		{ name: "MongoDB", icon: "mongo" },
+		{ name: "Docker", icon: "docker" },
+		{ name: "Git", icon: "git" },
+	];
+
+	const isMobile = useIsMobile();
+
+	if (isMobile) {
+		return (
+			<Flex
+				fill
+				direction="column"
+				center
+				style={{
+					minHeight: "100vh",
+				}}
+			>
+				<Column fillWidth gap="m" center>
+					<RevealFx fillWidth speed="fast" translateY={4} center>
+						<Badge
+							href="#contact"
+							background="brand-weak"
+							onBackground="brand-strong"
+							textVariant="label-default-s"
+							icon="sparkle"
+						>
+							<Text variant="body-default-s">
+								Maßgeschneiderte Lösungen seit 2017
+							</Text>
+						</Badge>
+					</RevealFx>
+
+					<RevealFx speed="fast" delay={0.2} translateY={6} center>
+						<Heading variant="display-strong-l" align="center">JExcellence</Heading>
+					</RevealFx>
+
+					<RevealFx speed="fast" delay={0.4} translateY={10} marginBottom="8" center>
+						<Text variant="heading-default-m" onBackground="neutral-medium" align="center">
+							Deine Vision, Unser Code.
+						</Text>
+					</RevealFx>
+
+					<RevealFx speed="fast" delay={0.6} translateY={12} marginBottom="12" center direction="column">
+						<Text variant="body-default-m" align="center">
+							Innovative Web- und Softwareentwicklung,
+						</Text>
+						<Text>
+							die Ihre Ideen zum Leben erweckt.
+						</Text>
+					</RevealFx>
+
+					<RevealFx speed="fast" delay={0.8} translateY={14} center>
+						<Flex gap="8" vertical="center" wrap>
+							<Button href="#contact" size="m" variant="primary" suffixIcon="chevronRight">
+								Kostenloses Gespräch
+							</Button>
+							<Button href="#portfolio" size="m" variant="tertiary" weight="default">
+								Referenzen ansehen
+							</Button>
+						</Flex>
+					</RevealFx>
+
+					<RevealFx speed="fast" delay={1.0} translateY={16} paddingX="xl" paddingTop="xl">
+						<TechCarousel items={techStack} spacing="l" />
+					</RevealFx>
+
+
+					<RevealFx speed="fast" delay={1.2} translateY={12} paddingX="xl">
+						<OgCard
+							ogData={{
+								title: "LM Beauty | Wimpernstudio",
+								description: "Einblick in ein aktuelles Projekt und eine maßgeschneiderte Lösung.",
+								image: "/images/lmbeauty/desktop_lmbeauty.svg",
+								faviconUrl: "/images/lmbeauty/favicon-32x32.png",
+								url: "https://lmbeauty.de"
+							}}
+							direction="column"
+						/>
+					</RevealFx>
+				</Column>
+			</Flex>
+		);
+	}
+
+	// --- Desktop view: original layout remains unchanged ---
 	return (
 		<Flex
-			fillWidth
-			padding="xl"
-			center
+			fill
 			direction="row"
 			tabletDirection="column"
 			style={{
@@ -39,82 +138,73 @@ const Hero = () => {
 			}}
 		>
 			<Column
-				fillWidth
-				maxWidth={30}
-				center
+				maxWidth={45}
+				gap="24"
 				padding="s"
 			>
-				<RevealFx delay={0.2} translateY={5}>
-					<Text variant="heading-strong-xl">
-						Erfahrung seit 2017
-					</Text>
-				</RevealFx>
-				
-				<RevealFx delay={0.3} translateY={5}>
-					<Heading
-						as="h1"
-						variant="display-default-l"
+				<RevealFx speed="fast" translateY={4} paddingBottom="12">
+					<Badge
+						href="#contact"
+						background="brand-weak"
+						onBackground="brand-strong"
+						textVariant="label-default-s"
+						icon="sparkle"
 					>
-						JExcellence
-					</Heading>
+						Maßgeschneiderte Lösungen seit 2017
+					</Badge>
 				</RevealFx>
-				
-				<RevealFx delay={0.4} translateY={5}>
-					<Text as="span" variant="display-default-s">
-						{content.subtitle}
+
+				<RevealFx speed="fast" delay={0.2} translateY={8}>
+					<Heading variant="display-strong-xl">JExcellence</Heading>
+				</RevealFx>
+
+				<RevealFx speed="fast" delay={0.4} translateY={12} marginBottom="12">
+					<Text variant="heading-default-m" onBackground="neutral-medium">
+						Deine Vision, Unser Code.
 					</Text>
 				</RevealFx>
-				
-				<Row gap="m" paddingTop="l" mobileDirection="column">
-					<RevealFx delay={0.5} translateY={5}>
-						<Button
-							variant="primary"
-							size="l"
-							suffixIcon="chevronRight"
-						>
-							{content.buttons.primary}
+
+				<RevealFx speed="fast" delay={0.6} translateY={16} marginBottom="24">
+					<Text variant="body-default-m">
+						Innovative Web- und Softwareentwicklung, die Ihre Ideen zum Leben erweckt.
+					</Text>
+				</RevealFx>
+
+				<RevealFx speed="fast" delay={0.8} translateY={20}>
+					<Flex gap="16" vertical="center">
+						<Button href="#contact" size="l" variant="primary" suffixIcon="chevronRight">
+							Kostenloses Gespräch
 						</Button>
-					</RevealFx>
-					<RevealFx delay={0.6} translateY={5}>
-						<Button
-							variant="tertiary"
-							size="l"
-							color="dark"
-						>
-							{content.buttons.secondary}
+						<Button href="#portfolio" size="l" variant="tertiary" weight="default">
+							Referenzen ansehen
 						</Button>
+					</Flex>
+				</RevealFx>
+
+				<RevealFx speed="fast" delay={1.0} translateY={24} marginTop="32" padding="l">
+					<TechCarousel items={techStack} spacing="m" />
+				</RevealFx>
+			</Column>
+			<TiltFx>
+				<Column fillWidth maxWidth={55} aspectRatio="16 / 9">
+					<RevealFx speed="fast" delay={0.8} translateY={20}>
+						<OgCard
+							ogData={{
+								title: "LM Beauty | Wimpernstudio",
+								description: "Einblick in ein aktuelles Projekt und eine maßgeschneiderte Lösung.",
+								image: "/images/lmbeauty/desktop_lmbeauty.svg",
+								faviconUrl: "/images/lmbeauty/favicon-32x32.png",
+								url: "https://lmbeauty.de"
+							}}
+							direction="column-reverse"
+							tabletDirection="row"
+						/>
 					</RevealFx>
-				</Row>
-				
-				<TechCarousel
-					items={techStack}
-					center
-					margin="xs"
-					gap="xs"
-				/>
-				<Column>
-					<RevealFx delay={0.5} translateY={0}>
-						<ScrollDown/>
+					<RevealFx speed="fast" delay={1.2} translateY={28} center marginTop="m">
+						<ScrollDown />
 					</RevealFx>
 				</Column>
-			</Column>
-			
-			<Column fillWidth>
-				<Background fillWidth>
-					<RevealFx aspectRatio="12 / 8" delay={0.8} translateY={20} fillWidth>
-						<TiltFx fillWidth>
-							<Media
-								zIndex={1}
-								src="/images/lmbeauty/desktop_lmbeauty.svg"
-								fill
-								priority
-								sizes="(max-width: 1024px) 80vw, 960px"
-								radius="l"
-							/>
-						</TiltFx>
-					</RevealFx>
-				</Background>
-			</Column>
+			</TiltFx>
 		</Flex>
 	);
 };

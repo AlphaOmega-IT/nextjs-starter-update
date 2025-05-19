@@ -3,15 +3,15 @@ const baseURL = "jexcellence.de";
 // default customization applied to the HTML in the main layout.tsx
 const style = {
   theme: "dark", // dark | light - not needed when using ThemeProvider
-  neutral: "custom",
-  brand: "custom", // Position Jexcellence as innovative/modern
-  accent: "custom",
-  solid: "inverse",
-  solidStyle: "plastic",
-  border: "playful",
-  surface: "translucent",
-  transition: "all",
-  scaling: "100",
+  neutral: "custom", // sand | gray | slate
+  brand: "emerald", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
+  accent: "custom", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
+  solid: "color", // color | contrast | inverse
+  solidStyle: "flat", // flat | plastic
+  border: "playful", // rounded | playful | conservative
+  surface: "translucent", // filled | translucent
+  transition: "all", // all | micro | macro
+  scaling: "100", // 90 | 95 | 100 | 105 | 110
 };
 
 // Jexcellence - metadata

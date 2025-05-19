@@ -2,7 +2,7 @@
 
 import {Background, Banner, Column, Heading, Text, ToastProvider} from "@/once-ui/components";
 import {Header} from "@/app/components/header/Header";
-import Footer from "@/app/components/footer/Footer";
+import { Footer } from "@/app/components/footer/Footer";
 import React from "react";
 
 export default function NutzungsbedingungenPage() {

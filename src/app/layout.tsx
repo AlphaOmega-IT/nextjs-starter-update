@@ -2,24 +2,23 @@ import "@/once-ui/styles/index.scss";
 import "@/once-ui/tokens/index.scss";
 
 import classNames from "classnames";
-import { headers } from "next/headers";
-import { Metadata } from "next";
+import {Metadata, Viewport} from "next";
 
 import { baseURL, style, meta, og, schema, social } from "./resources/once-ui.config";
-import { Background, Column, Flex, ToastProvider, ThemeProvider } from "@/once-ui/components";
+import { Column, Flex, ToastProvider, ThemeProvider } from "@/once-ui/components";
 
-import {Geist, Inter, Playfair_Display, Roboto, Roboto_Slab, Space_Grotesk} from "next/font/google";
-import { Geist_Mono } from "next/font/google";
 import React from "react";
-import ScrollDown from "@/app/components/scrolldown/ScrollDown";
+import {Jura, Roboto} from 'next/font/google';
+import { Space_Grotesk } from 'next/font/google';
+import {ViewPortLock} from "@/app/components/viewportlock/ViewPortLock";
 
-const primary = Space_Grotesk({
+const primary = Jura({
   variable: '--font-primary',
   subsets: ['latin'],
   display: 'swap'
 });
 
-const secondary = Roboto_Slab({
+const secondary = Space_Grotesk({
   variable: '--font-secondary',
   subsets: ['latin'],
   display: 'swap'
@@ -31,13 +30,19 @@ const tertiary = Roboto({
   display: 'swap'
 });
 
-type FontConfig = {
-  variable: string;
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  minimumScale: 1,
+  userScalable: false,
+  viewportFit: 'auto',
+  interactiveWidget: 'resizes-content',
+  themeColor: '#004d00',
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const host = (await headers()).get("host");
-  const metadataBase = host ? new URL(`https://${host}`) : undefined;
+  const metadataBase = new URL("https://jexcellence.de")
 
   return {
     title: meta.title,
@@ -46,6 +51,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: og.title,
       description: og.description,
       url: "https://" + baseURL,
+      siteName: "JExcellence | Innovative Web & Softwarelösungen",
       images: [
         {
           url: og.image,
@@ -72,6 +78,21 @@ export async function generateMetadata(): Promise<Metadata> {
       description: og.description,
       images: [og.image],
     },
+    icons: {
+      icon: "/favicon.ico",
+      apple: "/apple-touch-icon.png",
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": 1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
     metadataBase,
   };
 }
@@ -96,7 +117,7 @@ export default function RootLayout({
     <Flex
       suppressHydrationWarning
       as="html"
-      lang="en"
+      lang="de"
       fillHeight
       background="page"
       data-neutral={style.neutral}
@@ -115,7 +136,7 @@ export default function RootLayout({
         tertiary ? tertiary.variable : "",
       )}
     >
-      <head>
+      <head title="JExcellence | Innovative Web & Softwarelösungen">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -142,11 +163,14 @@ export default function RootLayout({
             `,
           }}
         />
+        <title></title>
       </head>
       <ThemeProvider>
         <ToastProvider>
-          <Column as="body" fillWidth margin="0" padding="0">
-            {children}
+          <Column as="body" fillWidth margin="0" padding="0" style={{ minHeight: "100vh"}}>
+            <ViewPortLock>
+              {children}
+            </ViewPortLock>
           </Column>
         </ToastProvider>
       </ThemeProvider>

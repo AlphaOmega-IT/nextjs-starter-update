@@ -2,7 +2,7 @@
 
 import { Column, Media, Text, Row, Card } from ".";
 import { useOgData } from "../hooks/useFetchOg";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
 export interface OgData {
   title: string;
@@ -70,11 +70,11 @@ const OgCard = ({ url, ogData: providedOgData, direction = "column", ...card }: 
   
   const proxiedImageUrl = useMemo(() => {
     return getProxiedImageUrl(data?.image);
-  }, [data?.image]);
+  }, []);
   
   const faviconUrl = useMemo(() => {
     return data?.faviconUrl || getFaviconUrl(data?.url);
-  }, [data?.faviconUrl, data?.url]);
+  }, []);
   
   if (!data || (!data.image && !data.title)) {
     return null;

@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect, ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { Flex, Row, Column, Text, Icon, ToggleButton } from "@/once-ui/components";
 import styles from "./MegaMenu.module.scss";
+import {IconName} from "@/once-ui/icons";
 
 export interface MenuLink {
   label: ReactNode;

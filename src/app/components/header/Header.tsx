@@ -1,23 +1,16 @@
-
 "use client";
 
 import {
-    Button,
-    Column,
-    Line,
     Logo,
-    NavIcon,
-    Option,
     Row,
-    SmartLink,
-    ToggleButton,
     UserMenu,
-    Fade
+    Fade, IconButton, Button, useToast,
 } from "@/once-ui/components";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import React, { useState } from "react";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 import styles from './Header.module.scss';
+import {MegaMenu} from "@/once-ui/modules";
 
 interface HeaderProps {
     authenticated?: boolean;
@@ -26,193 +19,129 @@ interface HeaderProps {
     subline?: string;
 }
 
-const NAV_ITEMS = [
-    { id: 'impressum', label: 'Impressum', href: '/impressum' },
-    { id: 'home', label: 'Webseite', href: '/' },
-    { id: 'services', label: 'Services', href: '#services' },
-    { id: 'contact', label: 'Kontakt', href: '#contact' },
-];
-
 const Header: React.FC<HeaderProps> = ({ authenticated, avatar, name, subline }) => {
     const pathname = usePathname() ?? "";
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const { scrollY } = useScroll();
 
-    useMotionValueEvent(scrollY, "change", (latest) => {
-        setIsScrolled(latest > 50);
-    });
+    useMotionValueEvent(scrollY, "change", (latest) => setScrolled(latest > 50));
 
-    const handleScroll = (href: string, e: React.MouseEvent) => {
-        // Only intercept anchor links (#services/#contact)
-        if (href.startsWith('#')) {
-            e.preventDefault();
-            const id = href.replace('#', '');
-            const section = document.getElementById(id);
-            if (section) {
-                const headerHeight = document.querySelector('header')?.clientHeight || 0;
-                const offset = headerHeight + 24;
-                window.scrollTo({
-                    top: section.offsetTop - offset,
-                    behavior: 'smooth'
-                });
-                setIsMobileMenuOpen(false);
-            }
+    const menuGroups = [
+        {
+            id: "products",
+            label: "Produkte",
+            suffixIcon: "chevronDown",
+            sections: [
+                {
+                    title: "Featured",
+                    links: [
+                        { label: "Performance", href: "#", description: "Meine besten Produkte (in Arbeit)", icon: "chevronRight"  },
+                        { label: "Sicherheit", href: "#", description: "Meine besten Produkte (in Arbeit)", icon: "chevronRight"  },
+                        { label: "Effizienz", href: "#", description: "Meine besten Produkte (in Arbeit)", icon: "chevronRight"  },
+                        { label: "Minecraft", href: "#", description: "Meine besten Produkte (in Arbeit)", icon: "chevronRight"  },
+                    ]
+                },
+            ]
+        },
+        {
+            id: "company",
+            label: "Company",
+            suffixIcon: "chevronDown",
+            sections: [
+                {
+                    title: "Über JExcellence",
+                    links: [
+                        { label: "Meine Geschichte", href: "#about", description: "Über mich", icon: "check" },
+                    ]
+                }
+            ]
+        },
+        {
+            id: "legal",
+            label: "Legal",
+            suffixIcon: "chevronDown",
+            sections: [
+                {
+                    title: "Legal",
+                    links: [
+                        { label: "Impressum", href: "/imprint", description: "Angaben gemäß § 5 TMG", icon: "chevronRight" },
+                        { label: "Geschaftsbedingungen", href: "/terms", description: "Allgemeine Geschaftsbedingungen", icon: "chevronRight" },
+                        { label: "Datenschutz", href: "/privacy", description: "Datenschutzerklärung", icon: "chevronRight" },
+                        { label: "Cookies", href: "/cookie", description: "Cookie Policy", icon: "chevronRight"  },
+                    ]
+                }
+            ]
+        },
+        {
+            id: "social",
+            label: "Soziales / Vernetze Dich",
+            suffixIcon: "chevronDown",
+            sections: [
+                {
+                    title: "Soziales",
+                    links: [
+                        { label: "Instagram", href: "https://www.instagram.com/jexcellence_/", description: "jexcellence_", icon: "instagram"},
+                        { label: "GitHub", href: "https://github.com/JExcellence", description: "Übersicht meiner Projekte.", icon: "github" },
+                        { label: "Linkedin", href: "https://www.linkedin.com/in/justine-eiletz/", description: "Mein LinkedIn Profil.", icon: "linkedIn" },
+                    ]
+                },
+                {
+                    title: "Vernetze Dich",
+                    links: [
+                        { label: "WhatsApp", href: "https://wa.me/4915770433689", description: "Kontaktiere mich doch direkt.", icon: "whatsapp" },
+                        { label: "E-Mail", href: "mailto:justin.eiletz@jexcellence.de", description: "Schreibe mir doch eine E-Mail.", icon: "mail" },
+                        { label: "Discord Server", href: "https://discord.gg/W5BWpf8Gz8", description: "Community Discord (im Aufbau)", icon: "discord" },
+                    ]
+                }
+            ]
         }
-    };
+    ];
 
     return (
-        <Row
-            zIndex={3}
-            fillWidth
-            position="sticky"
-            horizontal="center"
-            top="0"
-            className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}
-        >
-            <Fade
-                fillWidth
-                position="absolute"
-                top="0"
-                height={8}
-                pattern={{ display: true, size: "1" }}
-            />
+        <Row zIndex={3} fillWidth position="sticky" top="0">
+            <Fade fillWidth position="absolute" top="0" height={6} pattern={{ display: true, size: "1" }} />
 
-            <Row
-                as="header"
-                fillWidth
-                padding="xs"
-                height="56"
-                position="relative"
-                className={styles.headerInner}
-            >
-                {/* Mobile Navigation */}
-                <Row show="s" gap="4" fillWidth vertical="center" horizontal="space-between">
-                    <Logo href="/" className={styles.logo} />
-                    <NavIcon
-                        isActive={isMobileMenuOpen}
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        aria-label="Mobile Menu"
-                        className={styles.menuToggle}
-                    />
+            <Row as="header" fillWidth paddingY="xs" paddingX="m" position="relative" gap="m" vertical="space-between" horizontal="space-between">
+                <Row
+                    gap="m"
+                >
+                    <Logo href="/"/>
+                    <MegaMenu menuGroups={menuGroups} />
                 </Row>
 
-                {/* Desktop Content */}
                 <Row
-                    hide="s"
-                    fillWidth
-                    vertical="center"
-                    horizontal="space-between"
+                    gap="m"
                 >
-                    <Logo size="l" href="/" className={styles.logo} />
+                    <IconButton
+                        icon="discord"
+                        variant="tertiary"
+                        href="https://discord.gg/W5BWpf8Gz8"
+                    />
+                    <IconButton
+                        icon="github"
+                        variant="tertiary"
+                        href="https://www.github.com/jexcellence"
+                    />
+                    <IconButton
+                        icon="instagram"
+                        variant="tertiary"
+                        href="https://www.instagram.com/jexcellence_/"
+                    />
+                    {! authenticated && (
+                        <Button
+                            size="s"
+                            label="Anmelden"
+                            variant="secondary"
+                            disabled={true}
+                            weight="default"
+                        />
+                    )}
 
-                    {authenticated ? (
-                        <Row fillWidth vertical="center" horizontal="end" gap="l">
-                            <Row className={styles.navContainer}>
-                                {NAV_ITEMS.map((item) => (
-                                    <ToggleButton
-                                        key={item.id}
-                                        selected={
-                                            item.href === '/'
-                                                ? pathname === '/'
-                                                : pathname.includes(item.id)
-                                        }
-                                        label={item.label}
-                                        href={item.href}
-                                        className={styles.navItem}
-                                        onClick={
-                                            item.href.startsWith('#')
-                                                ? (e) => handleScroll(item.href, e)
-                                                : undefined
-                                        }
-                                    />
-                                ))}
-                            </Row>
-                            <UserMenu
-                                name={name}
-                                subline={subline}
-                                avatarProps={{ empty: !avatar, src: avatar }}
-                                dropdown={
-                                    <Column padding="2" gap="2" minWidth={8}>
-                                        <Option label="Profile" value="profile" />
-                                        <Option label="Settings" value="settings" />
-                                        <Line />
-                                        <Option label="Log out" value="logout" />
-                                    </Column>
-                                }
-                            />
-                        </Row>
-                    ) : (
-                        <Row className={styles.navContainer} gap="m">
-                            {NAV_ITEMS.map((item) => (
-                                <SmartLink
-                                    key={item.id}
-                                    href={item.href}
-                                    onClick={
-                                        item.href.startsWith('#')
-                                            ? (e) => handleScroll(item.href, e)
-                                            : undefined
-                                    }
-                                    className={`${styles.navItem} ${
-                                        (item.href === '/' && pathname === '/') ||
-                                        (item.href !== '/' && pathname.includes(item.id))
-                                            ? styles.active
-                                            : ''
-                                    }`}
-                                >
-                                    {item.label}
-                                </SmartLink>
-                            ))}
-                        </Row>
+                    {authenticated && (
+                        <UserMenu name={name} subline={subline} avatarProps={{ empty: !avatar, src: avatar }} />
                     )}
                 </Row>
-
-                {/* Mobile Menu */}
-                {isMobileMenuOpen && (
-                    <Column
-                        show="s"
-                        position="absolute"
-                        top="64"
-                        left="0"
-                        fillWidth
-                        background="overlay"
-                        border="neutral-alpha-weak"
-                        radius="l"
-                        padding="l"
-                        gap="l"
-                        className={styles.mobileMenu}
-                    >
-                        {NAV_ITEMS.map((item) => (
-                            <SmartLink
-                                key={item.id}
-                                href={item.href}
-                                onClick={
-                                    item.href.startsWith('#')
-                                        ? (e) => handleScroll(item.href, e)
-                                        : undefined
-                                }
-                                className={`${styles.navItem} ${
-                                    (item.href === '/' && pathname === '/') ||
-                                    (item.href !== '/' && pathname.includes(item.id))
-                                        ? styles.active
-                                        : ''
-                                }`}
-                            >
-                                {item.label}
-                            </SmartLink>
-                        ))}
-                    </Column>
-                )}
             </Row>
-
-            {/* Scroll Progress Bar */}
-            <motion.div
-                className={styles.scrollProgress}
-                style={{
-                    transformOrigin: 'left',
-                    scaleX: scrollY
-                }}
-            />
         </Row>
     );
 };

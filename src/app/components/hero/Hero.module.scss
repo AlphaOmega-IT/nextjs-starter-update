@@ -1,0 +1,18 @@
+.fullWidth {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+}
+
+.scrollDownMobile {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.8;
+  animation: bounceHint 2s infinite;
+}
+
+@keyframes bounceHint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}

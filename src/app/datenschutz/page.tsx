@@ -3,7 +3,7 @@
 import {Background, Banner, Column, Heading, Text, ToastProvider} from "@/once-ui/components";
 import {Header} from "@/app/components/header/Header";
 import React from "react";
-import Footer from "@/app/components/footer/Footer";
+import { Footer } from "@/app/components/footer/Footer";
 
 export default function DatenschutzPage() {
 

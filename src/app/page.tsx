@@ -16,28 +16,29 @@ export default function Home() {
               <Background
                 position="absolute"
                 mask={{
-                  x: 0,
+                  x: 150,
                   y: 50,
                   radius: 200,
                 }}
                 gradient={{
                   display: true,
-                  x: 150,
+                  x: 100,
                   y: 0,
-                  width: 350,
-                  height: 300,
-                  tilt: -90,
+                  width: 0,
+                  height: 0,
+                  tilt: 0,
                   opacity: 100,
-                  colorStart: "accent-background-strong",
-                  colorEnd: "page-background",
+                  colorStart: "page-background",
+                  colorEnd: "accent-background-strong",
                 }}
                 particle={{
                   display: true,
-                  density: 750,
+                  density: 350,
                   interactive: true,
                   interactionRadius: 12,
                   speed: 2,
                   opacity: 100,
+                  color: "surface-background",
                 }}
               />
 
@@ -45,7 +46,7 @@ export default function Home() {
                     Die Webseite befindet sich noch im Aufbau, dies könnte noch einige Zeit in Anspruch nehmen.
                 </Banner>
                 <Header/>
-                <Column fill maxWidth={100}>
+                <Column fill maxWidth={100} wrap>
                     <Hero/>
                 </Column>
                 <Column fitHeight maxWidth={80} id="contact">

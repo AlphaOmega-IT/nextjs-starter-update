@@ -21,7 +21,7 @@ interface CommonProps {
     | "top-right"
     | "bottom-right"
     | "bottom-left";
-  label?: string;
+  label?: ReactNode;
   weight?: "default" | "strong";
   prefixIcon?: IconName;
   suffixIcon?: IconName;

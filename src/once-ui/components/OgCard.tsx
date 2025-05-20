@@ -16,6 +16,7 @@ interface OgCardProps extends React.ComponentProps<typeof Card> {
   url?: string;
   ogData?: Partial<OgData> | null;
   direction?: "column" | "row" | "column-reverse" | "row-reverse";
+  priority?: boolean | undefined;
 }
 
 const getProxiedImageUrl = (imageUrl: string | undefined): string => {
@@ -64,7 +65,7 @@ const getFaviconUrl = (url: string | undefined): string => {
   }
 };
 
-const OgCard = ({ url, ogData: providedOgData, direction = "column", ...card }: OgCardProps) => {
+const OgCard = ({ url, ogData: providedOgData, direction = "column", priority = false, ...card }: OgCardProps) => {
   const { ogData: fetchedOgData, loading } = useOgData(url || null);
   const data = providedOgData || fetchedOgData;
   
@@ -92,6 +93,7 @@ const OgCard = ({ url, ogData: providedOgData, direction = "column", ...card }: 
           aspectRatio="16/9" 
           border="neutral-alpha-weak"
           src={proxiedImageUrl}
+          priority={priority}
         />
       )}
       <Column fillWidth paddingX="12" paddingY="12" gap="12">

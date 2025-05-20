@@ -117,7 +117,7 @@ const Hero = () => {
 								description: "Einblick in ein aktuelles Projekt und eine maßgeschneiderte Lösung.",
 								image: "/images/lmbeauty/desktop_lmbeauty.svg",
 								faviconUrl: "/images/lmbeauty/favicon-32x32.png",
-								url: "https://lmbeauty.de"
+								url: "https://lmbeauty.de",
 							}}
 							direction="column"
 						/>
@@ -139,10 +139,11 @@ const Hero = () => {
 		>
 			<Column
 				maxWidth={45}
-				gap="24"
+				gap="8"
 				padding="s"
+				fillWidth
 			>
-				<RevealFx speed="fast" translateY={4} paddingBottom="12">
+				<RevealFx speed="fast" translateY={4} paddingBottom="12" horizontal="center" fillWidth>
 					<Badge
 						href="#contact"
 						background="brand-weak"
@@ -154,23 +155,23 @@ const Hero = () => {
 					</Badge>
 				</RevealFx>
 
-				<RevealFx speed="fast" delay={0.2} translateY={8}>
+				<RevealFx speed="fast" delay={0.2} translateY={8}  horizontal="center" fillWidth>
 					<Heading variant="display-strong-xl">JExcellence</Heading>
 				</RevealFx>
 
-				<RevealFx speed="fast" delay={0.4} translateY={12} marginBottom="12">
+				<RevealFx speed="fast" delay={0.4} translateY={12} marginBottom="12"  horizontal="center" fillWidth>
 					<Text variant="heading-default-m" onBackground="neutral-medium">
 						Deine Vision, Unser Code.
 					</Text>
 				</RevealFx>
 
-				<RevealFx speed="fast" delay={0.6} translateY={16} marginBottom="24">
+				<RevealFx speed="fast" delay={0.6} translateY={16} marginBottom="24"  horizontal="center" fillWidth>
 					<Text variant="body-default-m">
 						Innovative Web- und Softwareentwicklung, die Ihre Ideen zum Leben erweckt.
 					</Text>
 				</RevealFx>
 
-				<RevealFx speed="fast" delay={0.8} translateY={20}>
+				<RevealFx speed="fast" delay={0.8} translateY={20}  horizontal="center" fillWidth>
 					<Flex gap="16" vertical="center">
 						<Button href="#contact" size="l" variant="primary" suffixIcon="chevronRight">
 							Kostenloses Gespräch

@@ -29,11 +29,11 @@ const og = {
   title: "Jexcellence | Innovative Web & Softwarelösungen",
   description: "Jexcellence – Fullstack-Webentwicklung, klasse Design, individuelle Lösungen und echte Exzellenz für Ihr digitales Projekt. Gemeinsam digital erfolgreich werden.",
   type: "website",
-  image: "https://jexcellence.de/images/avatar_1.png",
+  image: "https://jexcellence.de/images/avatar/avatar_1.png",
 };
 
 const schema = {
-  logo: "https://jexcellence.de/images/avatar_1.png",
+  logo: "https://jexcellence.de/images/avatar/avatar_1.png",
   type: "LocalBusiness",
   name: "Jexcellence",
   description: "Jexcellence bietet smarte, maßgeschneiderte Web-, Software- und E-Commerce-Lösungen für Unternehmen, Startups & Persönlichkeiten. Modern, zuverlässig und immer mit Leidenschaft für Innovation.",

@@ -10,7 +10,14 @@ const nextConfig = {
     dirs: [],
   },
   images: {
-    domains: ['jexcellence.de'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'jexcellence.de',
+        port: '3001',
+        pathname: '/**',
+      },
+    ],
   },
   poweredByHeader: false,
   async redirects() {

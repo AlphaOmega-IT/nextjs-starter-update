@@ -4,13 +4,12 @@ import {
     Logo,
     Row,
     UserMenu,
-    Fade, IconButton, Button, useToast, NavIcon,
+    Fade, IconButton, Button, useToast, NavIcon, Column, Banner,
 } from "@/once-ui/components";
-import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
-import styles from './Header.module.scss';
 import {MegaMenu} from "@/once-ui/modules";
+import MobileColumnMenu from "@/app/components/mobilemenu/MobileColumnMenu";
 
 interface HeaderProps {
     authenticated?: boolean;
@@ -20,7 +19,6 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ authenticated, avatar, name, subline }) => {
-    const pathname = usePathname() ?? "";
     const [scrolled, setScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { scrollY } = useScroll();
@@ -99,61 +97,83 @@ const Header: React.FC<HeaderProps> = ({ authenticated, avatar, name, subline })
     ];
 
     return (
-        <Row zIndex={3} fillWidth position="sticky" top="0">
-            <Fade fillWidth position="absolute" top="0" height={6} pattern={{ display: true, size: "1" }} />
+        <>
+            <Column zIndex={3} fillWidth position="sticky" top="0" left="0">
+                <Banner zIndex={4}>
+                    Die Webseite befindet sich noch im Aufbau, dies könnte noch einige Zeit in Anspruch nehmen.
+                </Banner>
+                <Fade fillWidth position="absolute" top="0" height={3} pattern={{ display: true, size: "1" }} />
 
-            <Row show="s" gap="4" fillWidth vertical="center" horizontal="space-between">
-                <Logo href="/" className={styles.logo} />
-                <NavIcon
-                    isActive={isMobileMenuOpen}
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    aria-label="Mobile Menu"
-                    className={styles.menuToggle}
-                />
-            </Row>
-
-            <Row as="header" fillWidth paddingY="xs" paddingX="m" position="relative" gap="m" vertical="space-between" horizontal="space-between" hide="s">
-                <Row
-                    gap="m"
-                >
+                {/* MOBILE */}
+                <Row as="header" fillWidth paddingY="xs" paddingX="m" position="relative" gap="m" vertical="center" horizontal="space-between" show="s">
                     <Logo href="/"/>
-                    <MegaMenu menuGroups={menuGroups} />
+                    <NavIcon
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        isActive={isMobileMenuOpen}
+                        show="s"
+                    />
+
+                    { isMobileMenuOpen && (
+                        <Column fillWidth position="absolute" top="0" left="0" center>
+                            <MobileColumnMenu menuGroups={menuGroups} onClose={() => setIsMobileMenuOpen(false)}/>
+                        </Column>
+                    )}
                 </Row>
 
-                <Row
-                    gap="m"
-                >
-                    <IconButton
-                        icon="discord"
-                        variant="tertiary"
-                        href="https://discord.gg/W5BWpf8Gz8"
-                    />
-                    <IconButton
-                        icon="github"
-                        variant="tertiary"
-                        href="https://www.github.com/jexcellence"
-                    />
-                    <IconButton
-                        icon="instagram"
-                        variant="tertiary"
-                        href="https://www.instagram.com/jexcellence_/"
-                    />
-                    {! authenticated && (
-                        <Button
-                            size="s"
-                            label="Anmelden"
-                            variant="secondary"
-                            disabled={true}
-                            weight="default"
+                {/* TABLET */}
+                <Row as="header" fillWidth paddingY="xs" paddingX="m" position="relative" gap="m" show="m" hide="s" center>
+                    <Row
+                        gap="m"
+                    >
+                        <Logo href="/"/>
+                        <MegaMenu menuGroups={menuGroups} />
+                    </Row>
+                </Row>
+
+                {/* DESKTOP */}
+                <Row as="header" fillWidth paddingY="xs" paddingX="m" position="relative" gap="m" vertical="space-between" horizontal="space-between" hide="m">
+                    <Row
+                        gap="m"
+                    >
+                        <Logo href="/"/>
+                        <MegaMenu menuGroups={menuGroups} />
+                    </Row>
+
+                    <Row
+                        gap="m"
+                    >
+                        <IconButton
+                            icon="discord"
+                            variant="tertiary"
+                            href="https://discord.gg/W5BWpf8Gz8"
                         />
-                    )}
+                        <IconButton
+                            icon="github"
+                            variant="tertiary"
+                            href="https://www.github.com/jexcellence"
+                        />
+                        <IconButton
+                            icon="instagram"
+                            variant="tertiary"
+                            href="https://www.instagram.com/jexcellence_/"
+                        />
+                        {! authenticated && (
+                            <Button
+                                size="s"
+                                label="Anmelden"
+                                variant="secondary"
+                                disabled={true}
+                                weight="default"
+                            />
+                        )}
 
-                    {authenticated && (
-                        <UserMenu name={name} subline={subline} avatarProps={{ empty: !avatar, src: avatar }} />
-                    )}
+                        {authenticated && (
+                            <UserMenu name={name} subline={subline} avatarProps={{ empty: !avatar, src: avatar }} />
+                        )}
+                    </Row>
                 </Row>
-            </Row>
-        </Row>
+            </Column>
+        </>
     );
 };
 

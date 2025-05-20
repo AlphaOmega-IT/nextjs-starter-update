@@ -114,7 +114,7 @@ export const TechStack = () => {
     }, []);
 
     return (
-        <Column center fill padding="xs" gap="xl" marginBottom="xl">
+        <Column center fill padding="xs" gap="xl" marginBottom="xl" id="portfolio">
             <Column center gap="s">
                 <Flex gap="s" horizontal="center" vertical="center">
                     <Heading as="h1">

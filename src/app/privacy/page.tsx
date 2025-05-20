@@ -36,47 +36,14 @@ export default function DatenschutzPage() {
     );
 
     return (
-        <ToastProvider>
-            <Column fillWidth center gap="xl">
-                <Background
-                    position="absolute"
-                    mask={{
-                        x: 0,
-                        y: 50,
-                        radius: 200,
-                    }}
-                    gradient={{
-                        display: true,
-                        x: 150,
-                        y: 0,
-                        width: 350,
-                        height: 300,
-                        tilt: -90,
-                        opacity: 100,
-                        colorStart: "accent-background-strong",
-                        colorEnd: "page-background",
-                    }}
-                    particle={{
-                        display: true,
-                        density: 750,
-                        interactive: true,
-                        interactionRadius: 12,
-                        speed: 2,
-                        opacity: 100,
-                    }}
-                />
-
-                <Banner position="fixed" top="56" left="0" zIndex={3}>
-                    Die Webseite befindet sich noch im Aufbau, dies könnte noch einige Zeit in Anspruch nehmen.
-                </Banner>
-                <Header/>
-                <Column>
-                    {Datenschutz}
-                </Column>
-                <Column fitHeight maxWidth={70}>
-                    <Footer/>
-                </Column>
+        <Column fillWidth center gap="xl">
+            <Header/>
+            <Column>
+                {Datenschutz}
             </Column>
-        </ToastProvider>
+            <Column fitHeight maxWidth={70}>
+                <Footer/>
+            </Column>
+        </Column>
     );
 }

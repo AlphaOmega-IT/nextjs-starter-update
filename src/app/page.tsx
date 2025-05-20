@@ -32,7 +32,7 @@ export default function Home() {
                   colorEnd: "accent-background-strong",
                 }}
                 particle={{
-                  display: true,
+                  display: false,
                   density: 350,
                   interactive: true,
                   interactionRadius: 12,

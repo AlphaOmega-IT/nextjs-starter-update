@@ -1,3 +1,4 @@
+
 import mdx from "@next/mdx";
 
 const withMDX = mdx({
@@ -72,6 +73,7 @@ const nextConfig = {
     optimizeCss: true,
     optimizeServerReact: true,
   },
+  // Webpack is custom configured below. Turbopack is not active.
   webpack(config) {
     config.optimization.splitChunks = {
       cacheGroups: {

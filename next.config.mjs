@@ -9,6 +9,9 @@ const nextConfig = {
   eslint: {
     dirs: [],
   },
+  images: {
+    domains: ['jexcellence.de'],
+  },
   poweredByHeader: false,
   async redirects() {
     return [

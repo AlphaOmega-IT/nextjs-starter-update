@@ -14,9 +14,6 @@ import {Header} from "@/app/components/header/Header";
 export default function NotFound() {
     return (
         <Column>
-            <Banner position="fixed" top="56" left="0" zIndex={3}>
-                Die Webseite befindet sich noch im Aufbau, dies könnte noch einige Zeit in Anspruch nehmen.
-            </Banner>
             <Header/>
             <Column fill gap="m" center minHeight={30} marginTop="xl">
                 <Heading variant="display-default-l">

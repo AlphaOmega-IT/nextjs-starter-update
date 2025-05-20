@@ -36,9 +36,9 @@ const Footer = () => {
 
             <Flex center direction="column" align="center" paddingTop="m">
                 <Row gap="s">
-                    {['Impressum', 'Nutzungsbedingungen', 'Datenschutz'].map((link) => (
-                        <SmartLink key={link} href={`/${link.toLowerCase()}`}>{link}</SmartLink>
-                    ))}
+                    <SmartLink key="imprint" href="/imprint">Impressum</SmartLink>
+                    <SmartLink key="privacy" href="/privacy">Datenschutzerklärung</SmartLink>
+                    <SmartLink key="terms" href="/terms">AGB</SmartLink>
                     <SmartLink href="https://once-ui.com" suffixIcon="sparkle">Once UI</SmartLink>
                 </Row>
 

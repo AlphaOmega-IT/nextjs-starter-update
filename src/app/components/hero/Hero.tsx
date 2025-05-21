@@ -119,6 +119,7 @@ const Hero = () => {
 								faviconUrl: "/images/lmbeauty/favicon-32x32.png",
 								url: "https://lmbeauty.de",
 							}}
+							priority
 							direction="column"
 						/>
 					</RevealFx>

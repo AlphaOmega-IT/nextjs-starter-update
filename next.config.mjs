@@ -73,20 +73,6 @@ const nextConfig = {
     optimizeCss: true,
     optimizeServerReact: true,
   },
-  // Webpack is custom configured below. Turbopack is not active.
-  webpack(config) {
-    config.optimization.splitChunks = {
-      cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.(css|scss)$/,
-          chunks: 'all',
-          enforce: true,
-        },
-      },
-    }
-    return config
-  }
 };
 
 export default withMDX(nextConfig);

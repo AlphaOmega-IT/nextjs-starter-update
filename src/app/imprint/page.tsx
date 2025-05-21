@@ -1,16 +1,20 @@
+
 "use client";
 
-import {Background, Banner, Column, Heading, Text, ToastProvider} from "@/once-ui/components";
+import {Background, Banner, Column, Flex, Heading, Text, ToastProvider} from "@/once-ui/components";
 import {Header} from "@/app/components/header/Header";
 import {Footer} from "@/app/components/footer/Footer";
 import React from "react";
 
 export default function ImpressumPage() {
-
     const Impressum = (
-        <Column padding="xl" maxWidth="xl" style={{
-            height: '100vh'
-        }}>
+        <Column
+            padding="xl"
+            maxWidth="xl"
+            center
+            fill
+            align="center"
+        >
             <Heading as="h1" variant="display-default-l">Impressum</Heading>
             <Text as="p" variant="body-default-s">
                 Angaben gemäß § 5 TMG
@@ -40,14 +44,22 @@ export default function ImpressumPage() {
     );
 
     return (
-        <Column fillWidth center gap="xl" style={{maxHeight: '100vh', height: '100vh'}}>
-            <Header/>
-            <Column>
+        <Column
+            fillWidth
+            style={{
+                minHeight: '100vh',
+                height: '100vh',
+            }}
+        >
+            <Header />
+            <Flex
+                flex={1}
+                center
+                align="center"
+            >
                 {Impressum}
-            </Column>
-            <Column fitHeight maxWidth={70}>
-                <Footer/>
-            </Column>
+            </Flex>
+            <Footer />
         </Column>
     );
 }

@@ -79,7 +79,7 @@ export const Profile = () => {
 
     return (
         <Column fill center>
-            <Flex fillWidth fitHeight margin="s" padding="xs" direction="row" mobileDirection="column" center gap="m">
+            <Flex fillWidth fitHeight margin="s" padding="xs" direction="row" tabletDirection="column" center gap="m">
                 <Column fillWidth flex={isMobile ? 1 : 0}>
                     <Column center>
                         <FlipCard autoFlipInterval={5}>

@@ -70,7 +70,7 @@ const FlipCard = forwardRef<HTMLDivElement, FlipCardProps>((props, ref) => {
 		if (disableClickFlip || autoFlipInterval) return;
 		setInternalFlipped((v) => !v);
 		onFlip?.(!flippedState);
-	}, [disableClickFlip, autoFlipInterval, flippedState, onFlip]);
+	}, [disableClickFlip, autoFlipInterval, onFlip]);
 
 	return (
 		<Flex
@@ -103,12 +103,11 @@ const FlipCard = forwardRef<HTMLDivElement, FlipCardProps>((props, ref) => {
 			<Flex
 				ref={frontRef}
 				aria-hidden={flippedState}
+				position="absolute"
+				fill
+				overflow="hidden"
 				style={{
 					backfaceVisibility: "hidden",
-					position: "absolute",
-					width: "100%",
-					height: "100%",
-					overflow: "hidden"
 				}}
 			>
 				{children[0]}
@@ -117,12 +116,11 @@ const FlipCard = forwardRef<HTMLDivElement, FlipCardProps>((props, ref) => {
 			<Flex
 				ref={backRef}
 				aria-hidden={!flippedState}
+				position="absolute"
+				fill
+				overflow="hidden"
 				style={{
 					backfaceVisibility: "hidden",
-					position: "absolute",
-					width: "100%",
-					height: "100%",
-					overflow: "hidden",
 					transform: "rotateY(180deg)",
 				}}
 			>

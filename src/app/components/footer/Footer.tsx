@@ -3,7 +3,7 @@
 import {
     Background,
     Button,
-    Column,
+    Column, ElementType,
     Flex,
     Icon,
     Logo,
@@ -22,24 +22,24 @@ const Footer = () => {
                 <Column gap="m" horizontal="start">
                     <Text variant="label-default-xl">Lösungen</Text>
                     {['Produkte', 'Anwendungsfälle', 'Integrationen'].map((text) => (
-                        <SmartLink key={text} href="#">{text}</SmartLink>
+                        <ElementType key={text} href="#">{text}</ElementType>
                     ))}
                 </Column>
 
                 <Column gap="m" horizontal="end">
                     <Text variant="label-default-xl">Unternehmen</Text>
                     {['Über mich', 'Kunden', 'Kontakt'].map((text) => (
-                        <SmartLink key={text} href="#">{text}</SmartLink>
+                        <ElementType key={text} href="#">{text}</ElementType>
                     ))}
                 </Column>
             </Flex>
 
             <Flex center direction="column" align="center" paddingTop="m">
                 <Row gap="s">
-                    <SmartLink key="imprint" href="/imprint">Impressum</SmartLink>
-                    <SmartLink key="privacy" href="/privacy">Datenschutzerklärung</SmartLink>
-                    <SmartLink key="terms" href="/terms">AGB</SmartLink>
-                    <SmartLink href="https://once-ui.com" suffixIcon="sparkle">Once UI</SmartLink>
+                    <ElementType key="imprint" href="/imprint">Impressum</ElementType>
+                    <ElementType key="privacy" href="/privacy">Datenschutzerklärung</ElementType>
+                    <ElementType key="terms" href="/terms">AGB</ElementType>
+                    <ElementType href="https://once-ui.com" suffixIcon="sparkle">Once UI</ElementType>
                 </Row>
 
                 <Row gap="s" align="center" paddingTop="s">

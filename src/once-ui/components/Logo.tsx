@@ -46,7 +46,7 @@ const Logo: React.FC<LogoProps> = ({
   }, [icon, wordmark]);
 
   const content = (
-    <>
+    <div>
       {icon && !iconSrc && (
         <div
           style={{
@@ -85,7 +85,7 @@ const Logo: React.FC<LogoProps> = ({
           src={wordmarkSrc}
         />
       )}
-    </>
+    </div>
   );
 
   return href ? (

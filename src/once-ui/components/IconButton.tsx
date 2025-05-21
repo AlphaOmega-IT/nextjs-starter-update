@@ -69,14 +69,14 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps | AnchorProps>(
     }, [isHover]);
 
     const content = (
-      <>
+      <div>
         {children ? children : <Icon name={icon} size="s" />}
         {tooltip && isTooltipVisible && (
           <Flex position="absolute" zIndex={1} className={iconStyles[tooltipPosition]}>
             <Tooltip label={tooltip} />
           </Flex>
         )}
-      </>
+      </div>
     );
 
     const radiusSize = size === "s" || size === "m" ? "m" : "l";

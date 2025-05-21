@@ -91,7 +91,7 @@ const CursorCard = forwardRef<HTMLDivElement, CursorCardProps>(
     }, []);
 
     return (
-      <>
+      <div>
         {trigger && (
           <Flex
             ref={triggerRef}
@@ -121,7 +121,7 @@ const CursorCard = forwardRef<HTMLDivElement, CursorCardProps>(
           </Flex>,
           document.getElementById('cursor-card-portal') || document.body
         )}
-      </>
+      </div>
     );
   }
 );

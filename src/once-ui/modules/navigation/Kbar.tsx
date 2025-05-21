@@ -420,7 +420,7 @@ export const Kbar: React.FC<KbarProps> = ({ items, children, ...rest }) => {
   }, []);
 
   return (
-    <>
+    <div>
       <KbarTrigger onClick={handleOpen} {...rest}>
         {children}
       </KbarTrigger>
@@ -429,6 +429,6 @@ export const Kbar: React.FC<KbarProps> = ({ items, children, ...rest }) => {
           <KbarContent isOpen={isOpen} onClose={handleClose} items={items} />,
           document.body,
         )}
-    </>
+    </div>
   );
 };

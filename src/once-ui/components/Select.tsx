@@ -183,7 +183,7 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
           />
         }
         dropdown={
-          <>
+          <div>
             {searchable && (
               <Flex fillWidth>
                 <Input
@@ -244,7 +244,7 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
                   </Flex>
                 )}
             </Flex>
-          </>
+          </div>
         }
       />
     );

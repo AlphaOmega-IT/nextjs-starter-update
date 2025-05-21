@@ -136,7 +136,7 @@ export default function RootLayout({
         tertiary ? tertiary.variable : "",
       )}
     >
-      <head title="JExcellence | Innovative Web & Softwarelösungen">
+      <head title="JExcellence | Innovative Web & Softwarelösungen" suppressHydrationWarning>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -167,7 +167,7 @@ export default function RootLayout({
       </head>
       <ThemeProvider>
         <ToastProvider>
-          <Column as="body" fillWidth margin="0" padding="0" style={{ minHeight: "100vh"}}>
+          <Column as="body" fillWidth margin="0" padding="0" style={{ minHeight: "100vh"}} suppressHydrationWarning>
             <ViewPortLock>
               {children}
             </ViewPortLock>

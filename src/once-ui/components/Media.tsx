@@ -113,7 +113,7 @@ const Media: React.FC<MediaProps> = ({
   const isYouTube = isYouTubeVideo(src);
 
   return (
-    <>
+    <div>
       <Flex
         ref={imageRef}
         fillWidth
@@ -229,7 +229,7 @@ const Media: React.FC<MediaProps> = ({
           </Flex>
         </Flex>
       )}
-    </>
+    </div>
   );
 };
 

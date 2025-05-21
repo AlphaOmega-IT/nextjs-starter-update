@@ -103,7 +103,7 @@ const Carousel: React.FC<CarouselProps> = ({
         />
       </RevealFx>
       {images.length > 1 && (
-        <>
+        <div>
           {indicator === "line" ? (
             <Flex gap="4" paddingX="s" fillWidth horizontal="center">
               {images.map((_, index) => (
@@ -152,7 +152,7 @@ const Carousel: React.FC<CarouselProps> = ({
               ))}
             </Scroller>
           )}
-        </>
+        </div>
       )}
     </Flex>
   );

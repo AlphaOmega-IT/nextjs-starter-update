@@ -14,7 +14,6 @@ import {
 } from "@/once-ui/components";
 
 const Footer = () => {
-    const currentYear = new Date().getFullYear();
 
     return (
         <Column gap="l" fillWidth padding="m">
@@ -39,13 +38,13 @@ const Footer = () => {
                     <ElementType key="imprint" href="/imprint">Impressum</ElementType>
                     <ElementType key="privacy" href="/privacy">Datenschutzerklärung</ElementType>
                     <ElementType key="terms" href="/terms">AGB</ElementType>
-                    <ElementType href="https://once-ui.com" suffixIcon="sparkle">Once UI</ElementType>
+                    <ElementType href="https://once-ui.com">Once UI</ElementType>
                 </Row>
 
                 <Row gap="s" align="center" paddingTop="s">
                     <Logo href="/" wordmark size="xs" />
                     <Text variant="body-default-s" onBackground="accent-weak">
-                        © 2023-{currentYear} JExcellence. Alle Rechte vorbehalten.
+                        © 2023-2025 JExcellence. Alle Rechte vorbehalten.
                     </Text>
                 </Row>
             </Flex>

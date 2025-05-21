@@ -26,11 +26,11 @@ export const Profile = () => {
     const animationRef = useRef<{ rafId: number | null; speed: number; phase: number }>({ rafId: null, speed: 0.5, phase: 0 });
 
     const INTRO_TEXT = (
-        <>
+        <div>
             Hallo, ich bin Justin Eiletz - Softwareentwickler mit einer Leidenschaft für
             qualitativ hochwertige Lösungen. Seit 2017 forme ich Ideen in eleganten Code,
             von Minecraft-Plugins bis zu Enterprise-Systemen.
-        </>
+        </div>
     );
 
     useEffect(() => {
@@ -83,8 +83,21 @@ export const Profile = () => {
                 <Column fillWidth flex={isMobile ? 1 : 0}>
                     <Column center>
                         <FlipCard autoFlipInterval={5}>
-                            <Media width={isMobile ? 15 : 20} src="/images/avatar/avatar_1.png" radius="l-4" aspectRatio="1 / 1" />
-                            <Media width={isMobile ? 15 : 20} src="/images/brand/icon.svg" radius="l-4" objectFit="contain" aspectRatio="1 / 1" />
+                            <Media
+                                width={isMobile ? 15 : 20}
+                                src="/images/avatar/avatar_1.png"
+                                radius="l-4"
+                                aspectRatio="1 / 1"
+                                sizes="(max-width: 768px) 50vw, 15vw"
+                            />
+                            <Media
+                                width={isMobile ? 15 : 20}
+                                src="/images/brand/icon.svg"
+                                radius="l-4"
+                                objectFit="contain"
+                                aspectRatio="1 / 1"
+                                sizes="(max-width: 768px) 50vw, 15vw"
+                            />
                         </FlipCard>
                     </Column>
                     <Column marginTop="xl">

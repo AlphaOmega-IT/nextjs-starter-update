@@ -68,7 +68,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         max={max}
         step={step}
         hasSuffix={
-          <>
+          <div>
             <Flex position="static" minWidth={1.25}></Flex>
             <Flex
               position="absolute"
@@ -109,7 +109,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
                 />
               </Flex>
             </Flex>
-          </>
+          </div>
         }
         className={styles.numberInput}
       />

@@ -97,7 +97,7 @@ const Header: React.FC<HeaderProps> = ({ authenticated, avatar, name, subline })
     ];
 
     return (
-        <>
+        <div>
             <Column zIndex={3} fillWidth position="sticky" top="0" left="0">
                 <Banner zIndex={4}>
                     Die Webseite befindet sich noch im Aufbau, dies könnte noch einige Zeit in Anspruch nehmen.
@@ -173,7 +173,7 @@ const Header: React.FC<HeaderProps> = ({ authenticated, avatar, name, subline })
                     </Row>
                 </Row>
             </Column>
-        </>
+        </div>
     );
 };
 

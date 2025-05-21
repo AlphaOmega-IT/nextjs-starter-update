@@ -1,4 +1,4 @@
-
+a
 import mdx from "@next/mdx";
 
 const withMDX = mdx({
@@ -71,7 +71,6 @@ const nextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   experimental: {
     optimizeCss: true,
-    optimizeServerReact: true,
   },
 };
 

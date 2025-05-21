@@ -1,4 +1,3 @@
-a
 import mdx from "@next/mdx";
 
 const withMDX = mdx({

@@ -115,7 +115,7 @@ export default function RootLayout({
 }>) {
   return (
     <Flex
-      suppressHydrationWarning
+      suppressHydrationWarning={true}
       as="html"
       lang="de"
       fillHeight
@@ -136,7 +136,7 @@ export default function RootLayout({
         tertiary ? tertiary.variable : "",
       )}
     >
-      <head title="JExcellence | Innovative Web & Softwarelösungen" suppressHydrationWarning>
+      <head title="JExcellence | Innovative Web & Softwarelösungen">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -167,7 +167,7 @@ export default function RootLayout({
       </head>
       <ThemeProvider>
         <ToastProvider>
-          <Column as="body" fillWidth margin="0" padding="0" style={{ minHeight: "100vh"}} suppressHydrationWarning>
+          <Column as="body" fillWidth margin="0" padding="0" style={{ minHeight: "100vh"}}>
             <ViewPortLock>
               {children}
             </ViewPortLock>

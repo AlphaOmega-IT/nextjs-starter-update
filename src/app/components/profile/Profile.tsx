@@ -26,11 +26,11 @@ export const Profile = () => {
     const animationRef = useRef<{ rafId: number | null; speed: number; phase: number }>({ rafId: null, speed: 0.5, phase: 0 });
 
     const INTRO_TEXT = (
-        <div>
+        <>
             Hallo, ich bin Justin Eiletz - Softwareentwickler mit einer Leidenschaft für
             qualitativ hochwertige Lösungen. Seit 2017 forme ich Ideen in eleganten Code,
             von Minecraft-Plugins bis zu Enterprise-Systemen.
-        </div>
+        </>
     );
 
     useEffect(() => {

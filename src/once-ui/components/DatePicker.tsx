@@ -318,7 +318,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
               </Text>
             </Flex>
           ) : (
-            <div>
+            <>
               {previousMonth && (
                 <IconButton
                   variant="tertiary"
@@ -353,7 +353,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                   }}
                 />
               )}
-            </div>
+            </>
           )}
         </Flex>
 

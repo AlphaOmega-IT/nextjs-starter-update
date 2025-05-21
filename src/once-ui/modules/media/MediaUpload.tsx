@@ -150,7 +150,7 @@ const MediaUpload = forwardRef<HTMLInputElement, MediaUploadProps>(
         {...rest}
       >
         {!loading && (
-          <div>
+          <>
             {previewImage ? (
               <Media
                 style={{
@@ -167,7 +167,7 @@ const MediaUpload = forwardRef<HTMLInputElement, MediaUploadProps>(
                 <Icon name="plus" size="l" />
               </Flex>
             )}
-          </div>
+          </>
         )}
         {children}
         <Flex

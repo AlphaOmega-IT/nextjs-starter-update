@@ -38,11 +38,11 @@ const SmartLink = forwardRef<HTMLAnchorElement, SmartLinkProps>(
     ref,
   ) => {
     const content = (
-      <div>
+      <>
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
         {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
-      </div>
+      </>
     );
 
     const commonProps = {

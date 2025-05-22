@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import {MegaMenu} from "@/once-ui/modules";
-import MobileColumnMenu from "@/app/components/mobilemenu/MobileColumnMenu";
+import {MobileMegaMenu} from "@/app/components/mobilemenu/MobileMegaMenu";
 
 interface HeaderProps {
     authenticated?: boolean;
@@ -115,7 +115,7 @@ const Header: React.FC<HeaderProps> = ({ authenticated, avatar, name, subline })
 
                     { isMobileMenuOpen && (
                         <Column fillWidth position="absolute" top="0" left="0" center>
-                            <MobileColumnMenu menuGroups={menuGroups} onClose={() => setIsMobileMenuOpen(false)}/>
+                            <MobileMegaMenu menuGroups={menuGroups} onClose={() => setIsMobileMenuOpen(false)}/>
                         </Column>
                     )}
                 </Row>
